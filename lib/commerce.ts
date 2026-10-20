@@ -1,9 +1,9 @@
 import type { AdminAction, CartItem, Catalog, Customer, Ingredient, Order, OrderLine, OrderStatus, Product, StoreConfig, StoreState, Variant } from './domain';
 
-export class CommerceError extends Error {
-  status: number;
-  constructor(message: string, status = 400) { super(message); this.name = 'CommerceError'; this.status = status; }
-}
+import { CommerceError } from './errors';
+import { applyCashAction, parseCashAction, parseCashPayments, recordOrderPayment } from './cash';
+import type { CashPayment } from './cash-domain';
+export { CommerceError } from './errors';
 export type OrderInput = { customer: Customer; items: CartItem[]; paymentMethod: Order['paymentMethod']; source: Order['source']; idempotencyKey: string };
 export type OrderBook = { state: StoreState; idempotencies: Record<string, { fingerprint: string; orderId: string }> };
 const fail = (message: string, status = 400): never => { throw new CommerceError(message, status); };
@@ -156,7 +156,7 @@ function movement(state: StoreState, ingredientId: string, amount: number, reaso
 function findOrder(state: StoreState, orderId: string): Order {
   return state.orders.find(order => order.id === orderId) ?? fail('Pedido no encontrado.', 404);
 }
-export function verifyPayment(state: StoreState, orderId: string, now = new Date().toISOString()): Order {
+export function verifyPayment(state: StoreState, orderId: string, now = new Date().toISOString(), payments?: CashPayment[]): Order {
   const order = findOrder(state, orderId);
   if (order.status === 'cancelado') fail('No se puede verificar un pedido cancelado.', 409);
   if (order.deliveryFeePending) fail('Cotizá el envío según el barrio antes de verificar el pago.', 409);
@@ -164,6 +164,7 @@ export function verifyPayment(state: StoreState, orderId: string, now = new Date
   if (!['pendiente', 'aceptado'].includes(order.status)) fail('El pago debe verificarse antes de preparar el pedido.', 409);
   const consumption = orderConsumption(order);
   assertStock(state, consumption);
+  recordOrderPayment(state, order, payments, now);
   for (const [ingredientId, amount] of Object.entries(consumption)) {
     ingredientById(state, ingredientId).stock = round(ingredientById(state, ingredientId).stock - amount);
     movement(state, ingredientId, -amount, `Venta #${order.number}: pago verificado`, now, order.id);
@@ -257,7 +258,8 @@ function parseConfig(value: unknown): StoreConfig {
 export function parseAdminAction(value: unknown): AdminAction {
   if (!value || typeof value !== 'object') return fail('Acción inválida.');
   const type = (value as Record<string, unknown>).type;
-  if (type === 'verify-payment') { const data = object(value, ['type', 'orderId']); return { type, orderId: id(data.orderId) }; }
+  if (typeof type === 'string' && type.startsWith('cash-')) return parseCashAction(value);
+  if (type === 'verify-payment') { const data = object(value, ['type', 'orderId', 'payments']); return { type, orderId: id(data.orderId), ...(data.payments === undefined ? {} : { payments: parseCashPayments(data.payments) }) }; }
   if (type === 'order-status') { const data = object(value, ['type', 'orderId', 'status']); return { type, orderId: id(data.orderId), status: oneOf(data.status, statuses, 'Estado') }; }
   if (type === 'delivery-fee') { const data = object(value, ['type', 'orderId', 'amount']); return { type, orderId: id(data.orderId), amount: number(data.amount, 'Costo de envío', 0, 100_000, true) }; }
   if (type === 'stock') { const data = object(value, ['type', 'ingredientId', 'amount', 'reason', 'expectedStock']); return { type, ingredientId: id(data.ingredientId), amount: number(data.amount, 'Movimiento', -10_000_000), reason: string(data.reason, 'Motivo', 200, 3), ...(data.expectedStock === undefined ? {} : { expectedStock: number(data.expectedStock, 'Stock esperado') }) }; }
@@ -267,7 +269,8 @@ export function parseAdminAction(value: unknown): AdminAction {
   return fail('Acción desconocida.');
 }
 export function applyAdminAction(state: StoreState, action: AdminAction, now = new Date().toISOString()): void {
-  if (action.type === 'verify-payment') { verifyPayment(state, action.orderId, now); return; }
+  if (action.type.startsWith('cash-')) { applyCashAction(state, action as import('./cash-domain').CashAction, now); return; }
+  if (action.type === 'verify-payment') { verifyPayment(state, action.orderId, now, action.payments); return; }
   if (action.type === 'order-status') { changeOrderStatus(state, action.orderId, action.status, now); return; }
   if (action.type === 'delivery-fee') {
     const order = findOrder(state, action.orderId);
@@ -303,5 +306,5 @@ export function applyAdminAction(state: StoreState, action: AdminAction, now = n
     if (index < 0) state.products.push(action.product); else state.products[index] = action.product;
     return;
   }
-  state.config = action.config;
+  if (action.type === 'config') state.config = action.config;
 }

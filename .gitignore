@@ -63,4 +63,5 @@ next-env.d.ts
 /.dev.vars
 /backend/.dev.vars
 /backend/.wrangler/
+/artifacts/backups/
 .env*

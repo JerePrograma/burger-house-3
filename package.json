@@ -13,7 +13,7 @@
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "test": "node --experimental-strip-types --import ./scripts/register-ts.mjs --test tests/*.test.mjs",
     "preview": "vite preview --config vite.config.pages.ts --host 127.0.0.1",
     "backend:dev": "wrangler dev --config backend/wrangler.jsonc --port 8787 --var FRONTEND_URL:http://127.0.0.1:5173/burger-house-3",
     "backend:deploy": "wrangler deploy --config backend/wrangler.jsonc",

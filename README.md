@@ -88,6 +88,36 @@ El comprador usa la tienda sin crear una cuenta. Para administrar, el panel redi
 
 La clave inicial de la administradora está en `.env.admin.local`, sólo en la computadora que hizo la instalación. Los secretos del backend están en `.env.backend-secrets.local.json` y en Cloudflare; ambos archivos locales están ignorados por Git. No se deben copiar en mensajes, capturas ni código. El backend almacena el hash de una contraseña aleatoria de alta entropía y limita los intentos de acceso. El botón Cerrar sesión elimina la sesión de la pestaña.
 
+## Caja y finanzas
+
+El panel incorpora un libro de caja inspirado en las garantías implementadas en Gestudio: cobros integrados, registros históricos conservados, reversos vinculados e idempotencia. Se amplía para el comercio con cuentas, turnos, vencimientos y conciliación.
+
+- **Vista general:** ingresos y egresos netos por período, fondos disponibles por cuenta, evolución diaria, gastos por categoría, vencimientos y devoluciones pendientes. El flujo neto no representa ganancia contable: no incluye costeo, amortización ni devengamiento.
+- **Libro:** filtros combinados por fecha argentina, cuenta, tipo, categoría y texto; detalle con fecha efectiva y de registro, responsable, proveedor/cliente, comprobante, notas, pedido y turno. Paginación y exportación CSV de todas las coincidencias, incluyendo ambas patas de transferencias.
+- **Cuentas:** efectivo, banco y billetera; altas con saldo inicial declarado, edición y archivo sin borrar historia. Una cuenta sólo se archiva con saldo cero y sin turno abierto. Las categorías de ingreso/egreso son editables y archivables.
+- **Ventas:** al verificar el pago se registra el cobro y se descuenta stock en la misma escritura. Se admite dividir el total exacto entre hasta diez cuentas, sin repetirlas. Efectivo requiere turno abierto. Un pedido bonificado se verifica sin mover fondos y conserva el consumo de stock y su registro.
+- **Devoluciones:** cancelar un pedido no supone haber devuelto dinero. El panel muestra los reintegros pendientes; cada devolución, total o parcial, indica cuenta, importe, motivo y comprobante. También se pueden devolver ventas activas o entregadas desde el detalle del cobro. El importe nunca supera el neto cobrado. Un reintegro erróneo se corrige con un reverso vinculado al pedido.
+- **Turnos:** apertura con fondo contado y comparación con el saldo del libro; cierre por total o por denominaciones, saldo esperado, contado, sobrante/faltante y motivo. La diferencia genera un ajuste interno. Los cierres no se editan ni reabren; un movimiento posterior pertenece al turno actual. Exportación de turnos a CSV.
+- **A pagar y cobrar:** compromisos con categoría, contraparte, comprobante y vencimiento; pagos/cobros parciales, saldos pendientes, vencidos e historial. Agendar no mueve dinero. Cancelar un saldo conserva los pagos previos; revertir uno de esos pagos mantiene el compromiso cancelado.
+- **Conciliación:** comparación manual con extractos de banco/billetera a una fecha argentina ya finalizada, con saldo del libro, saldo del extracto, diferencia, observaciones y movimientos alcanzados. No conecta con bancos ni modifica saldos automáticamente. Después del corte se bloquean nuevas cargas retroactivas en la cuenta; las correcciones se registran en el período actual.
+- **Auditoría:** movimientos inmutables; los errores de ingresos, egresos, transferencias y reintegros se corrigen con un reverso único y motivo. Se conserva el registro original. Las ventas se corrigen mediante devolución, y los fondos iniciales/diferencias mediante una nueva apertura o cierre documentado.
+
+### Primer uso y datos existentes
+
+1. Ingresar al panel y abrir **Caja y finanzas → Turnos y arqueos**.
+2. Contar el efectivo real y abrir el turno, explicando cualquier diferencia respecto del saldo del libro. Los fondos de banco/billetera existentes se pueden declarar creando una cuenta con saldo inicial o registrando un ingreso identificado como aporte.
+3. Verificar cobros desde Pedidos, registrar gastos y transferencias en Caja, y contar/cerrar el efectivo al terminar el servicio.
+
+La actualización conserva el dataset, catálogo, pedidos y stock existentes. Inicializa el libro dentro del mismo documento mediante CAS. Los pedidos que ya tenían pago verificado se importan una sola vez como cobros históricos: como el modelo anterior no guardaba fecha de cobro, se señala expresamente que se usa la fecha del pedido como estimación. Un pedido previamente cancelado con pago permanece cobrado hasta registrar su reintegro, porque no existe evidencia de devolución monetaria en el modelo anterior. No se generan gastos ni saldos iniciales ficticios.
+
+### Integridad y alcance
+
+Los importes de caja se transmiten y persisten como **centavos enteros**, con dos decimales en pantalla. El servidor valida importes, fondos disponibles, total exacto de cobros, topes de devoluciones, fechas y estados. No admite descubiertos actuales ni históricos generados por cargas retroactivas. Cada comando manual lleva una clave de operación: repetirlo conserva el resultado y reutilizarla con otros datos se rechaza. Una escritura CAS confirma en conjunto pedidos, stock, libro y claves, y revalida ante concurrencia.
+
+La API financiera permanece protegida por el acceso administrativo. El catálogo y seguimiento público no exponen cuentas, saldos, movimientos ni comprobantes. Sigue siendo una demo con pagos simulados; los registros no ejecutan transferencias ni cobros externos. La conciliación es manual y los comprobantes son referencias de texto. El almacenamiento conserva el agregado D1 de la demo: para un volumen sostenido de una cadena deberá normalizarse el libro y paginarse en servidor, manteniendo estas reglas y pruebas.
+
+Pruebas: `npm test` incluye movimientos, centavos, pagos mixtos, cierres, reembolsos, reversos, compromisos, conciliación, migración y operaciones simultáneas. `npm run typecheck` y `npm run build` verifican los contratos y la publicación en GitHub Pages.
+
 El catálogo no expone cantidades numéricas de stock ni un listado de pedidos. El seguimiento exige el token aleatorio del pedido; la API privada exige una sesión válida. CORS está limitado al origen del frontend configurado. Los archivos `.env*`, `.dev.vars`, bases locales, dependencias y compilaciones quedan fuera de Git.
 
 ## Código anterior

@@ -10,10 +10,10 @@ export type OrderLine = CartItem & { name: string; variantName: string; unitPric
 export type Order = { id: string; number: number; createdAt: string; customer: Customer; lines: OrderLine[]; subtotal: number; deliveryFee: number; deliveryFeePending?: boolean; total: number; paymentMethod: 'efectivo' | 'transferencia' | 'mercadopago'; paid: boolean; status: OrderStatus; source: 'web' | 'whatsapp' | 'mostrador'; trackingToken: string; stockDeducted: boolean; stockReturned: boolean; };
 export type Movement = { id: string; ingredientId: string; amount: number; reason: string; createdAt: string; orderId?: string; };
 export type StoreConfig = { name: string; tagline: string; whatsapp: string; instagram: string; deliveryFee: number; deliveryFeeMode?: 'fixed' | 'quote'; deliveryZone: string; acceptingOrders: boolean; };
-export type StoreState = { config: StoreConfig; ingredients: Ingredient[]; products: Product[]; orders: Order[]; movements: Movement[]; nextOrderNumber: number; };
+export type StoreState = { config: StoreConfig; ingredients: Ingredient[]; products: Product[]; orders: Order[]; movements: Movement[]; nextOrderNumber: number; cash?: import('./cash-domain').CashState; };
 export type Catalog = Pick<StoreState, 'config' | 'products'> & { ingredients: Ingredient[] };
-export type AdminAction =
- | { type: 'verify-payment'; orderId: string }
+export type AdminAction = import('./cash-domain').CashAction
+ | { type: 'verify-payment'; orderId: string; payments?: import('./cash-domain').CashPayment[] }
  | { type: 'order-status'; orderId: string; status: OrderStatus }
  | { type: 'delivery-fee'; orderId: string; amount: number }
  | { type: 'stock'; ingredientId: string; amount: number; reason: string; expectedStock?: number }

@@ -1,5 +1,6 @@
 import type { StoreState } from './domain';
 import { CommerceError } from './commerce';
+import { ensureCash } from './cash';
 
 export type StoreDocument = {
   state: StoreState;
@@ -27,7 +28,16 @@ export class StoreRepository {
       row = await this.db.prepare('SELECT document, version FROM commerce_stores WHERE id = ?').bind(this.storeId).first<Row>();
     }
     if (!row) throw new CommerceError('No se pudo inicializar el comercio.', 503);
-    return { document: JSON.parse(row.document) as StoreDocument, version: row.version };
+    const document = JSON.parse(row.document) as StoreDocument;
+    if (!document.state.cash) {
+      ensureCash(document.state);
+      // Upgrade the current dataset in place. CAS prevents a migration read
+      // from overwriting a simultaneous order or another migration attempt.
+      const saved = await this.db.prepare('UPDATE commerce_stores SET document = ?, version = version + 1 WHERE id = ? AND version = ?').bind(JSON.stringify(document), this.storeId, row.version).run();
+      if (saved.meta.changes !== 1) return this.snapshot();
+      return { document, version: row.version + 1 };
+    }
+    return { document, version: row.version };
   }
 
   async update<T>(mutate: (document: StoreDocument) => T): Promise<T> {
