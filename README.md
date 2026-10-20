@@ -153,3 +153,13 @@ También se puede ejecutar **Actions → Build Android demo → Run workflow** e
 La publicación futura en Google Play requiere preparar una compilación release/AAB, elegir y custodiar la clave de firma, completar la ficha y declaraciones correspondientes y probar en dispositivos reales. Esta migración no crea una cuenta de Play Console, no guarda claves de firma y no publica la aplicación. `appId` debe revisarse antes de la primera publicación porque identifica la aplicación en Android.
 
 Referencias oficiales: [instalación de Capacitor](https://capacitorjs.com/docs/getting-started), [entorno Android](https://capacitorjs.com/docs/getting-started/environment-setup) y [configuración](https://capacitorjs.com/docs/config).
+
+## Diseño responsive y verificación
+
+La tienda, el panel y caja usan distribución fluida desde 320 px, con cambios de columnas según el espacio disponible. Los controles principales tienen áreas táctiles de al menos 44 px y los formularios móviles usan texto de 16 px. Las tablas, categorías y navegación que necesitan más ancho desplazan sólo su propio contenido. No se bloquea el zoom del navegador.
+
+Los diálogos respetan las áreas seguras y la altura visible del navegador; `visualViewport` ajusta el espacio al aparecer el teclado sin interferir con el zoom. El personalizador mantiene su acción visible y reduce la fotografía en pantallas bajas. Android declara `adjustResize` para el teclado.
+
+Se verificaron en Chromium emulado estas resoluciones CSS: 320×568, 360×640, 360×800, 375×667, 384×832, 390×844, 393×852, 412×915, 430×932, 768×1024, 820×1180, 1024×768, 1280×720, 1366×768, 1440×900, 1536×864, 1920×1080, 2560×1440, 667×375 y 844×390. La selección incluye tamaños presentes en las [estadísticas de resolución de Argentina](https://gs.statcounter.com/screen-resolution-market-share/all/argentina), además de casos pequeños y orientación horizontal. Se usan anchos de viewport, que pueden diferir de la resolución física del dispositivo.
+
+La revisión incluye desbordes de tienda, personalizador, resumen administrativo, caja, inventario, catálogo y configuración; formularios de checkout, egresos y edición de productos; y acceso administrativo web. También se probaron alturas de 300–360 px. Las medidas entre tamaños se adaptan mediante CSS, sin depender de una marca de teléfono. Antes de publicar una versión Android o iOS corresponde completar la prueba en dispositivos reales y Safari móvil.

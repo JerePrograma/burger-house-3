@@ -5,3 +5,219 @@
 @media(max-width:380px){.cash-stat>strong{font-size:19px}.cash-account>b{font-size:18px}.cash-account{padding:11px}.cash-period{gap:9px}.cash-period label{min-width:110px}.cash-reconcile-accounts{grid-template-columns:1fr}.cash-actions>.adm-btn{font-size:9px!important}.cash-actions>.adm-btn>svg{width:12px}.cash-payment-row{grid-template-columns:minmax(0,1fr) 25px}.cash-payment-row>label:first-child{grid-column:1/3}.cash-payment-row>button{grid-column:2;grid-row:2}.cash-payment-row:not(:has(.adm-icon)){grid-template-columns:1fr}.cash-payment-row:not(:has(.adm-icon))>label:first-child{grid-column:auto}.cash-count-preview strong{font-size:19px}.cash-denominations label{grid-template-columns:75px minmax(0,1fr) 70px}}
 
 .cash-payment-total small{display:block;font-size:9px;color:#9b8768;margin-top:6px}.cash-chart-columns>span.cash-chart-negative{background:repeating-linear-gradient(135deg,#d7bd77 0 3px,#615235 3px 6px)}.cash-chart-columns>span:last-child.cash-chart-negative{background:repeating-linear-gradient(135deg,#d99a87 0 3px,#624033 3px 6px)}.cash-form :is(input,select,textarea):focus-visible{outline:2px solid var(--adm-yellow);outline-offset:2px}
+
+/* Let the finance content shrink inside both the desktop shell and Ionic dialogs. */
+.cash-module,
+.cash-module > *,
+.cash-module :is(.adm-panel,.adm-panel-head,.adm-panel-head > div,.cash-heading > div,.cash-section-heading > div,.cash-account > div,.cash-list-row > div,.cash-session-summary > div,.cash-turn-title > div,.cash-audit li > div),
+.cash-dialog :is(.adm-form,.adm-form-grid,.adm-form-grid > label,.cash-payment-row > label,.cash-detail dl > div) {
+  min-width:0;
+  max-width:100%;
+}
+.cash-module :is(h2,h3,h4,p,small,strong,.cash-eyebrow),
+.cash-dialog :is(h2,h3,p,dd,.cash-help,.cash-count-preview > span,.cash-detail-lines > div > span) {
+  overflow-wrap:anywhere;
+}
+.cash-module :is(.cash-account,.cash-turn-card,.cash-reconcile-accounts > article,.cash-category-grid > div) {min-width:0}
+.cash-dialog :is(input,select,textarea) {min-width:0;max-width:100%;width:100%}
+.cash-dialog .cash-payment-row > .adm-icon {flex-shrink:0}
+.cash-navigation,.cash-table-region {min-width:0;max-width:100%}
+.cash-nav {max-width:100%;scroll-padding-inline:12px;overscroll-behavior-inline:contain}
+.cash-nav button {min-height:44px}
+.cash-scroll-hint {display:none;align-items:center;gap:7px;color:#b6a88f;font-size:12px;line-height:1.6;margin:9px 0 0!important}
+.cash-scroll-hint > svg {flex-shrink:0}
+.cash-table-region > .cash-scroll-hint {padding:0 16px 10px}
+.cash-table-scroll {max-width:100%;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#796444 #211b13}
+.cash-table-scroll:focus-visible {outline:2px solid var(--adm-yellow);outline-offset:-2px}
+.cash-table td strong {overflow-wrap:anywhere}
+.cash-table td:last-child {width:65px}
+.cash-chart {max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin}
+.cash-chart-day {min-width:35px;flex:1 0 35px}
+.cash-chart-day > small {font-size:11px}
+.cash-legend {flex-wrap:wrap}
+.cash-category-summary > div:not(.cash-empty) {grid-template-columns:minmax(0,1fr) auto}
+.cash-category-summary strong {text-align:right}
+.cash-category-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+.cash-category-grid > div > span:nth-child(2) {min-width:0;overflow-wrap:anywhere}
+.cash-audit li > div,.cash-turn-history summary > span:first-child {min-width:0}
+.cash-payment-total,.cash-count-preview,.cash-count-totals,.cash-detail-lines > div {flex-wrap:wrap}
+.cash-count-preview strong,.cash-count-totals b,.cash-payment-total strong,.cash-detail-lines strong,.cash-obligation-amount strong {
+  max-width:100%;white-space:normal;overflow-wrap:anywhere;
+}
+.cash-count-totals > span {min-width:0;flex:1 1 110px}
+.cash-count-preview > span {flex:1 1 130px;min-width:0}
+.cash-count-preview > strong {flex:0 1 auto}
+.cash-obligation-amount {min-width:0;flex-wrap:wrap}
+.cash-obligation-actions {flex-wrap:wrap}
+.cash-turn-history summary {min-height:60px}
+.cash-turn-history summary > b {max-width:100%;overflow-wrap:anywhere}
+
+@media (max-width:1300px) {
+  .cash-navigation > .cash-scroll-hint {display:flex}
+}
+
+@media (max-width:1050px) {
+  .cash-table-region > .cash-scroll-hint {display:flex}
+  .cash-module :is(.adm-panel-head,.cash-section-heading) {flex-wrap:wrap}
+  .cash-module .adm-panel-head > div {flex:1 1 220px}
+  .cash-module .adm-panel-head > :is(.adm-btn,.adm-text-btn) {flex-shrink:0}
+  .cash-legend {font-size:11px}
+  .cash-filters > label:not(.cash-search) {min-width:0;flex:1 1 150px}
+  .cash-filters select {max-width:100%;width:100%}
+}
+
+@media (max-width:720px) {
+  .cash-module {gap:20px}
+  .cash-heading p,.cash-section-heading p {font-size:13px}
+  .cash-heading h2 {font-size:27px}
+  .cash-actions {grid-template-columns:repeat(3,minmax(0,1fr))}
+  .cash-actions > .adm-btn {font-size:12px!important;min-height:46px;white-space:normal;line-height:1.4}
+  .cash-nav {margin:0;gap:3px}
+  .cash-nav button {font-size:13px;padding:13px 12px;gap:7px}
+  .cash-nav button > svg {width:17px;height:17px;flex-shrink:0}
+  .cash-period label {min-width:0;flex:1 1 130px;font-size:12px}
+  .cash-period input,.cash-filters :is(input,select) {font-size:16px!important;min-height:44px}
+  .cash-period > button {font-size:13px;min-height:44px}
+  .cash-period > small {flex-basis:100%;font-size:11px;line-height:1.6;margin:0}
+  .cash-stat {padding:18px 16px}
+  .cash-stat > span {font-size:13px;line-height:1.6}
+  .cash-stat > strong {font-size:25px;line-height:1.35}
+  .cash-stat > small {font-size:12px;line-height:1.7}
+  .cash-account {padding:16px;grid-template-columns:35px minmax(0,1fr);gap:7px 10px}
+  .cash-account-icon {width:34px;height:34px}
+  .cash-account strong {font-size:14px}
+  .cash-account small {font-size:12px;line-height:1.6}
+  .cash-account > b {font-size:24px}
+  .cash-account > .cash-pill,.cash-module .cash-pill {font-size:11px;white-space:normal}
+  .cash-alert {gap:11px;padding:16px}
+  .cash-alert strong {font-size:14px}
+  .cash-alert p {font-size:12px}
+  .cash-alert .adm-btn {min-height:44px;font-size:12px!important;margin-left:0}
+  .cash-module .adm-panel-head h3 {font-size:16px;line-height:1.5}
+  .cash-module .adm-panel-head p {font-size:12px;line-height:1.7}
+  .cash-note {font-size:12px;line-height:1.8}
+  .cash-chart {gap:8px;padding:12px 15px 18px;height:220px}
+  .cash-chart-day {min-width:35px;flex-basis:35px}
+  .cash-chart-columns {gap:4px}
+  .cash-chart-columns > span {width:13px}
+  .cash-chart-day > small {font-size:11px}
+  .cash-category-summary span {font-size:13px}
+  .cash-category-summary strong {font-size:14px}
+  .cash-obligation-summary > div {min-width:0;flex:1 1 160px}
+  .cash-obligation-summary :is(span,small) {font-size:12px;line-height:1.6}
+  .cash-obligation-summary strong {font-size:24px;overflow-wrap:anywhere}
+  .cash-session-summary strong {font-size:14px}
+  .cash-session-summary p {font-size:12px;line-height:1.7}
+  .cash-session-summary > .adm-text-btn {margin-left:0;font-size:13px;min-height:44px}
+  .cash-filters {gap:12px}
+  .cash-search {min-width:0;flex-basis:100%;width:100%}
+  .cash-search > svg {flex-shrink:0}
+  .cash-filters > label:not(.cash-search) {flex:1 1 150px;min-width:0}
+  .cash-filters > .adm-btn {font-size:13px!important;min-height:44px}
+  .cash-table {min-width:720px}
+  .cash-table th {font-size:11px;padding:14px}
+  .cash-table td,.cash-table td strong {font-size:13px;line-height:1.6}
+  .cash-table td small {font-size:11px;line-height:1.6}
+  .cash-table td > .cash-pill {font-size:10px}
+  .cash-filter-balance {font-size:13px;text-align:left}
+  .cash-pagination {flex-wrap:wrap;gap:10px;padding:12px;font-size:12px}
+  .cash-pagination > small {flex-basis:100%;font-size:12px;line-height:1.5}
+  .cash-pagination .adm-icon {width:44px;height:44px}
+  .cash-help,.cash-form .cash-help {font-size:13px;line-height:1.8}
+  .cash-list-row {gap:12px}
+  .cash-list-row strong {font-size:14px}
+  .cash-list-row small {font-size:12px;line-height:1.7}
+  .cash-refunds .cash-list-row > .adm-btn {font-size:12px!important;min-height:44px;margin-left:0}
+  .cash-section-heading h3 {font-size:18px;line-height:1.5}
+  .cash-section-heading > .adm-btn {font-size:13px!important;min-height:44px}
+  .cash-turn-title h3 {font-size:17px}
+  .cash-turn-card > span,.cash-turn-card > p {font-size:13px;line-height:1.7}
+  .cash-turn-balance {font-size:28px;overflow-wrap:anywhere}
+  .cash-turn-card > .adm-btn {min-height:44px;font-size:13px!important}
+  .cash-turn-history summary > span:first-child {flex-basis:100%;min-width:0}
+  .cash-turn-history summary > span:first-child strong {font-size:14px}
+  .cash-turn-history summary small {font-size:12px;line-height:1.7}
+  .cash-turn-history summary > .cash-pill {font-size:11px}
+  .cash-turn-history summary > b {font-size:13px}
+  .cash-turn-detail dt,.cash-detail dt {font-size:12px;line-height:1.6}
+  .cash-turn-detail dd,.cash-detail dd {font-size:14px;line-height:1.6}
+  .cash-turn-detail > p {font-size:12px;line-height:1.8}
+  .cash-obligation > div:nth-child(2) {flex-basis:calc(100% - 45px);overflow-wrap:anywhere}
+  .cash-eyebrow {font-size:11px}
+  .cash-obligation h4 {font-size:15px;line-height:1.5}
+  .cash-obligation p {font-size:13px;line-height:1.7}
+  .cash-obligation small {font-size:12px}
+  .cash-obligation-amount,.cash-obligation-actions {margin-left:0;gap:12px;flex-basis:100%}
+  .cash-obligation-amount strong {font-size:24px}
+  .cash-obligation-actions > .adm-btn {font-size:13px!important;min-height:44px}
+  .cash-obligation-actions > .adm-text-btn {font-size:13px;min-height:44px}
+  .cash-reconcile-accounts > article > div {font-size:14px;align-items:start}
+  .cash-reconcile-accounts > article > div > svg {flex-shrink:0;width:20px}
+  .cash-reconcile-accounts > article > b {font-size:24px}
+  .cash-reconcile-accounts > article > small {font-size:12px;line-height:1.7}
+  .cash-category-grid {grid-template-columns:minmax(0,1fr)}
+  .cash-category-grid strong {font-size:14px}
+  .cash-category-grid small {font-size:12px;line-height:1.6}
+  .cash-audit strong,.cash-audit p {font-size:13px;line-height:1.7}
+  .cash-audit small {font-size:12px;line-height:1.6}
+  .cash-dialog .adm-modal-head h2 {font-size:21px;line-height:1.4}
+  .cash-dialog :is(input,select,textarea) {font-size:16px!important;min-height:44px}
+  .cash-dialog .adm-form label {font-size:13px;line-height:1.7}
+  .cash-count-preview {font-size:13px;gap:12px}
+  .cash-count-preview strong {font-size:25px}
+  .cash-count-preview small {font-size:12px;line-height:1.6}
+  .cash-count-totals {gap:16px}
+  .cash-count-totals span {font-size:12px}
+  .cash-count-totals b {font-size:23px}
+  .cash-payment-row {grid-template-columns:minmax(0,1fr) minmax(0,1fr) 44px;gap:12px}
+  .cash-payment-row .adm-icon {width:44px;height:44px;margin-bottom:0}
+  .cash-payment-total > span {font-size:14px}
+  .cash-payment-total small {font-size:12px;line-height:1.6}
+  .cash-payment-total strong {font-size:29px;line-height:1.35}
+  .cash-detail h3 {font-size:20px}
+  .cash-detail-lines > div {font-size:14px}
+  .cash-detail-lines strong {font-size:23px;line-height:1.4}
+  .cash-detail-lines small {font-size:12px}
+  .cash-detail > p {font-size:14px;line-height:1.8}
+  .cash-form-error {font-size:13px;line-height:1.7}
+  .cash-dialog .adm-form-footer .adm-btn {font-size:13px!important;min-height:44px}
+  .cash-denominations label {font-size:13px!important;min-width:0;grid-template-columns:85px minmax(0,1fr) 90px}
+  .cash-denominations small {font-size:12px!important;overflow-wrap:anywhere}
+}
+
+@media (max-width:600px) {
+  .cash-dialog .adm-form-grid {grid-template-columns:minmax(0,1fr)}
+  .cash-payment-row {grid-template-columns:minmax(0,1fr) 44px}
+  .cash-payment-row > label:first-child {grid-column:1 / -1}
+  .cash-payment-row > button {grid-column:2;grid-row:2}
+  .cash-payment-row:not(:has(.adm-icon)) {grid-template-columns:minmax(0,1fr)}
+  .cash-payment-row:not(:has(.adm-icon)) > label:first-child {grid-column:auto}
+  .cash-turn-detail dl,.cash-detail dl {grid-template-columns:minmax(0,1fr)}
+}
+
+@media (max-width:480px) {
+  .cash-stats,.cash-stats-three,.cash-accounts,.cash-reconcile-accounts {grid-template-columns:minmax(0,1fr)}
+  .cash-stats-three > .cash-stat:last-child {grid-column:auto}
+  .cash-actions > .adm-btn {flex-direction:column;gap:5px;min-height:64px;font-size:13px!important}
+  .cash-actions > .adm-btn > svg {width:17px;height:17px}
+  .cash-account > b,.cash-account > .cash-pill {grid-column:2}
+  .cash-account > b {margin-top:2px}
+  .cash-period > label {flex-basis:100%}
+  .cash-filters > label:not(.cash-search) {flex-basis:100%}
+  .cash-denominations label {grid-template-columns:minmax(0,1fr) 100px;gap:7px 12px!important;padding:12px}
+  .cash-denominations small {grid-column:1 / -1;text-align:left}
+  .cash-count-preview > :is(span,strong) {flex-basis:100%}
+  .cash-count-totals > span {flex-basis:100%}
+  .cash-count-totals > span:last-child {text-align:left}
+  .cash-payment-total {gap:14px;align-items:start}
+  .cash-payment-total > strong {flex-basis:100%}
+  .cash-detail-lines > div {align-items:start;gap:9px}
+  .cash-detail-lines > div > span,.cash-detail-lines > div > strong {flex-basis:100%}
+}
+
+@media (max-height:500px) and (orientation:landscape) {
+  .cash-dialog .adm-modal-head {padding-block:12px}
+  .cash-dialog .adm-modal-head h2 {font-size:18px}
+  .cash-dialog .adm-form {gap:14px}
+  .cash-dialog .adm-form-footer {padding-top:12px}
+}
