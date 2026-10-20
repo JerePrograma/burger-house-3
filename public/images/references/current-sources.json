@@ -1,0 +1,547 @@
+{
+  "activeSource": "Seventeen WhatsApp JPEG flyers supplied 2026-10-19",
+  "historicalSource": "Earlier PNG flyers in referencias are archival material only",
+  "references": [
+    {
+      "key": "papas",
+      "source": "WhatsApp Image 2026-10-19 at 9.55.26 PM (1).jpeg",
+      "reference": "/images/references/current-01-papas.webp",
+      "width": 853,
+      "height": 1280
+    },
+    {
+      "key": "panchos",
+      "source": "WhatsApp Image 2026-10-19 at 9.55.26 PM.jpeg",
+      "reference": "/images/references/current-02-panchos.webp",
+      "width": 853,
+      "height": 1280
+    },
+    {
+      "key": "combo-especial",
+      "source": "WhatsApp Image 2026-10-19 at 9.55.27 PM (1).jpeg",
+      "reference": "/images/references/current-03-combo-especial.webp",
+      "width": 1080,
+      "height": 1086
+    },
+    {
+      "key": "envios",
+      "source": "WhatsApp Image 2026-10-19 at 9.55.27 PM.jpeg",
+      "reference": "/images/references/current-04-envios.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "key": "promo-bomba",
+      "source": "WhatsApp Image 2026-10-19 at 9.55.28 PM (1).jpeg",
+      "reference": "/images/references/current-05-promo-bomba.webp",
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "key": "promos-pizzas",
+      "source": "WhatsApp Image 2026-10-19 at 9.55.28 PM.jpeg",
+      "reference": "/images/references/current-06-promos-pizzas.webp",
+      "width": 1080,
+      "height": 1092
+    },
+    {
+      "key": "la-bajonera",
+      "source": "WhatsApp Image 2026-10-19 at 9.55.29 PM (1).jpeg",
+      "reference": "/images/references/current-07-la-bajonera.webp",
+      "width": 876,
+      "height": 1280
+    },
+    {
+      "key": "cajita-4-personas",
+      "source": "WhatsApp Image 2026-10-19 at 9.55.29 PM.jpeg",
+      "reference": "/images/references/current-08-cajita-4-personas.webp",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "key": "combo-familiar",
+      "source": "WhatsApp Image 2026-10-19 at 9.55.30 PM.jpeg",
+      "reference": "/images/references/current-09-combo-familiar.webp",
+      "width": 1080,
+      "height": 1096
+    },
+    {
+      "key": "cheese-burger",
+      "source": "WhatsApp Image 2026-10-19 at 9.55.31 PM.jpeg",
+      "reference": "/images/references/current-10-cheese-burger.webp",
+      "width": 838,
+      "height": 1280
+    },
+    {
+      "key": "burgers-clasicas",
+      "source": "WhatsApp Image 2026-10-19 at 9.55.32 PM (1).jpeg",
+      "reference": "/images/references/current-11-burgers-clasicas.webp",
+      "width": 1080,
+      "height": 1615
+    },
+    {
+      "key": "combo-infantil",
+      "source": "WhatsApp Image 2026-10-19 at 9.55.32 PM (2).jpeg",
+      "reference": "/images/references/current-12-combo-infantil.webp",
+      "width": 900,
+      "height": 1600
+    },
+    {
+      "key": "burgers-especiales",
+      "source": "WhatsApp Image 2026-10-19 at 9.55.32 PM.jpeg",
+      "reference": "/images/references/current-13-burgers-especiales.webp",
+      "width": 1080,
+      "height": 1578
+    },
+    {
+      "key": "empanadas",
+      "source": "WhatsApp Image 2026-10-19 at 9.55.33 PM.jpeg",
+      "reference": "/images/references/current-14-empanadas.webp",
+      "width": 900,
+      "height": 1600
+    },
+    {
+      "key": "milanesa-caballo",
+      "source": "WhatsApp Image 2026-10-19 at 9.55.34 PM (1).jpeg",
+      "reference": "/images/references/current-15-milanesa-caballo.webp",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "key": "napolitana",
+      "source": "WhatsApp Image 2026-10-19 at 9.55.34 PM (2).jpeg",
+      "reference": "/images/references/current-16-napolitana.webp",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "key": "pizzas",
+      "source": "WhatsApp Image 2026-10-19 at 9.55.34 PM.jpeg",
+      "reference": "/images/references/current-17-pizzas.webp",
+      "width": 900,
+      "height": 1600
+    }
+  ],
+  "crops": {
+    "hero-bajonera": {
+      "source": "la-bajonera",
+      "bounds": [
+        0,
+        450,
+        610,
+        990
+      ],
+      "representative": false
+    },
+    "la-bajonera": {
+      "source": "la-bajonera",
+      "bounds": [
+        0,
+        450,
+        610,
+        990
+      ],
+      "representative": false
+    },
+    "cheese-burger": {
+      "source": "cheese-burger",
+      "bounds": [
+        0,
+        605,
+        495,
+        1070
+      ],
+      "representative": false
+    },
+    "clasica": {
+      "source": "cheese-burger",
+      "bounds": [
+        0,
+        605,
+        495,
+        1070
+      ],
+      "representative": true
+    },
+    "jamon-queso": {
+      "source": "cheese-burger",
+      "bounds": [
+        0,
+        605,
+        495,
+        1070
+      ],
+      "representative": true
+    },
+    "burger-loca": {
+      "source": "burgers-especiales",
+      "bounds": [
+        32,
+        646,
+        239,
+        834
+      ],
+      "representative": true
+    },
+    "tata-burga": {
+      "source": "burgers-especiales",
+      "bounds": [
+        553,
+        646,
+        752,
+        834
+      ],
+      "representative": true
+    },
+    "bomba-burger": {
+      "source": "burgers-especiales",
+      "bounds": [
+        33,
+        859,
+        242,
+        1055
+      ],
+      "representative": true
+    },
+    "chesse-burger-triple": {
+      "source": "burgers-especiales",
+      "bounds": [
+        31,
+        433,
+        236,
+        622
+      ],
+      "representative": false
+    },
+    "extra-bacon": {
+      "source": "burgers-especiales",
+      "bounds": [
+        552,
+        433,
+        751,
+        622
+      ],
+      "representative": false
+    },
+    "grand-tasty": {
+      "source": "burgers-especiales",
+      "bounds": [
+        32,
+        646,
+        239,
+        834
+      ],
+      "representative": false
+    },
+    "onion-crispy": {
+      "source": "burgers-especiales",
+      "bounds": [
+        553,
+        646,
+        752,
+        834
+      ],
+      "representative": false
+    },
+    "bbq": {
+      "source": "burgers-especiales",
+      "bounds": [
+        33,
+        859,
+        242,
+        1055
+      ],
+      "representative": false
+    },
+    "cuarto-libra": {
+      "source": "burgers-especiales",
+      "bounds": [
+        554,
+        860,
+        750,
+        1054
+      ],
+      "representative": false
+    },
+    "big-bacon": {
+      "source": "burgers-especiales",
+      "bounds": [
+        32,
+        1081,
+        242,
+        1269
+      ],
+      "representative": false
+    },
+    "bomba-chesse-house": {
+      "source": "burgers-especiales",
+      "bounds": [
+        554,
+        1081,
+        752,
+        1269
+      ],
+      "representative": false
+    },
+    "promo-bomba-chesse": {
+      "source": "promo-bomba",
+      "bounds": [
+        70,
+        625,
+        1060,
+        1110
+      ],
+      "representative": false
+    },
+    "combo-familiar": {
+      "source": "combo-familiar",
+      "bounds": [
+        710,
+        21,
+        1080,
+        509
+      ],
+      "representative": false
+    },
+    "combo-infantil": {
+      "source": "combo-infantil",
+      "bounds": [
+        2,
+        620,
+        415,
+        1000
+      ],
+      "representative": false
+    },
+    "current-papas": {
+      "source": "papas",
+      "bounds": [
+        408,
+        446,
+        853,
+        680
+      ],
+      "representative": false
+    },
+    "current-papas-individuales": {
+      "source": "papas",
+      "bounds": [
+        463,
+        797,
+        694,
+        931
+      ],
+      "representative": false
+    },
+    "current-nuggets": {
+      "source": "papas",
+      "bounds": [
+        394,
+        679,
+        563,
+        785
+      ],
+      "representative": false
+    },
+    "current-bastoncitos": {
+      "source": "papas",
+      "bounds": [
+        570,
+        683,
+        849,
+        839
+      ],
+      "representative": false
+    },
+    "current-dips": {
+      "source": "papas",
+      "bounds": [
+        350,
+        936,
+        690,
+        1011
+      ],
+      "representative": false
+    },
+    "current-bandeja-mixta": {
+      "source": "papas",
+      "bounds": [
+        482,
+        995,
+        853,
+        1172
+      ],
+      "representative": false
+    },
+    "current-panchos": {
+      "source": "panchos",
+      "bounds": [
+        0,
+        596,
+        290,
+        878
+      ],
+      "representative": false
+    },
+    "current-pancho-cheddar": {
+      "source": "panchos",
+      "bounds": [
+        0,
+        887,
+        276,
+        1197
+      ],
+      "representative": false
+    },
+    "current-combo-especial": {
+      "source": "combo-especial",
+      "bounds": [
+        7,
+        489,
+        1080,
+        844
+      ],
+      "representative": false
+    },
+    "current-combo-pizzas": {
+      "source": "promos-pizzas",
+      "bounds": [
+        555,
+        479,
+        1056,
+        675
+      ],
+      "representative": false
+    },
+    "current-cajita-4-personas": {
+      "source": "cajita-4-personas",
+      "bounds": [
+        0,
+        495,
+        720,
+        799
+      ],
+      "representative": false
+    },
+    "current-empanadas": {
+      "source": "empanadas",
+      "bounds": [
+        212,
+        469,
+        436,
+        735
+      ],
+      "representative": false
+    },
+    "current-empanada-carne": {
+      "source": "empanadas",
+      "bounds": [
+        212,
+        469,
+        436,
+        735
+      ],
+      "representative": false
+    },
+    "current-empanada-pollo": {
+      "source": "empanadas",
+      "bounds": [
+        638,
+        470,
+        854,
+        738
+      ],
+      "representative": false
+    },
+    "current-empanada-jamon-queso": {
+      "source": "empanadas",
+      "bounds": [
+        216,
+        813,
+        436,
+        1080
+      ],
+      "representative": false
+    },
+    "current-empanada-cuchillo": {
+      "source": "empanadas",
+      "bounds": [
+        641,
+        839,
+        854,
+        1090
+      ],
+      "representative": false
+    },
+    "current-milanesa-caballo": {
+      "source": "milanesa-caballo",
+      "bounds": [
+        0,
+        279,
+        389,
+        615
+      ],
+      "representative": false
+    },
+    "current-napolitana": {
+      "source": "napolitana",
+      "bounds": [
+        8,
+        300,
+        379,
+        579
+      ],
+      "representative": false
+    },
+    "current-pizza": {
+      "source": "pizzas",
+      "bounds": [
+        479,
+        40,
+        899,
+        395
+      ],
+      "representative": false
+    },
+    "current-pizza-muzza": {
+      "source": "pizzas",
+      "bounds": [
+        479,
+        40,
+        899,
+        395
+      ],
+      "representative": false
+    },
+    "current-pizza-morron": {
+      "source": "pizzas",
+      "bounds": [
+        405,
+        404,
+        700,
+        690
+      ],
+      "representative": false
+    },
+    "current-pizza-calabresa": {
+      "source": "pizzas",
+      "bounds": [
+        567,
+        574,
+        899,
+        926
+      ],
+      "representative": false
+    },
+    "current-pizza-huevo": {
+      "source": "pizzas",
+      "bounds": [
+        497,
+        1270,
+        888,
+        1599
+      ],
+      "representative": false
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "sourceOfTruth": "JPEG de WhatsApp agregados por el usuario el 2026-10-19",
+  "active": [
+    "WhatsApp Image 2026-10-19 at 9.55.26 PM (1).jpeg",
+    "WhatsApp Image 2026-10-19 at 9.55.26 PM.jpeg",
+    "WhatsApp Image 2026-10-19 at 9.55.27 PM (1).jpeg",
+    "WhatsApp Image 2026-10-19 at 9.55.27 PM.jpeg",
+    "WhatsApp Image 2026-10-19 at 9.55.28 PM (1).jpeg",
+    "WhatsApp Image 2026-10-19 at 9.55.28 PM.jpeg",
+    "WhatsApp Image 2026-10-19 at 9.55.29 PM (1).jpeg",
+    "WhatsApp Image 2026-10-19 at 9.55.29 PM.jpeg",
+    "WhatsApp Image 2026-10-19 at 9.55.30 PM.jpeg",
+    "WhatsApp Image 2026-10-19 at 9.55.31 PM.jpeg",
+    "WhatsApp Image 2026-10-19 at 9.55.32 PM (1).jpeg",
+    "WhatsApp Image 2026-10-19 at 9.55.32 PM (2).jpeg",
+    "WhatsApp Image 2026-10-19 at 9.55.32 PM.jpeg",
+    "WhatsApp Image 2026-10-19 at 9.55.33 PM.jpeg",
+    "WhatsApp Image 2026-10-19 at 9.55.34 PM (1).jpeg",
+    "WhatsApp Image 2026-10-19 at 9.55.34 PM (2).jpeg",
+    "WhatsApp Image 2026-10-19 at 9.55.34 PM.jpeg"
+  ],
+  "historicalOnly": [
+    "01-logo.png",
+    "02-menu-papas.png",
+    "03-foto-papas.png",
+    "04-sandwich-milanesa-completo.png",
+    "05-milanesa-napolitana.png",
+    "06-caja-bestial.png",
+    "07-sandwich-milanesa-xl.png",
+    "08-sandwiches-medio-metro.png",
+    "09-menu-pizzas.png",
+    "10-menu-empanadas.png",
+    "11-hamburguesa-la-goat.png",
+    "12-combo-familiar.png",
+    "13-hamburguesas-especiales.png",
+    "14-hamburguesas-clasicas.png"
+  ],
+  "rule": "Los PNG anteriores se conservan como archivo; no alimentan el catálogo activo."
+}
