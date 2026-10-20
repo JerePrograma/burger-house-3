@@ -35,6 +35,6 @@ test('CORS autoriza Pages y rechaza otros orígenes',async()=>{
 test('login externo no incluye secretos y usa una página que no puede embeberse',async()=>{
  const res=await worker.fetch(new Request('https://api.test/admin/login'),env);
  const html=await res.text();assert.ok(html.includes('Clave de administradora'));
- assert.equal(html.includes(secret),false);assert.ok(res.headers.get('Content-Security-Policy').includes("frame-ancestors 'none'"));
+ assert.equal(html.includes(secret),false);assert.equal(res.headers.get('Referrer-Policy'),'same-origin');assert.ok(res.headers.get('Content-Security-Policy').includes("frame-ancestors 'none'"));
  assert.equal(await sha256('abc'),'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad');
 });
