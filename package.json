@@ -7,13 +7,18 @@
   },
   "scripts": {
     "install:ci": "node scripts/install-ci.mjs",
-    "dev": "node scripts/run-framework.mjs dev",
-    "build": "node scripts/run-framework.mjs build",
+    "dev": "vite --config vite.config.pages.ts",
+    "build": "vite build --config vite.config.pages.ts",
     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test tests/*.test.mjs"
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "preview": "vite preview --config vite.config.pages.ts --host 127.0.0.1",
+    "backend:dev": "wrangler dev --config backend/wrangler.jsonc --port 8787 --var FRONTEND_URL:http://127.0.0.1:5173/burger-house-3",
+    "backend:deploy": "wrangler deploy --config backend/wrangler.jsonc",
+    "backend:migrate": "wrangler d1 migrations apply DB --remote --config backend/wrangler.jsonc",
+    "build:legacy": "node scripts/run-framework.mjs build"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

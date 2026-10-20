@@ -58,3 +58,9 @@ next-env.d.ts
 *.tsbuildinfo
 /artifacts/*.jpg
 /artifacts/*.png
+
+/dist-pages/
+/.dev.vars
+/backend/.dev.vars
+/backend/.wrangler/
+.env*

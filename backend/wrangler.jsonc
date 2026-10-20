@@ -1,0 +1,19 @@
+{
+  "name": "burger-house-3-api",
+  "account_id": "de1ec344dec57f522c0d70dc8616f4a5",
+  "main": "worker.ts",
+  "compatibility_date": "2026-05-15",
+  "workers_dev": true,
+  "vars": {
+    "FRONTEND_URL": "https://jereprograma.github.io/burger-house-3"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "burger-house-3",
+      "database_id": "f13afd83-4904-423b-ae0b-be749351b569",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "observability": { "enabled": true }
+}

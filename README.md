@@ -2,26 +2,53 @@
 
 Demo funcional de tienda y administración para Burger House 3. Catálogo móvil, personalización de ingredientes, pedidos por web/WhatsApp, pagos simulados, ventas e inventario con movimientos trazables.
 
+## Despliegue actual
+
+- Frontend público de demostración: https://jereprograma.github.io/burger-house-3/
+- Backend independiente: https://burger-house-3-api.jeremias-j-riv.workers.dev
+- Panel: https://jereprograma.github.io/burger-house-3/admin/
+- Repositorio: https://github.com/JerePrograma/burger-house-3
+
+El frontend usa GitHub Pages y el backend usa Cloudflare Workers con D1. No necesita Sites ni una cuenta de ChatGPT. Los pedidos y el inventario son compartidos entre dispositivos. Los pagos siguen siendo simulados; esta publicación es una demostración, no un comercio operativo.
+
+Cada push a `main` valida TypeScript, ejecuta las pruebas, compila el frontend estático y lo publica mediante `.github/workflows/pages.yml`. La URL de la API está en `frontend.config.json`; la variable de GitHub `API_BASE_URL` puede reemplazarla. Ningún secreto se incluye en el frontend.
+
 ## Ejecutar
 
-Requisitos: Node.js >=22.13 y npm. Desde esta carpeta:
+Requisitos: Node.js 24, npm y, para el backend alojado, una cuenta autorizada en Cloudflare.
 
 ```sh
 npm ci
-npm run build
-node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0000_faulty_viper.sql
-npm run dev
-```
-
-Aplicar la migración sólo una vez por base local nueva. La tienda se abre en la URL que imprime el servidor (por defecto http://127.0.0.1:5173). El panel está en `/admin`. En desarrollo, `/signin-with-chatgpt?return_to=/admin` usa una identidad local simulada; en el sitio alojado la autenticación pertenece a Sites.
-
-```sh
 npm run typecheck
 npm test
 npm run build
 ```
 
-En Windows, si el lanzador `npm` de nvm presenta errores de ruta, se puede invocar directamente `node C:/nvm4w/nodejs/node_modules/npm/bin/npm-cli.js run dev` (ajustar a la instalación propia).
+El frontend compilado está en `dist-pages/`. Se generan rutas estáticas para la tienda y `/admin/`, y todas las imágenes y enlaces respetan el prefijo `/burger-house-3/`.
+
+Para desarrollo completo en PowerShell:
+
+```powershell
+# Sólo en un clon nuevo sin credenciales locales: genera claves locales ignoradas por Git.
+node scripts/setup-admin.mjs
+node node_modules/wrangler/bin/wrangler.js d1 migrations apply DB --local --config backend/wrangler.jsonc
+npm run backend:dev
+# En otra terminal:
+$env:VITE_API_BASE_URL='http://127.0.0.1:8787'
+npm run dev
+```
+
+Abrir http://127.0.0.1:5173/burger-house-3/. `backend:dev` configura el origen local para CORS y usa `backend/.dev.vars`, generado por el script de acceso. No se deben volver a generar claves existentes automáticamente.
+
+Para publicar cambios del backend:
+
+```sh
+npx wrangler login
+npm run backend:migrate
+npm run backend:deploy
+```
+
+La configuración es `backend/wrangler.jsonc`. Las migraciones están en `backend/migrations/`. El despliegue del backend es independiente del frontend; para automatizarlo hay que configurar un token de Cloudflare acotado como secreto de CI, nunca guardarlo en el repositorio.
 
 ## Única fuente del catálogo
 
@@ -49,16 +76,22 @@ También se cargan pedidos de mostrador y WhatsApp. El panel permite editar prod
 
 ## Arquitectura y evolución
 
-React + TypeScript sobre Vinext; API de servidor TypeScript en Cloudflare Workers, sin VPS. SQL alojado con Cloudflare D1/SQLite y migraciones Drizzle. Las capas de dominio (`commerce.ts`), contrato (`domain.ts`) y persistencia (`repository.ts`) están separadas para permitir otros comercios y reemplazar el almacenamiento.
+React + TypeScript compilado con Vite para GitHub Pages; API de servidor TypeScript independiente en Cloudflare Workers, sin VPS. SQL alojado con Cloudflare D1/SQLite y migraciones Drizzle. Las capas de dominio (`commerce.ts`), contrato (`domain.ts`) y persistencia (`repository.ts`) están separadas para permitir otros comercios y reemplazar el almacenamiento.
 
 La demo usa un agregado por comercio con control de versión optimista (CAS). Pedido, stock, pago, movimientos e idempotencia se guardan juntos; las pruebas incluyen verificaciones concurrentes para evitar sobreventa. Es una base de demostración, no una plataforma multiempresa terminada. Para una operación con volumen: normalizar las tablas, añadir aislamiento por negocio/sucursal, membresías explícitas, auditoría persistente, backups, límites de tráfico, pagos reales con webhooks y las reglas concretas de cada comercio.
 
 El catálogo nuevo utiliza la clave de dataset `burger-house-3-catalogo-20261019-v2`. Los datos de las pruebas anteriores quedan recuperables en su fila histórica y no se mezclan con el catálogo vigente. Cambiar el seed no sobrescribe las ediciones de una base ya inicializada.
 
-## Acceso y publicación
+## Acceso de administración
 
-El sitio se crea privado. La primera cuenta autenticada que abre `/admin` queda vinculada como administradora; debe hacerse con la cuenta propietaria antes de ampliar la audiencia. El catálogo no publica stock numérico ni un listado de pedidos. El seguimiento de un pedido exige un token aleatorio y las respuestas privadas no se cachean. Los secretos y datos locales (`.env*`, `.wrangler`, `.sites-runtime`, dependencias y compilaciones) no se suben a Git.
+El comprador usa la tienda sin crear una cuenta. Para administrar, el panel redirige a una página de acceso del backend en `workers.dev`. La contraseña se envía únicamente a ese backend mediante HTTPS. Una sesión firmada dura ocho horas, se conserva en `sessionStorage` y el token se retira de la dirección al regresar al panel.
 
-GitHub: https://github.com/JerePrograma/burger-house-3
+La clave inicial de la administradora está en `.env.admin.local`, sólo en la computadora que hizo la instalación. Los secretos del backend están en `.env.backend-secrets.local.json` y en Cloudflare; ambos archivos locales están ignorados por Git. No se deben copiar en mensajes, capturas ni código. El backend almacena el hash de una contraseña aleatoria de alta entropía y limita los intentos de acceso. El botón Cerrar sesión elimina la sesión de la pestaña.
 
-La configuración de alojamiento está en `.openai/hosting.json`. El entorno local y la base alojada son independientes. Las publicaciones se realizan con el flujo Sites y sus credenciales temporales; el repositorio no contiene credenciales de publicación.
+El catálogo no expone cantidades numéricas de stock ni un listado de pedidos. El seguimiento exige el token aleatorio del pedido; la API privada exige una sesión válida. CORS está limitado al origen del frontend configurado. Los archivos `.env*`, `.dev.vars`, bases locales, dependencias y compilaciones quedan fuera de Git.
+
+## Código anterior
+
+Los archivos de servidor bajo `app/api`, la integración de Vinext y `.openai/hosting.json` se conservan como referencia del prototipo anterior. No forman parte de la compilación de Pages ni del backend independiente. `build:legacy` permite compilar ese prototipo si hiciera falta; el despliegue actual no usa Sites.
+
+GitHub Pages se utiliza para esta demo sin cobros reales. Antes de convertirla en un comercio operativo hay que elegir un alojamiento frontend apropiado para uso comercial y completar pagos reales, permisos, auditoría y límites de producción; ver https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits.
