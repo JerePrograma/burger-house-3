@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Burger House 3</string>
+    <string name="title_activity_main">Burger House 3</string>
+    <string name="package_name">com.scalaris.burgerhouse3</string>
+    <string name="custom_url_scheme">com.scalaris.burgerhouse3</string>
+</resources>

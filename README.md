@@ -118,10 +118,38 @@ La API financiera permanece protegida por el acceso administrativo. El catálogo
 
 Pruebas: `npm test` incluye movimientos, centavos, pagos mixtos, cierres, reembolsos, reversos, compromisos, conciliación, migración y operaciones simultáneas. `npm run typecheck` y `npm run build` verifican los contratos y la publicación en GitHub Pages.
 
-El catálogo no expone cantidades numéricas de stock ni un listado de pedidos. El seguimiento exige el token aleatorio del pedido; la API privada exige una sesión válida. CORS está limitado al origen del frontend configurado. Los archivos `.env*`, `.dev.vars`, bases locales, dependencias y compilaciones quedan fuera de Git.
+El catálogo no expone cantidades numéricas de stock ni un listado de pedidos. El seguimiento exige el token aleatorio del pedido; la API privada exige una sesión válida. CORS está limitado al origen web configurado y al origen Android exacto `https://localhost` habilitado explícitamente mediante `NATIVE_ORIGINS`. Los archivos `.env*`, `.dev.vars`, bases locales, dependencias y compilaciones quedan fuera de Git.
 
 ## Código anterior
 
 Los archivos de servidor bajo `app/api`, la integración de Vinext y `.openai/hosting.json` se conservan como referencia del prototipo anterior. No forman parte de la compilación de Pages ni del backend independiente. `build:legacy` permite compilar ese prototipo si hiciera falta; el despliegue actual no usa Sites.
 
 GitHub Pages se utiliza para esta demo sin cobros reales. Antes de convertirla en un comercio operativo hay que elegir un alojamiento frontend apropiado para uso comercial y completar pagos reales, permisos, auditoría y límites de producción; ver https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits.
+
+## Android con Ionic React y Capacitor
+
+La versión web y Android comparten el frontend. Capacitor empaqueta los archivos compilados de `dist-native/` dentro del proyecto `android/`; no carga la web de GitHub Pages como una página remota. El catálogo, los pedidos y los demás datos siguen usando la misma API HTTPS de Cloudflare. `capacitor.config.ts` define el identificador `com.scalaris.burgerhouse3`, el nombre **Burger House 3** y el origen local seguro de Android (`https://localhost`), sin acceso a destinos de navegación arbitrarios ni contenido HTTP mixto.
+
+El frontend utiliza Ionic React 9, React Router 6 e `IonApp`, `IonPage`, `IonContent` e `IonModal`. Conserva la identidad visual y las funciones existentes de catálogo, personalización, carrito, pedidos, inventario y caja. Las rutas y recursos usan `/burger-house-3/` en Pages y `/` en el paquete; el panel se carga por separado de la tienda. El botón Atrás cierra primero los diálogos y luego recorre la navegación; en la raíz de Android minimiza la app.
+
+El carrito y el último seguimiento usan Capacitor Preferences en Android y el almacenamiento web existente en el navegador; las escrituras se serializan por clave. Los informes CSV se descargan en web y se preparan en la caché privada de Android para que el usuario elija dónde compartirlos. WhatsApp se abre con Capacitor Browser después de confirmar el pedido. El uso del catálogo y del backend requiere conexión; esta migración no implementa ventas offline.
+
+El acceso administrativo web sigue usando el formulario HTTPS del backend. En el paquete Android hay un formulario Ionic que envía la clave al endpoint `/api/admin/session`, habilitado sólo para el origen nativo configurado. Ambos accesos comparten el límite atómico de cinco intentos por cinco minutos y sesiones de ocho horas. La clave no se guarda; el token sigue en `sessionStorage` y no se persiste en Preferences. No hay claves de servidor dentro del paquete Android.
+
+```powershell
+npm ci
+npm run android:sync
+npm run android:open
+```
+
+`android:sync` compila los recursos de la app y sincroniza Capacitor. Hay que volver a ejecutarlo después de modificar el frontend o los plugins nativos. `android:open` abre el proyecto en Android Studio para ejecutar en un teléfono/emulador o compilar. Los archivos generados de recursos web se regeneran: no deben editarse dentro de `android/app/src/main/assets/`.
+
+Con el SDK instalado, `npm run android:apk` genera el APK debug y `npm run android:bundle` genera un AAB release sin configurar firma de publicación. No se debe confundir ese archivo sin firmar con una versión lista para Google Play.
+
+Para compilar Android localmente se necesita Node.js 22 o superior (este proyecto usa 24), JDK 21, Android Studio 2025.2.1 o superior y Android SDK 36. El proyecto usa `minSdkVersion=24`. En esta computadora se detectó JDK 21 en `JAVA_HOME`; el comando `java` del PATH apunta a Java 8, por lo que conviene verificar que Android Studio y Gradle utilicen el JDK 21. No se detectó un Android SDK instalado durante la migración. No se instalaron SDK ni se aceptaron licencias automáticamente.
+
+También se puede ejecutar **Actions → Build Android demo → Run workflow** en GitHub. El flujo valida el código, sincroniza los recursos y compila `assembleDebug` usando Java 21 y el SDK del runner. Si finaliza correctamente, el APK se descarga desde el artefacto **burger-house-3-android-debug** de esa ejecución. Es un APK de prueba y los pagos siguen siendo simulados.
+
+La publicación futura en Google Play requiere preparar una compilación release/AAB, elegir y custodiar la clave de firma, completar la ficha y declaraciones correspondientes y probar en dispositivos reales. Esta migración no crea una cuenta de Play Console, no guarda claves de firma y no publica la aplicación. `appId` debe revisarse antes de la primera publicación porque identifica la aplicación en Android.
+
+Referencias oficiales: [instalación de Capacitor](https://capacitorjs.com/docs/getting-started), [entorno Android](https://capacitorjs.com/docs/getting-started/environment-setup) y [configuración](https://capacitorjs.com/docs/config).

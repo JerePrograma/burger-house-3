@@ -1,0 +1,15 @@
+:root{--ion-font-family:Arial,Helvetica,sans-serif;--ion-background-color:#11100e;--ion-text-color:#f7f2e8;--ion-color-primary:#ffc52b;--ion-color-primary-rgb:255,197,43;--ion-color-primary-contrast:#211707;--ion-color-primary-contrast-rgb:33,23,7;--ion-color-primary-shade:#e0ad26;--ion-color-primary-tint:#ffcb40;--ion-color-danger:#ed271c;--ion-color-danger-rgb:237,39,28;--ion-color-danger-contrast:#fff;--ion-color-danger-shade:#d12219;--ion-color-danger-tint:#ef3d33;color-scheme:dark}
+html,body,#root,ion-app{height:100%;width:100%;background:#11100e}
+.bh3-content{--background:#11100e;--padding-top:env(safe-area-inset-top,0px);--padding-bottom:env(safe-area-inset-bottom,0px)}
+.bh3-content::part(scroll){scroll-padding-top:100px}
+.bh3-loading{min-height:70vh;display:grid;align-content:center;justify-items:center;gap:18px;color:#c7bba5}
+.bh3-page .store-header{top:0}
+.native-login{min-height:100%;padding:32px 22px}
+.native-login form{width:100%;display:grid;gap:20px;text-align:left}
+.native-login ion-input{--background:#211f1c;--padding-start:14px;--padding-end:14px;--highlight-color-focused:#ffc52b;border:1px solid #433827;border-radius:8px;padding:10px 0}
+.native-login ion-button{--border-radius:8px;min-height:48px;margin:0;font-weight:bold}
+.native-login ion-text p{font-size:13px}
+.store .mobile-cart{bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+.store .tracking-float{bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+.adm-topbar{padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-reduced-motion:reduce){.bh3-content::part(scroll){scroll-behavior:auto}}

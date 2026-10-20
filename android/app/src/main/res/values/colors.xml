@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="burger_house_background">#11100e</color>
+    <color name="colorPrimary">#11100e</color>
+    <color name="colorPrimaryDark">#11100e</color>
+    <color name="colorAccent">#ffc52b</color>
+</resources>

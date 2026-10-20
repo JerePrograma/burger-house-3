@@ -60,6 +60,8 @@ next-env.d.ts
 /artifacts/*.png
 
 /dist-pages/
+/dist-native/
+/artifacts/android/
 /.dev.vars
 /backend/.dev.vars
 /backend/.wrangler/

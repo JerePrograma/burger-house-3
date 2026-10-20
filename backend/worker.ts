@@ -3,10 +3,18 @@ import { StoreRepository } from '../lib/repository';
 import { createSeed } from '../lib/seed';
 import { issueSession, safeReturn, sha256, verifySession } from './auth';
 
-export interface Env { DB:D1Database; FRONTEND_URL:string; ADMIN_PASSWORD_SHA256:string; SESSION_SECRET:string; }
+export interface Env { DB:D1Database; FRONTEND_URL:string; ADMIN_PASSWORD_SHA256:string; SESSION_SECRET:string; NATIVE_ORIGINS?:string; }
 const storeId = 'burger-house-3-catalogo-20261019-v2';
 const privateHeaders = {'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer'};
 const json = (value:unknown,status=200) => Response.json(value,{status,headers:privateHeaders});
+// Native origins are an explicit opt-in. Never trust arbitrary localhost ports,
+// custom schemes, null origins, or values supplied by the request itself.
+function nativeOriginAllowed(origin:string|null,env:Env):boolean {
+  return origin==='https://localhost' && (env.NATIVE_ORIGINS??'').split(',').map(value=>value.trim()).includes(origin);
+}
+function apiOriginAllowed(origin:string|null,env:Env):boolean {
+  return origin===new URL(env.FRONTEND_URL).origin || nativeOriginAllowed(origin,env);
+}
 
 async function readJson(request:Request):Promise<unknown> {
   if (!request.headers.get('content-type')?.startsWith('application/json')) throw new CommerceError('El formato de envío no es válido.',415);
@@ -17,6 +25,35 @@ async function readJson(request:Request):Promise<unknown> {
 async function requireAdmin(request:Request,env:Env) {
   const token=request.headers.get('authorization')?.replace(/^Bearer /,'')||'';
   if (!env.SESSION_SECRET || !await verifySession(token,env.SESSION_SECRET)) throw new CommerceError('Ingresá al panel para administrar el local.',401);
+}
+async function checkPassword(request:Request,env:Env,password:string):Promise<'valid'|'invalid'|'limited'> {
+  // Both the hosted form and the packaged application share the same bucket.
+  const attemptKey=await sha256(request.headers.get('cf-connecting-ip')||'local');
+  const now=Date.now();
+  // Reserve the attempt atomically, so simultaneous requests cannot all pass a
+  // read-before-write check and each consume the same remaining slot.
+  const attempts=await env.DB.prepare('INSERT INTO login_attempts (id,failures,started_at) VALUES (?,1,?) ON CONFLICT(id) DO UPDATE SET failures=CASE WHEN ?-started_at>=300000 THEN 1 ELSE failures+1 END, started_at=CASE WHEN ?-started_at>=300000 THEN ? ELSE started_at END RETURNING failures, started_at').bind(attemptKey,now,now,now,now).first<{failures:number;started_at:number}>();
+  if(!attempts)throw new CommerceError('No se pudo verificar el acceso. Intentá nuevamente.',503);
+  if(attempts.failures>5)return 'limited';
+  if(await sha256(password)!==env.ADMIN_PASSWORD_SHA256) {
+    return 'invalid';
+  }
+  await env.DB.prepare('DELETE FROM login_attempts WHERE id=?').bind(attemptKey).run();
+  return 'valid';
+}
+async function nativeLogin(request:Request,env:Env):Promise<Response> {
+  if(!nativeOriginAllowed(request.headers.get('origin'),env))throw new CommerceError('Origen no permitido.',403);
+  if(request.method==='OPTIONS')return new Response(null,{status:204});
+  if(request.method!=='POST')return json({error:'Método no permitido.'},405);
+  if(!env.SESSION_SECRET||!env.ADMIN_PASSWORD_SHA256)throw new CommerceError('El acceso todavía no está configurado.',503);
+  const data=await readJson(request);
+  if(!data||typeof data!=='object'||Array.isArray(data)||Object.keys(data).length!==1||!Object.hasOwn(data,'password'))throw new CommerceError('Enviá únicamente la clave de administradora.');
+  const password=(data as {password:unknown}).password;
+  if(typeof password!=='string'||password.length<1||password.length>200)throw new CommerceError('La clave debe tener entre 1 y 200 caracteres.');
+  const result=await checkPassword(request,env,password);
+  if(result==='limited')return json({error:'Demasiados intentos. Esperá cinco minutos.'},429);
+  if(result==='invalid')return json({error:'La clave no es correcta.'},401);
+  return json({token:await issueSession(env.SESSION_SECRET)});
 }
 const escape = (text:string) => text.replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]!));
 function loginPage(returnTo:string,error='') {
@@ -30,25 +67,19 @@ async function login(request:Request,env:Env):Promise<Response> {
   const body=await request.text();
   if(body.length>4096)throw new CommerceError('El envío es demasiado grande.',413);
   const fields=new URLSearchParams(body),returnTo=safeReturn(env.FRONTEND_URL,fields.get('return_to'));
-  const attemptKey=await sha256(request.headers.get('cf-connecting-ip')||'local');
-  const now=Date.now();
-  const attempts=await env.DB.prepare('SELECT failures, started_at FROM login_attempts WHERE id=?').bind(attemptKey).first<{failures:number;started_at:number}>();
-  if(attempts && now-attempts.started_at<300000 && attempts.failures>=5) return loginPage(returnTo,'Demasiados intentos. Esperá cinco minutos.');
-  const digest=await sha256(fields.get('password')||'');
-  if(digest!==env.ADMIN_PASSWORD_SHA256) {
-    await env.DB.prepare('INSERT INTO login_attempts (id,failures,started_at) VALUES (?,1,?) ON CONFLICT(id) DO UPDATE SET failures=CASE WHEN ?-started_at>=300000 THEN 1 ELSE failures+1 END, started_at=CASE WHEN ?-started_at>=300000 THEN ? ELSE started_at END').bind(attemptKey,now,now,now,now).run();
-    return loginPage(returnTo,'La clave no es correcta.');
-  }
-  await env.DB.prepare('DELETE FROM login_attempts WHERE id=?').bind(attemptKey).run();
+  const result=await checkPassword(request,env,fields.get('password')||'');
+  if(result==='limited')return loginPage(returnTo,'Demasiados intentos. Esperá cinco minutos.');
+  if(result==='invalid')return loginPage(returnTo,'La clave no es correcta.');
   const destination=new URL(returnTo);destination.hash=`admin_token=${await issueSession(env.SESSION_SECRET)}`;
   return new Response(null,{status:303,headers:{...privateHeaders,Location:destination.href}});
 }
 async function handle(request:Request,env:Env):Promise<Response> {
   const url=new URL(request.url),path=url.pathname.replace(/\/$/,'');
   if(path==='/admin/login'&&['GET','POST'].includes(request.method))return login(request,env);
+  if(path==='/api/admin/session')return nativeLogin(request,env);
   if(path==='/health')return json({ok:true,service:'burger-house-3-api'});
-  const origin=request.headers.get('origin'),allowed=new URL(env.FRONTEND_URL).origin;
-  if(origin&&origin!==allowed)throw new CommerceError('Origen no permitido.',403);
+  const origin=request.headers.get('origin');
+  if(origin&&!apiOriginAllowed(origin,env))throw new CommerceError('Origen no permitido.',403);
   if(request.method==='OPTIONS')return new Response(null,{status:204});
   const store=new StoreRepository(env.DB,createSeed,storeId);
   if(path==='/api/catalog'&&request.method==='GET')return json(publicCatalog((await store.read()).state));
@@ -76,7 +107,7 @@ export default {
     let response:Response;
     try{response=await handle(request,env);}catch(error){response=error instanceof CommerceError?json({error:error.message},error.status):json({error:'No se pudo completar la operación.'},500);}
     const origin=request.headers.get('origin');
-    if(origin&&origin===new URL(env.FRONTEND_URL).origin){
+    if(origin&&apiOriginAllowed(origin,env)){
       const headers=new Headers(response.headers);
       headers.set('Access-Control-Allow-Origin',origin);headers.set('Vary','Origin');
       headers.set('Access-Control-Allow-Methods','GET, POST, OPTIONS');headers.set('Access-Control-Allow-Headers','Content-Type, Authorization');headers.set('Access-Control-Max-Age','600');

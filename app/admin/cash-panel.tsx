@@ -1,10 +1,12 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from 'react';
 import { ArrowDownLeft, ArrowLeftRight, ArrowUpRight, Banknote, Check, ChevronLeft, ChevronRight, CircleAlert, ClipboardCheck, Download, Eye, FileText, History, Landmark, LockKeyhole, Pencil, Plus, Search, Wallet, X } from 'lucide-react';
 import type { AdminAction, Order, StoreState } from '@/lib/domain';
 import { cashAccountKinds, cashBalance, cashDate, cashKindLabels, cashMoney, type CashAccount, type CashAction, type CashCategory, type CashMovement, type CashObligation, type CashPayment, type CashSession, type CashState } from '@/lib/cash-domain';
 import './cash-panel.css';
+import IonicDialog from '@/components/ionic-dialog';
+import { exportCsv } from '@/lib/export-csv';
 
 type PanelProps = { state: StoreState; busy: boolean; onAction: (action: AdminAction, success: string) => Promise<boolean>; error?: string };
 type Section = 'overview' | 'movements' | 'sessions' | 'obligations' | 'reconciliation' | 'settings' | 'audit';
@@ -40,30 +42,9 @@ function parseCents(value: string, allowZero = false, negative = false) {
   if (!Number.isSafeInteger(amount) || Math.abs(amount) > 100_000_000_000 || (!allowZero && amount === 0)) throw new Error('Revisá el importe: debe ser mayor a cero y estar dentro del límite permitido.');
   return amount;
 }
-function csvDownload(filename: string, rows: (string | number)[][]) {
-  const cell = (value: string | number) => {
-    const safe = typeof value === 'number' ? String(value) : /^[=+\-@\t\r]/.test(value) ? `'${value}` : value;
-    return `"${safe.replaceAll('"', '""')}"`;
-  };
-  const url = URL.createObjectURL(new Blob(['\ufeff' + rows.map(row => row.map(cell).join(';')).join('\r\n')], {type:'text/csv;charset=utf-8'}));
-  const anchor = document.createElement('a'); anchor.href = url; anchor.download = filename; anchor.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-function Modal({title,subtitle,children,onClose,busy = false,wide = false}:{title:string;subtitle?:string;children:ReactNode;onClose:()=>void;busy?:boolean;wide?:boolean}) {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const before = document.activeElement as HTMLElement | null, overflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden'; ref.current?.focus();
-    return () => {document.body.style.overflow = overflow;before?.focus();};
-  }, []);
-  return <div className="adm-overlay cash-overlay" onMouseDown={e => {if(e.target===e.currentTarget&&!busy)onClose();}}><div ref={ref} tabIndex={-1} role="dialog" aria-modal="true" aria-label={title} className={`adm-modal cash-dialog ${wide?'adm-modal-wide':''}`} onKeyDown={e=>{
-    if(e.key==='Escape'&&!busy)onClose();
-    if(e.key!=='Tab')return;
-    const all=ref.current?.querySelectorAll<HTMLElement>('button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),a[href]');
-    if(!all?.length)return; const first=all[0],last=all[all.length-1];
-    if(e.shiftKey&&(document.activeElement===first||document.activeElement===ref.current)){e.preventDefault();last.focus();}
-    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
-  }}><div className="adm-modal-head"><div><h2>{title}</h2>{subtitle&&<p>{subtitle}</p>}</div><button type="button" className="adm-icon" aria-label="Cerrar ventana" disabled={busy} onClick={onClose}><X size={20}/></button></div>{children}</div></div>;
+function csvDownload(filename:string,rows:(string|number)[][]) {void exportCsv(filename,rows);}
+function Modal({title,subtitle,children,onClose,busy=false,wide=false}:{title:string;subtitle?:string;children:ReactNode;onClose:()=>void;busy?:boolean;wide?:boolean}) {
+  return <IonicDialog label={title} onClose={onClose} busy={busy} wide={wide} className={`adm-modal cash-dialog ${wide?'adm-modal-wide':''}`}><div className="adm-modal-head"><div><h2>{title}</h2>{subtitle&&<p>{subtitle}</p>}</div><button type="button" className="adm-icon" aria-label="Cerrar ventana" disabled={busy} onClick={onClose}><X size={20}/></button></div>{children}</IonicDialog>;
 }
 function Empty({text}:{text:string}) {return <div className="cash-empty"><Wallet size={30}/><p>{text}</p></div>;}
 function AccountIcon({kind}:{kind:CashAccount['kind']}) {return kind==='cash'?<Banknote size={21}/>:kind==='bank'?<Landmark size={21}/>:<Wallet size={21}/>;}

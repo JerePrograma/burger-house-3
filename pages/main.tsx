@@ -1,9 +1,14 @@
 import { createRoot } from 'react-dom/client';
-import Store from '../app/page';
-import AdminPage from '../app/admin/page';
-import { acceptAdminSession } from '../lib/client';
+import { setupIonicReact } from '@ionic/react';
+import '@ionic/react/css/core.css';
+import '@ionic/react/css/normalize.css';
+import '@ionic/react/css/structure.css';
+import '@ionic/react/css/typography.css';
 import '../app/globals.css';
+import './ionic-theme.css';
+import { acceptAdminSession } from '../lib/client';
+import App from './app';
 
+setupIonicReact({mode:'md',animated:true});
 acceptAdminSession();
-const admin = /\/admin\/?$/.test(location.pathname);
-createRoot(document.getElementById('root')!).render(admin ? <AdminPage /> : <Store />);
+createRoot(document.getElementById('root')!).render(<App/>);

@@ -1,11 +1,15 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState, type FormEvent, type ReactNode } from 'react';
 import Link from '@/lib/navigation';
 import { apiFetch, assetUrl, pageUrl, adminLoginUrl, clearAdminSession } from '@/lib/client';
 import { ArrowDownLeft, ArrowRight, ArrowUpRight, Check, CheckCircle2, ChefHat, ChevronDown, ChevronRight, ClipboardList, CreditCard, Download, Flame, LayoutDashboard, LoaderCircle, Package, Pencil, Plus, RefreshCw, Search, Settings, ShoppingBag, Truck, Wallet, X } from 'lucide-react';
 import { categories, money, statusLabels, type AdminAction, type Ingredient, type Movement, type Order, type OrderStatus, type Product, type StoreConfig, type StoreState } from '@/lib/domain';
 import './admin.css';
+import IonicDialog from '@/components/ionic-dialog';
+import NativeAdminLogin from './native-login';
+import { isNativeApp } from '@/lib/platform';
+import { exportCsv } from '@/lib/export-csv';
 import CashPanel, { PaymentDialog } from './cash-panel';
 
 type Tab = 'resumen' | 'caja' | 'pedidos' | 'inventario' | 'catalogo' | 'ajustes';
@@ -19,24 +23,10 @@ const uid = (prefix: string) => `${prefix}-${Date.now().toString(36)}-${Math.ran
 const sourceLabel: Record<Order['source'], string> = { web: 'Tienda online', whatsapp: 'WhatsApp', mostrador: 'Mostrador' };
 const imageLibrary = [{"path": "/images/hero-bajonera.webp", "name": "La Bajonera · destacada"}, {"path": "/images/la-bajonera.webp", "name": "La Bajonera"}, {"path": "/images/cheese-burger.webp", "name": "Cheese Burger"}, {"path": "/images/clasica.webp", "name": "Clásica · ilustrativa"}, {"path": "/images/jamon-queso.webp", "name": "JYQ · ilustrativa"}, {"path": "/images/burger-loca.webp", "name": "Burger Loca · ilustrativa"}, {"path": "/images/tata-burga.webp", "name": "Tata Burga · ilustrativa"}, {"path": "/images/bomba-burger.webp", "name": "Bomba Burger · ilustrativa"}, {"path": "/images/chesse-burger-triple.webp", "name": "Chesse Burger Triple"}, {"path": "/images/extra-bacon.webp", "name": "Extra Bacon"}, {"path": "/images/grand-tasty.webp", "name": "Grand Tasty"}, {"path": "/images/onion-crispy.webp", "name": "La Onion Crispy"}, {"path": "/images/bbq.webp", "name": "BBQ"}, {"path": "/images/cuarto-libra.webp", "name": "Cuarto de Libra"}, {"path": "/images/big-bacon.webp", "name": "Big Bacon"}, {"path": "/images/bomba-chesse-house.webp", "name": "Bomba Chesse House"}, {"path": "/images/combo-familiar.webp", "name": "Combo familiar"}, {"path": "/images/combo-infantil.webp", "name": "Combo infantil"}, {"path": "/images/promo-bomba-chesse.webp", "name": "Promo Bomba"}, {"path": "/images/current-papas.webp", "name": "Papas"}, {"path": "/images/current-bandeja-mixta.webp", "name": "Bandeja bajonera"}, {"path": "/images/current-panchos.webp", "name": "Panchos"}, {"path": "/images/current-milanesa-caballo.webp", "name": "Milanesa a caballo"}, {"path": "/images/current-napolitana.webp", "name": "Napolitana"}, {"path": "/images/current-pizza.webp", "name": "Pizza"}, {"path": "/images/current-empanadas.webp", "name": "Empanadas"}, {"path": "/images/current-combo-especial.webp", "name": "Combo especial"}, {"path": "/images/current-combo-pizzas.webp", "name": "Promos pizzas"}, {"path": "/images/current-cajita-4-personas.webp", "name": "Cajita para cuatro"}];
 
-function Modal({ title, subtitle, children, onClose, wide = false }: { title: string; subtitle?: string; children: ReactNode; onClose: () => void; wide?: boolean }) {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const prior = document.activeElement as HTMLElement | null;
-    const priorOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    ref.current?.focus();
-    return () => { document.body.style.overflow = priorOverflow; prior?.focus(); };
-  }, []);
-  return <div className="adm-overlay" onMouseDown={e => { if (e.target === e.currentTarget) onClose(); }}><div ref={ref} tabIndex={-1} role="dialog" aria-modal="true" aria-label={title} className={`adm-modal ${wide ? 'adm-modal-wide' : ''}`} onKeyDown={e => {
-    if (e.key === 'Escape') onClose();
-    if (e.key !== 'Tab') return;
-    const elements = ref.current?.querySelectorAll<HTMLElement>('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled])');
-    if (!elements?.length) return;
-    const first = elements[0], last = elements[elements.length - 1];
-    if (e.shiftKey && (document.activeElement === first || document.activeElement === ref.current)) { e.preventDefault(); last.focus(); }
-    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-  }}><div className="adm-modal-head"><div><h2>{title}</h2>{subtitle && <p>{subtitle}</p>}</div><button className="adm-icon" aria-label="Cerrar" onClick={onClose}><X size={20} /></button></div>{children}</div></div>;
+const AdminDialogContext = createContext({busy:false,error:'',clearError:()=>{}});
+function Modal({title,subtitle,children,onClose,wide=false}:{title:string;subtitle?:string;children:ReactNode;onClose:()=>void;wide?:boolean}) {
+  const status=useContext(AdminDialogContext);
+  return <IonicDialog label={title} onClose={onClose} wide={wide} busy={status.busy} className={`adm-modal ${wide?'adm-modal-wide':''}`}><div className="adm-modal-head"><div><h2>{title}</h2>{subtitle&&<p>{subtitle}</p>}</div><button type="button" className="adm-icon" aria-label="Cerrar" disabled={status.busy} onClick={onClose}><X size={20}/></button></div>{status.error&&<div className="bh3-dialog-error" role="alert"><span>{status.error}</span><button type="button" aria-label="Cerrar error" onClick={status.clearError}><X size={16}/></button></div>}{children}</IonicDialog>;
 }
 
 function Empty({ title, detail }: { title: string; detail: string }) { return <div className="adm-empty"><ShoppingBag size={32} /><h3>{title}</h3><p>{detail}</p></div>; }
@@ -77,11 +67,16 @@ export default function AdminPage() {
   }
   useEffect(() => { const initial = setTimeout(() => { void refresh(); }, 0); return () => clearTimeout(initial); }, []);
   useEffect(() => {
+    const onReturn = () => { if (/\/admin\/?$/.test(location.pathname)) void refresh(); };
+    window.addEventListener('bh3:navigation',onReturn);
+    return () => window.removeEventListener('bh3:navigation',onReturn);
+  }, []);
+  useEffect(() => {
     if (busy || !loaded || unauthorized) return;
     let disposed = false;
     const controller = new AbortController();
     const poll = async () => {
-      if (document.visibilityState !== 'visible') return;
+      if (document.visibilityState !== 'visible' || !/\/admin\/?$/.test(location.pathname)) return;
       try {
         const response = await apiFetch('/api/admin', { cache: 'no-store', signal: controller.signal });
         if (disposed) return;
@@ -130,11 +125,10 @@ export default function AdminPage() {
 
   function exportSales() {
     const rows = [['Pedido', 'Fecha', 'Cliente', 'Origen', 'Entrega', 'Estado', 'Pago verificado', 'Total ARS'], ...orders.map(o => [`BH-${o.number}`, new Date(o.createdAt).toLocaleString('es-AR', { timeZone: 'America/Argentina/Buenos_Aires' }), o.customer.name, sourceLabel[o.source], o.customer.fulfillment, statusLabels[o.status], o.paid ? 'Sí' : 'No', String(o.total)])];
-    const csv = '\uFEFF' + rows.map(row => row.map(cell => { const raw = String(cell); const safe = /^[=+@\-\t\r]/.test(raw) ? `'${raw}` : raw; return `"${safe.replaceAll('"', '""')}"`; }).join(';')).join('\r\n');
-    const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
-    const anchor = document.createElement('a'); anchor.href = url; anchor.download = `burger-house-ventas-${today}.csv`; anchor.click(); URL.revokeObjectURL(url);
+    void exportCsv(`burger-house-ventas-${today}.csv`, rows);
   }
 
+  if (unauthorized && isNativeApp()) return <NativeAdminLogin onSuccess={() => {void refresh();}} />;
   if (unauthorized) return <main className="adm-access"><div className="adm-access-card"><img src={assetUrl('/images/logo.png')} alt="Burger House 3" /><span className="adm-eyebrow">ADMINISTRACIÓN</span><h1>Tu local, bajo control.</h1><p>Ingresá con la cuenta autorizada para gestionar pedidos, catálogo e inventario.</p><a className="adm-btn adm-btn-yellow" href={adminLoginUrl()} target="_top">Ingresar al panel <ArrowRight size={18} /></a><Link className="adm-back" href={pageUrl('/')}>Volver a la tienda</Link></div></main>;
   if (!state) return <main className="adm-access"><div className="adm-access-card">{loading ? <><LoaderCircle className="adm-spin" size={36} /><h1>Abriendo el local…</h1></> : <><h1>No pudimos conectarnos.</h1><p>{error}</p><button className="adm-btn adm-btn-yellow" onClick={refresh}>Reintentar</button><Link className="adm-back" href={pageUrl('/')}>Volver a la tienda</Link></>}</div></main>;
 
@@ -153,7 +147,7 @@ export default function AdminPage() {
     </article>;
   };
 
-  return <main className="adm-app">
+  return <AdminDialogContext.Provider value={{busy,error,clearError:()=>setError('')}}><main className="adm-app">
     <aside className="adm-sidebar"><Link className="adm-brand" href={pageUrl('/')}><img src={assetUrl('/images/logo.png')} alt="Burger House 3" /><span>BURGER HOUSE <b>3</b><small>PANEL DEL LOCAL</small></span></Link><div className="adm-location"><span className="adm-live-dot" /> Marcos Paz <span>DEMO</span></div><nav aria-label="Panel de administración">{tabs.map(t => { const Icon = t.icon; return <button key={t.id} className={tab === t.id ? 'adm-nav-active' : ''} onClick={() => changeTab(t.id)}><Icon size={20} />{t.label}{t.id === 'pedidos' && activeOrders.length > 0 && <b>{activeOrders.length}</b>}</button>; })}</nav><div className="adm-sidebar-foot"><div className="adm-demo-label"><Flame size={18} /> Modo demostración</div><p>Pagos simulados y recetas ilustrativas.</p><a href={pageUrl('/')} target="_blank" rel="noreferrer">Ver la tienda <ArrowUpRight size={16} /></a><div className="adm-user"><span>BH</span><div><strong>Administradora</strong><small>Acceso completo</small></div></div></div></aside>
     <div className="adm-main"><header className="adm-topbar"><div className="adm-mobile-brand"><img src={assetUrl('/images/logo.png')} alt="" /><strong>BURGER HOUSE <b>3</b></strong></div><span className="adm-breadcrumb">Tu negocio / <strong>{tabs.find(t => t.id === tab)?.label}</strong></span><div><button className="adm-text-btn" onClick={()=>{clearAdminSession();location.reload();}}>Cerrar sesión</button><span className={`adm-open-status ${state.config.acceptingOrders ? '' : 'adm-closed'}`}><span />{state.config.acceptingOrders ? 'Tienda abierta' : 'Tienda pausada'}</span><button className="adm-icon" aria-label="Actualizar información" disabled={loading || busy} onClick={refresh}><RefreshCw size={18} className={loading ? 'adm-spin' : ''} /></button></div></header>
       <nav className="adm-mobile-nav" aria-label="Secciones">{tabs.map(t => { const Icon = t.icon; return <button key={t.id} className={tab === t.id ? 'adm-nav-active' : ''} onClick={() => changeTab(t.id)}><Icon size={19} /><span>{t.id === 'caja' ? 'Caja' : t.label === 'Configuración' ? 'Ajustes' : t.label}</span></button>; })}</nav>
@@ -183,7 +177,7 @@ export default function AdminPage() {
     {stockEditor && <StockForm ingredient={stockEditor} busy={busy} onClose={() => setStockEditor(null)} onSave={async (amount, reason, expectedStock) => { if (await act({ type: 'stock', ingredientId: stockEditor.id, amount, reason, expectedStock }, 'Movimiento registrado. Stock actualizado.')) setStockEditor(null); }} />}
     {productEditor && <ProductForm product={productEditor} ingredients={state.ingredients} busy={busy} onClose={() => setProductEditor(null)} onSave={async product => { if (await act({ type: 'product', product }, 'Producto guardado. La tienda ya está actualizada.')) setProductEditor(null); }} />}
     {error && (ingredientEditor || stockEditor || productEditor || cancelOrder || shippingOrder || paymentOrder) && <div className="adm-modal-error" role="alert">{error}<button aria-label="Cerrar error" onClick={() => setError('')}><X size={16} /></button></div>}
-  </main>;
+  </main></AdminDialogContext.Provider>;
 }
 
 function Movements({ movements, ingredients }: { movements: Movement[]; ingredients: Ingredient[] }) {
