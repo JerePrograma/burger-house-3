@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS catalog_editor_settings (
+  id TEXT PRIMARY KEY NOT NULL,
+  value TEXT NOT NULL,
+  locked_until INTEGER NOT NULL DEFAULT 0
+);
+CREATE TABLE IF NOT EXISTS login_attempts (
+  id TEXT PRIMARY KEY NOT NULL,
+  failures INTEGER NOT NULL,
+  started_at INTEGER NOT NULL
+);

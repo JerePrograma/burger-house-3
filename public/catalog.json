@@ -1,0 +1,3668 @@
+{
+  "config": {
+    "name": "Burger House 3",
+    "tagline": "Hechas con amor y pasión",
+    "whatsapp": "5491123344218",
+    "instagram": "burgerhousee3",
+    "deliveryFee": 0,
+    "deliveryZone": "Marcos Paz y Mariano Acosta",
+    "acceptingOrders": true,
+    "deliveryFeeMode": "quote"
+  },
+  "products": [
+    {
+      "id": "cheese-burger",
+      "name": "Cheese Burger",
+      "category": "hamburguesas",
+      "description": "La principal de la casa, con cheddar. Elegí de simple a quíntuple. La composición completa se confirma con el comercio. Incluye papas fritas.",
+      "image": "/images/cheese-burger.webp",
+      "variants": [
+        {
+          "id": "simple",
+          "name": "Simple",
+          "price": 11000,
+          "patties": 1,
+          "available": true
+        },
+        {
+          "id": "doble",
+          "name": "Doble",
+          "price": 14000,
+          "patties": 2,
+          "available": true
+        },
+        {
+          "id": "triple",
+          "name": "Triple",
+          "price": 16000,
+          "patties": 3,
+          "available": true
+        },
+        {
+          "id": "cuadruple",
+          "name": "Cuádruple",
+          "price": 18000,
+          "patties": 4,
+          "available": true
+        },
+        {
+          "id": "quintuple",
+          "name": "Quíntuple",
+          "price": 20000,
+          "patties": 5,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-hamburguesa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "medallon",
+        "cheddar",
+        "bacon",
+        "lechuga",
+        "tomate",
+        "huevo",
+        "jamon",
+        "tybo",
+        "cebolla-caramelizada",
+        "cebolla-crispy",
+        "cebolla-picada",
+        "salsa-casa",
+        "salsa-burger",
+        "salsa-tasty",
+        "salsa-bbq",
+        "ketchup",
+        "mostaza",
+        "aro-cebolla"
+      ],
+      "active": true,
+      "available": true,
+      "featured": true,
+      "badge": "Hasta quíntuple"
+    },
+    {
+      "id": "clasica",
+      "name": "Clásica",
+      "category": "hamburguesas",
+      "description": "Pan, blend de carne, tomate y lechuga. Incluye papas fritas.",
+      "image": "/images/clasica.webp",
+      "variants": [
+        {
+          "id": "simple",
+          "name": "Simple",
+          "price": 10000,
+          "patties": 1,
+          "available": true
+        },
+        {
+          "id": "doble",
+          "name": "Doble",
+          "price": 11000,
+          "patties": 2,
+          "available": true
+        },
+        {
+          "id": "triple",
+          "name": "Triple",
+          "price": 13500,
+          "patties": 3,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-hamburguesa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        },
+        {
+          "ingredientId": "tomate",
+          "amount": 30,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "lechuga",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "medallon",
+        "cheddar",
+        "bacon",
+        "lechuga",
+        "tomate",
+        "huevo",
+        "jamon",
+        "tybo",
+        "cebolla-caramelizada",
+        "cebolla-crispy",
+        "cebolla-picada",
+        "salsa-casa",
+        "salsa-burger",
+        "salsa-tasty",
+        "salsa-bbq",
+        "ketchup",
+        "mostaza",
+        "aro-cebolla"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "jamon-queso",
+      "name": "JYQ",
+      "category": "hamburguesas",
+      "description": "Pan, blend de carne, jamón y queso. El folleto no especifica el tipo de queso. Incluye papas fritas.",
+      "image": "/images/jamon-queso.webp",
+      "variants": [
+        {
+          "id": "simple",
+          "name": "Simple",
+          "price": 11000,
+          "patties": 1,
+          "available": true
+        },
+        {
+          "id": "doble",
+          "name": "Doble",
+          "price": 14000,
+          "patties": 2,
+          "available": true
+        },
+        {
+          "id": "triple",
+          "name": "Triple",
+          "price": 16000,
+          "patties": 3,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-hamburguesa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        },
+        {
+          "ingredientId": "jamon",
+          "amount": 25,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "queso-jyq",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "medallon",
+        "cheddar",
+        "bacon",
+        "lechuga",
+        "tomate",
+        "huevo",
+        "jamon",
+        "tybo",
+        "cebolla-caramelizada",
+        "cebolla-crispy",
+        "cebolla-picada",
+        "salsa-casa",
+        "salsa-burger",
+        "salsa-tasty",
+        "salsa-bbq",
+        "ketchup",
+        "mostaza",
+        "aro-cebolla"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "burger-loca",
+      "name": "Burger Loca",
+      "category": "hamburguesas",
+      "description": "Pan, blend de carne, cheddar, bacon, salsa de la casa, lechuga y tomate. Incluye papas fritas.",
+      "image": "/images/burger-loca.webp",
+      "variants": [
+        {
+          "id": "simple",
+          "name": "Simple",
+          "price": 11000,
+          "patties": 1,
+          "available": true
+        },
+        {
+          "id": "doble",
+          "name": "Doble",
+          "price": 16000,
+          "patties": 2,
+          "available": true
+        },
+        {
+          "id": "triple",
+          "name": "Triple",
+          "price": 18000,
+          "patties": 3,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-hamburguesa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "bacon",
+          "amount": 20,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "salsa-casa",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "lechuga",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "tomate",
+          "amount": 30,
+          "scalesWithPatties": true,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "medallon",
+        "cheddar",
+        "bacon",
+        "lechuga",
+        "tomate",
+        "huevo",
+        "jamon",
+        "tybo",
+        "cebolla-caramelizada",
+        "cebolla-crispy",
+        "cebolla-picada",
+        "salsa-casa",
+        "salsa-burger",
+        "salsa-tasty",
+        "salsa-bbq",
+        "ketchup",
+        "mostaza",
+        "aro-cebolla"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "tata-burga",
+      "name": "Tata Burga",
+      "category": "hamburguesas",
+      "description": "Pan, blend de carne, cheddar, bacon, salsa de la casa, cebolla crispy y jamón. Incluye papas fritas.",
+      "image": "/images/tata-burga.webp",
+      "variants": [
+        {
+          "id": "simple",
+          "name": "Simple",
+          "price": 11000,
+          "patties": 1,
+          "available": true
+        },
+        {
+          "id": "doble",
+          "name": "Doble",
+          "price": 15000,
+          "patties": 2,
+          "available": true
+        },
+        {
+          "id": "triple",
+          "name": "Triple",
+          "price": 16000,
+          "patties": 3,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-hamburguesa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "bacon",
+          "amount": 20,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "salsa-casa",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "cebolla-crispy",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "jamon",
+          "amount": 25,
+          "scalesWithPatties": true,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "medallon",
+        "cheddar",
+        "bacon",
+        "lechuga",
+        "tomate",
+        "huevo",
+        "jamon",
+        "tybo",
+        "cebolla-caramelizada",
+        "cebolla-crispy",
+        "cebolla-picada",
+        "salsa-casa",
+        "salsa-burger",
+        "salsa-tasty",
+        "salsa-bbq",
+        "ketchup",
+        "mostaza",
+        "aro-cebolla"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "bomba-burger",
+      "name": "Bomba Burger",
+      "category": "hamburguesas",
+      "description": "Pan, blend de carne, cheddar, bacon, cebolla caramelizada, huevo, salsa de la casa, tomate y lechuga. Incluye papas fritas.",
+      "image": "/images/bomba-burger.webp",
+      "variants": [
+        {
+          "id": "simple",
+          "name": "Simple",
+          "price": 11000,
+          "patties": 1,
+          "available": true
+        },
+        {
+          "id": "doble",
+          "name": "Doble",
+          "price": 15000,
+          "patties": 2,
+          "available": true
+        },
+        {
+          "id": "triple",
+          "name": "Triple",
+          "price": 16000,
+          "patties": 3,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-hamburguesa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "bacon",
+          "amount": 20,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "cebolla-caramelizada",
+          "amount": 20,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "huevo",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "salsa-casa",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "tomate",
+          "amount": 30,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "lechuga",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "medallon",
+        "cheddar",
+        "bacon",
+        "lechuga",
+        "tomate",
+        "huevo",
+        "jamon",
+        "tybo",
+        "cebolla-caramelizada",
+        "cebolla-crispy",
+        "cebolla-picada",
+        "salsa-casa",
+        "salsa-burger",
+        "salsa-tasty",
+        "salsa-bbq",
+        "ketchup",
+        "mostaza",
+        "aro-cebolla"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "chesse-burger-triple",
+      "name": "Chesse Burger Triple",
+      "category": "hamburguesas",
+      "description": "Pan de papa, blend de carne, cheddar, ketchup y cebollita picada. El menú ofrece simple, doble y triple. Incluye papas fritas.",
+      "image": "/images/chesse-burger-triple.webp",
+      "variants": [
+        {
+          "id": "simple",
+          "name": "Simple",
+          "price": 11000,
+          "patties": 1,
+          "available": true
+        },
+        {
+          "id": "doble",
+          "name": "Doble",
+          "price": 14000,
+          "patties": 2,
+          "available": true
+        },
+        {
+          "id": "triple",
+          "name": "Triple",
+          "price": 16000,
+          "patties": 3,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-papa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "ketchup",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "cebolla-picada",
+          "amount": 25,
+          "scalesWithPatties": true,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "medallon",
+        "cheddar",
+        "bacon",
+        "lechuga",
+        "tomate",
+        "huevo",
+        "jamon",
+        "tybo",
+        "cebolla-caramelizada",
+        "cebolla-crispy",
+        "cebolla-picada",
+        "salsa-casa",
+        "salsa-burger",
+        "salsa-tasty",
+        "salsa-bbq",
+        "ketchup",
+        "mostaza",
+        "aro-cebolla"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "extra-bacon",
+      "name": "Extra Bacon",
+      "category": "hamburguesas",
+      "description": "Pan de papa, blend de carne, cheddar, salsa de la burger y extra bacon. Incluye papas fritas.",
+      "image": "/images/extra-bacon.webp",
+      "variants": [
+        {
+          "id": "simple",
+          "name": "Simple",
+          "price": 11000,
+          "patties": 1,
+          "available": true
+        },
+        {
+          "id": "doble",
+          "name": "Doble",
+          "price": 14000,
+          "patties": 2,
+          "available": true
+        },
+        {
+          "id": "triple",
+          "name": "Triple",
+          "price": 16000,
+          "patties": 3,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-papa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "salsa-burger",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "bacon",
+          "amount": 40,
+          "scalesWithPatties": true,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "medallon",
+        "cheddar",
+        "bacon",
+        "lechuga",
+        "tomate",
+        "huevo",
+        "jamon",
+        "tybo",
+        "cebolla-caramelizada",
+        "cebolla-crispy",
+        "cebolla-picada",
+        "salsa-casa",
+        "salsa-burger",
+        "salsa-tasty",
+        "salsa-bbq",
+        "ketchup",
+        "mostaza",
+        "aro-cebolla"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "grand-tasty",
+      "name": "Grand Tasty",
+      "category": "hamburguesas",
+      "description": "Pan de papa, blend de carne, doble cheddar, salsa Tasty, bacon, tomate y lechuga. Incluye papas fritas.",
+      "image": "/images/grand-tasty.webp",
+      "variants": [
+        {
+          "id": "simple",
+          "name": "Simple",
+          "price": 11000,
+          "patties": 1,
+          "available": true
+        },
+        {
+          "id": "doble",
+          "name": "Doble",
+          "price": 14000,
+          "patties": 2,
+          "available": true
+        },
+        {
+          "id": "triple",
+          "name": "Triple",
+          "price": 16000,
+          "patties": 3,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-papa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar",
+          "amount": 2,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "salsa-tasty",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "bacon",
+          "amount": 20,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "tomate",
+          "amount": 30,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "lechuga",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "medallon",
+        "cheddar",
+        "bacon",
+        "lechuga",
+        "tomate",
+        "huevo",
+        "jamon",
+        "tybo",
+        "cebolla-caramelizada",
+        "cebolla-crispy",
+        "cebolla-picada",
+        "salsa-casa",
+        "salsa-burger",
+        "salsa-tasty",
+        "salsa-bbq",
+        "ketchup",
+        "mostaza",
+        "aro-cebolla"
+      ],
+      "active": true,
+      "available": true,
+      "featured": true,
+      "badge": "Especial de la casa"
+    },
+    {
+      "id": "onion-crispy",
+      "name": "La Onion Crispy",
+      "category": "hamburguesas",
+      "description": "Pan de papa, blend de carne, doble cheddar, bacon, salsa de la casa y cebolla crispy. Incluye papas fritas.",
+      "image": "/images/onion-crispy.webp",
+      "variants": [
+        {
+          "id": "simple",
+          "name": "Simple",
+          "price": 11000,
+          "patties": 1,
+          "available": true
+        },
+        {
+          "id": "doble",
+          "name": "Doble",
+          "price": 14000,
+          "patties": 2,
+          "available": true
+        },
+        {
+          "id": "triple",
+          "name": "Triple",
+          "price": 16000,
+          "patties": 3,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-papa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar",
+          "amount": 2,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "bacon",
+          "amount": 20,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "salsa-casa",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "cebolla-crispy",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "medallon",
+        "cheddar",
+        "bacon",
+        "lechuga",
+        "tomate",
+        "huevo",
+        "jamon",
+        "tybo",
+        "cebolla-caramelizada",
+        "cebolla-crispy",
+        "cebolla-picada",
+        "salsa-casa",
+        "salsa-burger",
+        "salsa-tasty",
+        "salsa-bbq",
+        "ketchup",
+        "mostaza",
+        "aro-cebolla"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "bbq",
+      "name": "BBQ",
+      "category": "hamburguesas",
+      "description": "Pan de papa, blend de carne, cheddar, bacon, cebolla caramelizada, huevo y salsa barbacoa. Incluye papas fritas.",
+      "image": "/images/bbq.webp",
+      "variants": [
+        {
+          "id": "simple",
+          "name": "Simple",
+          "price": 11000,
+          "patties": 1,
+          "available": true
+        },
+        {
+          "id": "doble",
+          "name": "Doble",
+          "price": 14000,
+          "patties": 2,
+          "available": true
+        },
+        {
+          "id": "triple",
+          "name": "Triple",
+          "price": 16000,
+          "patties": 3,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-papa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "bacon",
+          "amount": 20,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "cebolla-caramelizada",
+          "amount": 20,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "huevo",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "salsa-bbq",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "medallon",
+        "cheddar",
+        "bacon",
+        "lechuga",
+        "tomate",
+        "huevo",
+        "jamon",
+        "tybo",
+        "cebolla-caramelizada",
+        "cebolla-crispy",
+        "cebolla-picada",
+        "salsa-casa",
+        "salsa-burger",
+        "salsa-tasty",
+        "salsa-bbq",
+        "ketchup",
+        "mostaza",
+        "aro-cebolla"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "cuarto-libra",
+      "name": "Cuarto de Libra",
+      "category": "hamburguesas",
+      "description": "Pan de papa, blend de carne, doble cheddar, salsa Libra, cebollita picada, ketchup y mostaza. Incluye papas fritas.",
+      "image": "/images/cuarto-libra.webp",
+      "variants": [
+        {
+          "id": "simple",
+          "name": "Simple",
+          "price": 11000,
+          "patties": 1,
+          "available": true
+        },
+        {
+          "id": "doble",
+          "name": "Doble",
+          "price": 14000,
+          "patties": 2,
+          "available": true
+        },
+        {
+          "id": "triple",
+          "name": "Triple",
+          "price": 16000,
+          "patties": 3,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-papa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar",
+          "amount": 2,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "salsa-libra",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "cebolla-picada",
+          "amount": 25,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "ketchup",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "mostaza",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "medallon",
+        "cheddar",
+        "bacon",
+        "lechuga",
+        "tomate",
+        "huevo",
+        "jamon",
+        "tybo",
+        "cebolla-caramelizada",
+        "cebolla-crispy",
+        "cebolla-picada",
+        "salsa-casa",
+        "salsa-burger",
+        "salsa-tasty",
+        "salsa-bbq",
+        "ketchup",
+        "mostaza",
+        "aro-cebolla"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "big-bacon",
+      "name": "Big Bacon",
+      "category": "hamburguesas",
+      "description": "Pan de papa, blend de carne, cheddar, bacon y salsa de la casa. Incluye papas fritas.",
+      "image": "/images/big-bacon.webp",
+      "variants": [
+        {
+          "id": "simple",
+          "name": "Simple",
+          "price": 11000,
+          "patties": 1,
+          "available": true
+        },
+        {
+          "id": "doble",
+          "name": "Doble",
+          "price": 14000,
+          "patties": 2,
+          "available": true
+        },
+        {
+          "id": "triple",
+          "name": "Triple",
+          "price": 16000,
+          "patties": 3,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-papa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "bacon",
+          "amount": 20,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "salsa-casa",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "medallon",
+        "cheddar",
+        "bacon",
+        "lechuga",
+        "tomate",
+        "huevo",
+        "jamon",
+        "tybo",
+        "cebolla-caramelizada",
+        "cebolla-crispy",
+        "cebolla-picada",
+        "salsa-casa",
+        "salsa-burger",
+        "salsa-tasty",
+        "salsa-bbq",
+        "ketchup",
+        "mostaza",
+        "aro-cebolla"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "bomba-chesse-house",
+      "name": "Bomba Chesse House",
+      "category": "hamburguesas",
+      "description": "Pan de papa, blend de carne, cheddar y bacon. Incluye papas fritas.",
+      "image": "/images/bomba-chesse-house.webp",
+      "variants": [
+        {
+          "id": "doble",
+          "name": "Doble",
+          "price": 16000,
+          "patties": 2,
+          "available": true
+        },
+        {
+          "id": "triple",
+          "name": "Triple",
+          "price": 17500,
+          "patties": 3,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-papa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "bacon",
+          "amount": 20,
+          "scalesWithPatties": true,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "medallon",
+        "cheddar",
+        "bacon",
+        "lechuga",
+        "tomate",
+        "huevo",
+        "jamon",
+        "tybo",
+        "cebolla-caramelizada",
+        "cebolla-crispy",
+        "cebolla-picada",
+        "salsa-casa",
+        "salsa-burger",
+        "salsa-tasty",
+        "salsa-bbq",
+        "ketchup",
+        "mostaza",
+        "aro-cebolla"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "la-bajonera",
+      "name": "La Bajonera",
+      "category": "hamburguesas",
+      "description": "Pan de papa, blend de carne, cheddar, bacon, aros de cebolla y salsita barbacoa. Únicamente triple. Incluye papas fritas.",
+      "image": "/images/la-bajonera.webp",
+      "variants": [
+        {
+          "id": "triple",
+          "name": "Triple",
+          "price": 17500,
+          "patties": 3,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-papa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "bacon",
+          "amount": 20,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "aro-cebolla",
+          "amount": 1,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "salsa-bbq",
+          "amount": 15,
+          "scalesWithPatties": true,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "medallon",
+        "cheddar",
+        "bacon",
+        "lechuga",
+        "tomate",
+        "huevo",
+        "jamon",
+        "tybo",
+        "cebolla-caramelizada",
+        "cebolla-crispy",
+        "cebolla-picada",
+        "salsa-casa",
+        "salsa-burger",
+        "salsa-tasty",
+        "salsa-bbq",
+        "ketchup",
+        "mostaza",
+        "aro-cebolla"
+      ],
+      "active": true,
+      "available": true,
+      "featured": true,
+      "badge": "La nueva de la casa"
+    },
+    {
+      "id": "combo-familiar",
+      "name": "Combo familiar",
+      "category": "combos",
+      "description": "5 hamburguesas simples, dobles o triples, con cheddar o Tybo y bacon. Incluye papas según la indicación general del menú.",
+      "image": "/images/combo-familiar.webp",
+      "variants": [
+        {
+          "id": "simple-cheddar",
+          "name": "5 simples · Cheddar",
+          "price": 50000,
+          "patties": 1,
+          "available": true,
+          "recipe": [
+            {
+              "ingredientId": "pan-hamburguesa",
+              "amount": 5,
+              "removable": false
+            },
+            {
+              "ingredientId": "medallon",
+              "amount": 5,
+              "scalesWithPatties": true,
+              "removable": false
+            },
+            {
+              "ingredientId": "cheddar",
+              "amount": 5,
+              "scalesWithPatties": true,
+              "removable": true
+            },
+            {
+              "ingredientId": "bacon",
+              "amount": 100,
+              "scalesWithPatties": true,
+              "removable": true
+            },
+            {
+              "ingredientId": "papas",
+              "amount": 750,
+              "removable": false
+            }
+          ]
+        },
+        {
+          "id": "simple-tybo",
+          "name": "5 simples · Tybo",
+          "price": 50000,
+          "patties": 1,
+          "available": true,
+          "recipe": [
+            {
+              "ingredientId": "pan-hamburguesa",
+              "amount": 5,
+              "removable": false
+            },
+            {
+              "ingredientId": "medallon",
+              "amount": 5,
+              "scalesWithPatties": true,
+              "removable": false
+            },
+            {
+              "ingredientId": "tybo",
+              "amount": 5,
+              "scalesWithPatties": true,
+              "removable": true
+            },
+            {
+              "ingredientId": "bacon",
+              "amount": 100,
+              "scalesWithPatties": true,
+              "removable": true
+            },
+            {
+              "ingredientId": "papas",
+              "amount": 750,
+              "removable": false
+            }
+          ]
+        },
+        {
+          "id": "doble-cheddar",
+          "name": "5 dobles · Cheddar",
+          "price": 64000,
+          "patties": 2,
+          "available": true,
+          "recipe": [
+            {
+              "ingredientId": "pan-hamburguesa",
+              "amount": 5,
+              "removable": false
+            },
+            {
+              "ingredientId": "medallon",
+              "amount": 5,
+              "scalesWithPatties": true,
+              "removable": false
+            },
+            {
+              "ingredientId": "cheddar",
+              "amount": 5,
+              "scalesWithPatties": true,
+              "removable": true
+            },
+            {
+              "ingredientId": "bacon",
+              "amount": 100,
+              "scalesWithPatties": true,
+              "removable": true
+            },
+            {
+              "ingredientId": "papas",
+              "amount": 750,
+              "removable": false
+            }
+          ]
+        },
+        {
+          "id": "doble-tybo",
+          "name": "5 dobles · Tybo",
+          "price": 64000,
+          "patties": 2,
+          "available": true,
+          "recipe": [
+            {
+              "ingredientId": "pan-hamburguesa",
+              "amount": 5,
+              "removable": false
+            },
+            {
+              "ingredientId": "medallon",
+              "amount": 5,
+              "scalesWithPatties": true,
+              "removable": false
+            },
+            {
+              "ingredientId": "tybo",
+              "amount": 5,
+              "scalesWithPatties": true,
+              "removable": true
+            },
+            {
+              "ingredientId": "bacon",
+              "amount": 100,
+              "scalesWithPatties": true,
+              "removable": true
+            },
+            {
+              "ingredientId": "papas",
+              "amount": 750,
+              "removable": false
+            }
+          ]
+        },
+        {
+          "id": "triple-cheddar",
+          "name": "5 triples · Cheddar",
+          "price": 74000,
+          "patties": 3,
+          "available": true,
+          "recipe": [
+            {
+              "ingredientId": "pan-hamburguesa",
+              "amount": 5,
+              "removable": false
+            },
+            {
+              "ingredientId": "medallon",
+              "amount": 5,
+              "scalesWithPatties": true,
+              "removable": false
+            },
+            {
+              "ingredientId": "cheddar",
+              "amount": 5,
+              "scalesWithPatties": true,
+              "removable": true
+            },
+            {
+              "ingredientId": "bacon",
+              "amount": 100,
+              "scalesWithPatties": true,
+              "removable": true
+            },
+            {
+              "ingredientId": "papas",
+              "amount": 750,
+              "removable": false
+            }
+          ]
+        },
+        {
+          "id": "triple-tybo",
+          "name": "5 triples · Tybo",
+          "price": 74000,
+          "patties": 3,
+          "available": true,
+          "recipe": [
+            {
+              "ingredientId": "pan-hamburguesa",
+              "amount": 5,
+              "removable": false
+            },
+            {
+              "ingredientId": "medallon",
+              "amount": 5,
+              "scalesWithPatties": true,
+              "removable": false
+            },
+            {
+              "ingredientId": "tybo",
+              "amount": 5,
+              "scalesWithPatties": true,
+              "removable": true
+            },
+            {
+              "ingredientId": "bacon",
+              "amount": 100,
+              "scalesWithPatties": true,
+              "removable": true
+            },
+            {
+              "ingredientId": "papas",
+              "amount": 750,
+              "removable": false
+            }
+          ]
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-hamburguesa",
+          "amount": 5,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 5,
+          "scalesWithPatties": true,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar",
+          "amount": 5,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "bacon",
+          "amount": 100,
+          "scalesWithPatties": true,
+          "removable": true
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 750,
+          "removable": false
+        }
+      ],
+      "extras": [
+        "cheddar",
+        "bacon",
+        "huevo"
+      ],
+      "active": true,
+      "available": true,
+      "featured": true,
+      "badge": "5 hamburguesas"
+    },
+    {
+      "id": "combo-infantil",
+      "name": "Combo infantil",
+      "category": "combos",
+      "description": "Hamburguesa simple con cheddar, 4 nuggets y papas fritas.",
+      "image": "/images/combo-infantil.webp",
+      "variants": [
+        {
+          "id": "infantil",
+          "name": "Combo infantil",
+          "price": 10000,
+          "patties": 1,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-hamburguesa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar",
+          "amount": 1,
+          "removable": true
+        },
+        {
+          "ingredientId": "nugget",
+          "amount": 4,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        }
+      ],
+      "extras": [
+        "cheddar",
+        "bacon",
+        "huevo"
+      ],
+      "active": true,
+      "available": true,
+      "badge": "Para los más chicos"
+    },
+    {
+      "id": "promo-bomba-chesse",
+      "name": "Promo Bomba Chesse House · 2 por $29.000",
+      "category": "combos",
+      "description": "Promoción publicada de 2 Bomba Chesse House por $29.000. El folleto no indica el tamaño.",
+      "image": "/images/promo-bomba-chesse.webp",
+      "variants": [
+        {
+          "id": "promo-dos",
+          "name": "2 hamburguesas · tamaño a confirmar",
+          "price": 29000,
+          "patties": 0,
+          "available": false
+        }
+      ],
+      "recipe": [],
+      "extras": [],
+      "active": true,
+      "available": false,
+      "badge": "2 por $29.000",
+      "unresolved": "Falta confirmar si la promoción incluye hamburguesas dobles o triples. Precio publicado: 2 por $29.000. Consultá antes de pedir."
+    },
+    {
+      "id": "papas-medianas",
+      "name": "Papas medianas",
+      "category": "papas",
+      "description": "Bandeja mediana simple o completa con cheddar, bacon y cebollita de verdeo.",
+      "image": "/images/current-papas.webp",
+      "variants": [
+        {
+          "id": "simple",
+          "name": "Simple",
+          "price": 8000,
+          "patties": 0,
+          "available": true
+        },
+        {
+          "id": "completa",
+          "name": "Completa",
+          "price": 9000,
+          "patties": 0,
+          "available": true,
+          "recipe": [
+            {
+              "ingredientId": "papas",
+              "amount": 300,
+              "removable": false
+            },
+            {
+              "ingredientId": "cheddar-salsa",
+              "amount": 50,
+              "removable": true
+            },
+            {
+              "ingredientId": "bacon",
+              "amount": 30,
+              "removable": true
+            },
+            {
+              "ingredientId": "verdeo",
+              "amount": 10,
+              "removable": true
+            }
+          ]
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "papas",
+          "amount": 300,
+          "removable": false
+        }
+      ],
+      "extras": [
+        "cheddar-salsa",
+        "bacon",
+        "verdeo",
+        "huevo"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "papas-grandes",
+      "name": "Papas grandes",
+      "category": "papas",
+      "description": "Bandeja grande simple o completa con cheddar, bacon y cebollita de verdeo.",
+      "image": "/images/current-papas.webp",
+      "variants": [
+        {
+          "id": "simple",
+          "name": "Simple",
+          "price": 10000,
+          "patties": 0,
+          "available": true
+        },
+        {
+          "id": "completa",
+          "name": "Completa",
+          "price": 11000,
+          "patties": 0,
+          "available": true,
+          "recipe": [
+            {
+              "ingredientId": "papas",
+              "amount": 500,
+              "removable": false
+            },
+            {
+              "ingredientId": "cheddar-salsa",
+              "amount": 50,
+              "removable": true
+            },
+            {
+              "ingredientId": "bacon",
+              "amount": 30,
+              "removable": true
+            },
+            {
+              "ingredientId": "verdeo",
+              "amount": 10,
+              "removable": true
+            }
+          ]
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "papas",
+          "amount": 500,
+          "removable": false
+        }
+      ],
+      "extras": [
+        "cheddar-salsa",
+        "bacon",
+        "verdeo",
+        "huevo"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "papas-individuales",
+      "name": "Papas individuales",
+      "category": "papas",
+      "description": "Bolsita individual de papas fritas.",
+      "image": "/images/current-papas-individuales.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "Porción",
+          "price": 4000,
+          "patties": 0,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        }
+      ],
+      "extras": [
+        "cheddar-salsa",
+        "bacon",
+        "verdeo",
+        "huevo"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "nuggets",
+      "name": "Nuggets",
+      "category": "papas",
+      "description": "Porción de 10 unidades.",
+      "image": "/images/current-nuggets.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "10 unidades",
+          "price": 8000,
+          "patties": 0,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "nugget",
+          "amount": 10,
+          "removable": false
+        }
+      ],
+      "extras": [],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "bastoncitos",
+      "name": "Bastoncitos de muzzarella",
+      "category": "papas",
+      "description": "Porción de 10 unidades.",
+      "image": "/images/current-bastoncitos.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "10 unidades",
+          "price": 10000,
+          "patties": 0,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "baston-muzzarella",
+          "amount": 10,
+          "removable": false
+        }
+      ],
+      "extras": [],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "dips",
+      "name": "Dips",
+      "category": "papas",
+      "description": "Cheddar, ketchup o barbacoa, a elección. $1.200 cada uno.",
+      "image": "/images/current-dips.webp",
+      "variants": [
+        {
+          "id": "cheddar",
+          "name": "Cheddar",
+          "price": 1200,
+          "patties": 0,
+          "available": true,
+          "recipe": [
+            {
+              "ingredientId": "cheddar-salsa",
+              "amount": 40,
+              "removable": false
+            }
+          ]
+        },
+        {
+          "id": "ketchup",
+          "name": "Ketchup",
+          "price": 1200,
+          "patties": 0,
+          "available": true,
+          "recipe": [
+            {
+              "ingredientId": "ketchup",
+              "amount": 40,
+              "removable": false
+            }
+          ]
+        },
+        {
+          "id": "barbacoa",
+          "name": "Barbacoa",
+          "price": 1200,
+          "patties": 0,
+          "available": true,
+          "recipe": [
+            {
+              "ingredientId": "salsa-bbq",
+              "amount": 40,
+              "removable": false
+            }
+          ]
+        }
+      ],
+      "recipe": [],
+      "extras": [],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "bandeja-bajonera",
+      "name": "Bandeja grande bajonera",
+      "category": "papas",
+      "description": "5 nuggets, 5 bastoncitos de muzzarella y 300 g de papas fritas con cheddar, panceta, verdeo y un huevo.",
+      "image": "/images/current-bandeja-mixta.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "Porción",
+          "price": 17000,
+          "patties": 0,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "nugget",
+          "amount": 5,
+          "removable": false
+        },
+        {
+          "ingredientId": "baston-muzzarella",
+          "amount": 5,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 300,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar-salsa",
+          "amount": 50,
+          "removable": true
+        },
+        {
+          "ingredientId": "bacon",
+          "amount": 30,
+          "removable": true
+        },
+        {
+          "ingredientId": "verdeo",
+          "amount": 10,
+          "removable": true
+        },
+        {
+          "ingredientId": "huevo",
+          "amount": 1,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "cheddar-salsa",
+        "bacon",
+        "verdeo",
+        "huevo"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "pancho-doble",
+      "name": "Pancho doble",
+      "category": "panchos",
+      "description": "Elegí aderezo y papas, jamón y queso con aderezo y papas, o cheddar y bacon.",
+      "image": "/images/current-panchos.webp",
+      "variants": [
+        {
+          "id": "aderezo-papas",
+          "name": "Aderezo + papas",
+          "price": 4000,
+          "patties": 0,
+          "available": true
+        },
+        {
+          "id": "jamon-queso",
+          "name": "Jamón + queso + aderezo + papas",
+          "price": 5000,
+          "patties": 0,
+          "available": true,
+          "recipe": [
+            {
+              "ingredientId": "pan-pancho",
+              "amount": 1,
+              "removable": false
+            },
+            {
+              "ingredientId": "salchicha",
+              "amount": 2,
+              "removable": false
+            },
+            {
+              "ingredientId": "jamon",
+              "amount": 25,
+              "removable": true
+            },
+            {
+              "ingredientId": "queso-jyq",
+              "amount": 1,
+              "removable": true
+            },
+            {
+              "ingredientId": "aderezo",
+              "amount": 15,
+              "removable": true
+            },
+            {
+              "ingredientId": "papas",
+              "amount": 150,
+              "removable": false
+            }
+          ]
+        },
+        {
+          "id": "cheddar-bacon",
+          "name": "Cheddar + bacon",
+          "price": 5500,
+          "patties": 0,
+          "available": true,
+          "recipe": [
+            {
+              "ingredientId": "pan-pancho",
+              "amount": 1,
+              "removable": false
+            },
+            {
+              "ingredientId": "salchicha",
+              "amount": 2,
+              "removable": false
+            },
+            {
+              "ingredientId": "cheddar-salsa",
+              "amount": 40,
+              "removable": true
+            },
+            {
+              "ingredientId": "bacon",
+              "amount": 20,
+              "removable": true
+            }
+          ]
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-pancho",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "salchicha",
+          "amount": 2,
+          "removable": false
+        },
+        {
+          "ingredientId": "aderezo",
+          "amount": 15,
+          "removable": true
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        }
+      ],
+      "extras": [
+        "cheddar-salsa",
+        "bacon",
+        "jamon",
+        "queso-jyq",
+        "aderezo"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "super-pancho",
+      "name": "Súper pancho",
+      "category": "panchos",
+      "description": "Elegí aderezo y papas, o cheddar y bacon.",
+      "image": "/images/current-panchos.webp",
+      "variants": [
+        {
+          "id": "aderezo-papas",
+          "name": "Aderezo + papas",
+          "price": 2000,
+          "patties": 0,
+          "available": true
+        },
+        {
+          "id": "cheddar-bacon",
+          "name": "Cheddar + bacon",
+          "price": 3500,
+          "patties": 0,
+          "available": true,
+          "recipe": [
+            {
+              "ingredientId": "pan-pancho",
+              "amount": 1,
+              "removable": false
+            },
+            {
+              "ingredientId": "salchicha",
+              "amount": 1,
+              "removable": false
+            },
+            {
+              "ingredientId": "cheddar-salsa",
+              "amount": 40,
+              "removable": true
+            },
+            {
+              "ingredientId": "bacon",
+              "amount": 20,
+              "removable": true
+            }
+          ]
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pan-pancho",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "salchicha",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "aderezo",
+          "amount": 15,
+          "removable": true
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": false
+        }
+      ],
+      "extras": [
+        "cheddar-salsa",
+        "bacon",
+        "jamon",
+        "queso-jyq",
+        "aderezo"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "milanesa-caballo",
+      "name": "Milanesa a caballo completa",
+      "category": "milanesas",
+      "description": "Incluye huevo y papas fritas. Elegí para una, dos o tres personas.",
+      "image": "/images/current-milanesa-caballo.webp",
+      "variants": [
+        {
+          "id": "una-persona",
+          "name": "Para una persona",
+          "price": 15000,
+          "patties": 0,
+          "available": true,
+          "recipeMultiplier": 1
+        },
+        {
+          "id": "dos-personas",
+          "name": "Para dos personas",
+          "price": 23000,
+          "patties": 0,
+          "available": true,
+          "recipeMultiplier": 2
+        },
+        {
+          "id": "tres-personas",
+          "name": "Para tres personas",
+          "price": 27000,
+          "patties": 0,
+          "available": true,
+          "recipeMultiplier": 3
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "milanesa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "huevo",
+          "amount": 1,
+          "removable": true
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 200,
+          "removable": false
+        }
+      ],
+      "extras": [
+        "cheddar",
+        "queso-jyq",
+        "bacon",
+        "jamon",
+        "huevo",
+        "lechuga",
+        "tomate",
+        "cebolla-caramelizada"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "napolitana",
+      "name": "Napolitana completa",
+      "category": "milanesas",
+      "description": "Con jamón, muzzarella, tomate y salsa. Incluye papas fritas. Para una, dos o tres personas.",
+      "image": "/images/current-napolitana.webp",
+      "variants": [
+        {
+          "id": "una-persona",
+          "name": "Para una persona",
+          "price": 15000,
+          "patties": 0,
+          "available": true,
+          "recipeMultiplier": 1
+        },
+        {
+          "id": "dos-personas",
+          "name": "Para dos personas",
+          "price": 23000,
+          "patties": 0,
+          "available": true,
+          "recipeMultiplier": 2
+        },
+        {
+          "id": "tres-personas",
+          "name": "Para tres personas",
+          "price": 28000,
+          "patties": 0,
+          "available": true,
+          "recipeMultiplier": 3
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "milanesa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "jamon",
+          "amount": 40,
+          "removable": true
+        },
+        {
+          "ingredientId": "muzzarella",
+          "amount": 100,
+          "removable": true
+        },
+        {
+          "ingredientId": "tomate",
+          "amount": 60,
+          "removable": true
+        },
+        {
+          "ingredientId": "salsa-tomate",
+          "amount": 60,
+          "removable": true
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 200,
+          "removable": false
+        }
+      ],
+      "extras": [
+        "cheddar",
+        "queso-jyq",
+        "bacon",
+        "jamon",
+        "huevo",
+        "lechuga",
+        "tomate",
+        "cebolla-caramelizada",
+        "muzzarella"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "pizza-muzza",
+      "name": "Pizza Muzza",
+      "category": "pizzas",
+      "description": "La muzza del menú.",
+      "image": "/images/current-pizza.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "Pizza",
+          "price": 11000,
+          "patties": 0,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pizza-base",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "salsa-tomate",
+          "amount": 80,
+          "removable": true
+        },
+        {
+          "ingredientId": "muzzarella",
+          "amount": 250,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "muzzarella",
+        "jamon",
+        "calabresa",
+        "morron",
+        "huevo",
+        "tomate",
+        "cebolla-picada"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "pizza-doble-muzza",
+      "name": "Pizza Doble Muzza",
+      "category": "pizzas",
+      "description": "Doble muzzarella.",
+      "image": "/images/current-pizza.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "Pizza",
+          "price": 16000,
+          "patties": 0,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pizza-base",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "salsa-tomate",
+          "amount": 80,
+          "removable": true
+        },
+        {
+          "ingredientId": "muzzarella",
+          "amount": 500,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "muzzarella",
+        "jamon",
+        "calabresa",
+        "morron",
+        "huevo",
+        "tomate",
+        "cebolla-picada"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "pizza-jamon-morron",
+      "name": "Pizza de Jamón y Morrón",
+      "category": "pizzas",
+      "description": "Jamón y morrón.",
+      "image": "/images/current-pizza.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "Pizza",
+          "price": 14000,
+          "patties": 0,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pizza-base",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "salsa-tomate",
+          "amount": 80,
+          "removable": true
+        },
+        {
+          "ingredientId": "muzzarella",
+          "amount": 250,
+          "removable": true
+        },
+        {
+          "ingredientId": "jamon",
+          "amount": 100,
+          "removable": true
+        },
+        {
+          "ingredientId": "morron",
+          "amount": 60,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "muzzarella",
+        "jamon",
+        "calabresa",
+        "morron",
+        "huevo",
+        "tomate",
+        "cebolla-picada"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "pizza-calabresa",
+      "name": "Pizza Calabresa",
+      "category": "pizzas",
+      "description": "La calabresa del menú.",
+      "image": "/images/current-pizza.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "Pizza",
+          "price": 13500,
+          "patties": 0,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pizza-base",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "salsa-tomate",
+          "amount": 80,
+          "removable": true
+        },
+        {
+          "ingredientId": "muzzarella",
+          "amount": 250,
+          "removable": true
+        },
+        {
+          "ingredientId": "calabresa",
+          "amount": 80,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "muzzarella",
+        "jamon",
+        "calabresa",
+        "morron",
+        "huevo",
+        "tomate",
+        "cebolla-picada"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "pizza-papa-huevo",
+      "name": "Pizza de Papa y Huevo",
+      "category": "pizzas",
+      "description": "Papa y huevo.",
+      "image": "/images/current-pizza.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "Pizza",
+          "price": 15000,
+          "patties": 0,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pizza-base",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "salsa-tomate",
+          "amount": 80,
+          "removable": true
+        },
+        {
+          "ingredientId": "muzzarella",
+          "amount": 250,
+          "removable": true
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 150,
+          "removable": true
+        },
+        {
+          "ingredientId": "huevo",
+          "amount": 2,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "muzzarella",
+        "jamon",
+        "calabresa",
+        "morron",
+        "huevo",
+        "tomate",
+        "cebolla-picada"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "pizza-huevo",
+      "name": "Pizza de Huevo",
+      "category": "pizzas",
+      "description": "La pizza de huevo del menú.",
+      "image": "/images/current-pizza.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "Pizza",
+          "price": 13500,
+          "patties": 0,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pizza-base",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "salsa-tomate",
+          "amount": 80,
+          "removable": true
+        },
+        {
+          "ingredientId": "muzzarella",
+          "amount": 250,
+          "removable": true
+        },
+        {
+          "ingredientId": "huevo",
+          "amount": 2,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "muzzarella",
+        "jamon",
+        "calabresa",
+        "morron",
+        "huevo",
+        "tomate",
+        "cebolla-picada"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "pizza-napolitana",
+      "name": "Pizza Napolitana",
+      "category": "pizzas",
+      "description": "La napolitana del menú.",
+      "image": "/images/current-pizza.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "Pizza",
+          "price": 13500,
+          "patties": 0,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pizza-base",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "salsa-tomate",
+          "amount": 80,
+          "removable": true
+        },
+        {
+          "ingredientId": "muzzarella",
+          "amount": 250,
+          "removable": true
+        },
+        {
+          "ingredientId": "tomate",
+          "amount": 90,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "muzzarella",
+        "jamon",
+        "calabresa",
+        "morron",
+        "huevo",
+        "tomate",
+        "cebolla-picada"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "pizza-jamon",
+      "name": "Pizza de Jamón",
+      "category": "pizzas",
+      "description": "La pizza de jamón del menú.",
+      "image": "/images/current-pizza.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "Pizza",
+          "price": 13500,
+          "patties": 0,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pizza-base",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "salsa-tomate",
+          "amount": 80,
+          "removable": true
+        },
+        {
+          "ingredientId": "muzzarella",
+          "amount": 250,
+          "removable": true
+        },
+        {
+          "ingredientId": "jamon",
+          "amount": 100,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "muzzarella",
+        "jamon",
+        "calabresa",
+        "morron",
+        "huevo",
+        "tomate",
+        "cebolla-picada"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "pizza-fugacceta",
+      "name": "Pizza Fugacceta",
+      "category": "pizzas",
+      "description": "La fugacceta del menú.",
+      "image": "/images/current-pizza.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "Pizza",
+          "price": 13500,
+          "patties": 0,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pizza-base",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "salsa-tomate",
+          "amount": 80,
+          "removable": true
+        },
+        {
+          "ingredientId": "muzzarella",
+          "amount": 250,
+          "removable": true
+        },
+        {
+          "ingredientId": "cebolla-picada",
+          "amount": 100,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "muzzarella",
+        "jamon",
+        "calabresa",
+        "morron",
+        "huevo",
+        "tomate",
+        "cebolla-picada"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "pizza-pvc",
+      "name": "Pizza PVC",
+      "category": "pizzas",
+      "description": "Precio publicado: $13.500. La composición de PVC debe confirmarse con el local.",
+      "image": "/images/current-pizza.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "Pizza",
+          "price": 13500,
+          "patties": 0,
+          "available": false
+        }
+      ],
+      "recipe": [],
+      "extras": [],
+      "active": true,
+      "available": false,
+      "unresolved": "Falta confirmar qué ingredientes lleva PVC. El precio publicado es $13.500."
+    },
+    {
+      "id": "empanadas-carne",
+      "name": "Empanadas de carne",
+      "category": "empanadas",
+      "description": "Elegí media docena o docena. El precio corresponde al paquete completo.",
+      "image": "/images/current-empanadas.webp",
+      "variants": [
+        {
+          "id": "media-docena",
+          "name": "Media docena · 6",
+          "price": 11000,
+          "patties": 0,
+          "available": true,
+          "recipeMultiplier": 6
+        },
+        {
+          "id": "docena",
+          "name": "Docena · 12",
+          "price": 20000,
+          "patties": 0,
+          "available": true,
+          "recipeMultiplier": 12
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "empanada-carne",
+          "amount": 1,
+          "removable": false
+        }
+      ],
+      "extras": [],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "empanadas-pollo",
+      "name": "Empanadas de pollo",
+      "category": "empanadas",
+      "description": "Elegí media docena o docena. El precio corresponde al paquete completo.",
+      "image": "/images/current-empanadas.webp",
+      "variants": [
+        {
+          "id": "media-docena",
+          "name": "Media docena · 6",
+          "price": 11000,
+          "patties": 0,
+          "available": true,
+          "recipeMultiplier": 6
+        },
+        {
+          "id": "docena",
+          "name": "Docena · 12",
+          "price": 20000,
+          "patties": 0,
+          "available": true,
+          "recipeMultiplier": 12
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "empanada-pollo",
+          "amount": 1,
+          "removable": false
+        }
+      ],
+      "extras": [],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "empanadas-jamon-queso",
+      "name": "Empanadas de jamón y queso",
+      "category": "empanadas",
+      "description": "Elegí media docena o docena. El precio corresponde al paquete completo.",
+      "image": "/images/current-empanadas.webp",
+      "variants": [
+        {
+          "id": "media-docena",
+          "name": "Media docena · 6",
+          "price": 11000,
+          "patties": 0,
+          "available": true,
+          "recipeMultiplier": 6
+        },
+        {
+          "id": "docena",
+          "name": "Docena · 12",
+          "price": 20000,
+          "patties": 0,
+          "available": true,
+          "recipeMultiplier": 12
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "empanada-jamon-queso",
+          "amount": 1,
+          "removable": false
+        }
+      ],
+      "extras": [],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "empanadas-cuchillo",
+      "name": "Empanadas de carne cortada a cuchillo",
+      "category": "empanadas",
+      "description": "Elegí media docena o docena. El precio corresponde al paquete completo.",
+      "image": "/images/current-empanadas.webp",
+      "variants": [
+        {
+          "id": "media-docena",
+          "name": "Media docena · 6",
+          "price": 12000,
+          "patties": 0,
+          "available": true,
+          "recipeMultiplier": 6
+        },
+        {
+          "id": "docena",
+          "name": "Docena · 12",
+          "price": 21000,
+          "patties": 0,
+          "available": true,
+          "recipeMultiplier": 12
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "empanada-cuchillo",
+          "amount": 1,
+          "removable": false
+        }
+      ],
+      "extras": [],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "combo-especial",
+      "name": "Combo especial",
+      "category": "combos",
+      "description": "5 bastoncitos de muzzarella, 5 nuggets, papas completas con cheddar, bacon y verdeo, y una hamburguesa simple con cheddar y bacon.",
+      "image": "/images/current-combo-especial.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "Combo",
+          "price": 19000,
+          "patties": 0,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "baston-muzzarella",
+          "amount": 5,
+          "removable": false
+        },
+        {
+          "ingredientId": "nugget",
+          "amount": 5,
+          "removable": false
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 300,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar-salsa",
+          "amount": 50,
+          "removable": true
+        },
+        {
+          "ingredientId": "verdeo",
+          "amount": 10,
+          "removable": true
+        },
+        {
+          "ingredientId": "pan-hamburguesa",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "medallon",
+          "amount": 1,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar",
+          "amount": 1,
+          "removable": true
+        },
+        {
+          "ingredientId": "bacon",
+          "amount": 50,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "cheddar-salsa",
+        "verdeo",
+        "cheddar",
+        "bacon",
+        "huevo"
+      ],
+      "active": true,
+      "available": true,
+      "badge": "Para compartir"
+    },
+    {
+      "id": "promo-pizzas-1",
+      "name": "Promo de pizzas N.º 1",
+      "category": "combos",
+      "description": "Una muzza y una muzza con huevo.",
+      "image": "/images/current-combo-pizzas.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "Promo",
+          "price": 23000,
+          "patties": 0,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pizza-base",
+          "amount": 2,
+          "removable": false
+        },
+        {
+          "ingredientId": "salsa-tomate",
+          "amount": 160,
+          "removable": true
+        },
+        {
+          "ingredientId": "muzzarella",
+          "amount": 500,
+          "removable": true
+        },
+        {
+          "ingredientId": "huevo",
+          "amount": 2,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "salsa-tomate",
+        "muzzarella",
+        "huevo",
+        "cheddar",
+        "bacon"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "promo-pizzas-2",
+      "name": "Promo de pizzas N.º 2",
+      "category": "combos",
+      "description": "Precio publicado: $35.000. El folleto dice «una de jamón + una muzza + huevo». Consultá la composición exacta.",
+      "image": "/images/current-combo-pizzas.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "Promo",
+          "price": 35000,
+          "patties": 0,
+          "available": false
+        }
+      ],
+      "recipe": [],
+      "extras": [],
+      "active": true,
+      "available": false,
+      "unresolved": "Debe confirmarse si esta promo incluye dos o tres pizzas y cómo se distribuye el huevo. Precio publicado: $35.000."
+    },
+    {
+      "id": "promo-pizzas-3",
+      "name": "Promo de pizzas N.º 3",
+      "category": "combos",
+      "description": "Una muzza, una de jamón y una fuente mediana de papas completas.",
+      "image": "/images/current-combo-pizzas.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "Promo",
+          "price": 30000,
+          "patties": 0,
+          "available": true
+        }
+      ],
+      "recipe": [
+        {
+          "ingredientId": "pizza-base",
+          "amount": 2,
+          "removable": false
+        },
+        {
+          "ingredientId": "salsa-tomate",
+          "amount": 160,
+          "removable": true
+        },
+        {
+          "ingredientId": "muzzarella",
+          "amount": 500,
+          "removable": true
+        },
+        {
+          "ingredientId": "jamon",
+          "amount": 100,
+          "removable": true
+        },
+        {
+          "ingredientId": "papas",
+          "amount": 300,
+          "removable": false
+        },
+        {
+          "ingredientId": "cheddar-salsa",
+          "amount": 50,
+          "removable": true
+        },
+        {
+          "ingredientId": "bacon",
+          "amount": 30,
+          "removable": true
+        },
+        {
+          "ingredientId": "verdeo",
+          "amount": 10,
+          "removable": true
+        }
+      ],
+      "extras": [
+        "salsa-tomate",
+        "muzzarella",
+        "jamon",
+        "cheddar-salsa",
+        "bacon",
+        "verdeo",
+        "cheddar",
+        "huevo"
+      ],
+      "active": true,
+      "available": true
+    },
+    {
+      "id": "cajita-4-personas",
+      "name": "Cajita para 4 personas",
+      "category": "combos",
+      "description": "Precio publicado: $39.000. La imagen recibida recorta parte de la lista de ingredientes. Consultá el contenido exacto.",
+      "image": "/images/current-cajita-4-personas.webp",
+      "variants": [
+        {
+          "id": "porcion",
+          "name": "Para 4 personas",
+          "price": 39000,
+          "patties": 0,
+          "available": false
+        }
+      ],
+      "recipe": [],
+      "extras": [],
+      "active": true,
+      "available": false,
+      "unresolved": "Lista de ingredientes parcialmente recortada. Se leen milanesa, verdeo, bacon crocante, papas fritas, lechuga y tomate. Confirmar composición antes de pedir."
+    }
+  ],
+  "ingredients": [
+    {
+      "id": "pan-hamburguesa",
+      "name": "Pan de hamburguesa",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 0,
+      "extraPortion": 1,
+      "maxPerPatty": 0,
+      "available": true
+    },
+    {
+      "id": "queso-jyq",
+      "name": "Queso (tipo a confirmar)",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 500,
+      "extraPortion": 1,
+      "maxPerPatty": 3,
+      "available": true
+    },
+    {
+      "id": "pan-papa",
+      "name": "Pan de papa",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 0,
+      "extraPortion": 1,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "medallon",
+      "name": "Medallón de carne",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 3500,
+      "extraPortion": 1,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "cheddar",
+      "name": "Cheddar en fetas",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 500,
+      "extraPortion": 1,
+      "maxPerPatty": 3,
+      "available": true
+    },
+    {
+      "id": "bacon",
+      "name": "Bacon / panceta",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 700,
+      "extraPortion": 20,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "lechuga",
+      "name": "Lechuga",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 300,
+      "extraPortion": 15,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "tomate",
+      "name": "Tomate",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 300,
+      "extraPortion": 30,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "huevo",
+      "name": "Huevo",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 700,
+      "extraPortion": 1,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "jamon",
+      "name": "Jamón",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 600,
+      "extraPortion": 25,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "tybo",
+      "name": "Queso Tybo",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 500,
+      "extraPortion": 1,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "cebolla-caramelizada",
+      "name": "Cebolla caramelizada",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 500,
+      "extraPortion": 20,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "cebolla-crispy",
+      "name": "Cebolla crispy",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 500,
+      "extraPortion": 15,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "cebolla-picada",
+      "name": "Cebolla picada",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 250,
+      "extraPortion": 25,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "salsa-tasty",
+      "name": "Salsa Tasty",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 250,
+      "extraPortion": 15,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "salsa-casa",
+      "name": "Salsa de la casa",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 250,
+      "extraPortion": 15,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "salsa-burger",
+      "name": "Salsa de la burger",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 250,
+      "extraPortion": 15,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "salsa-libra",
+      "name": "Salsa Libra",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 250,
+      "extraPortion": 15,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "salsa-bbq",
+      "name": "Salsa barbacoa",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 250,
+      "extraPortion": 15,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "ketchup",
+      "name": "Ketchup",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 250,
+      "extraPortion": 15,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "mostaza",
+      "name": "Mostaza",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 250,
+      "extraPortion": 15,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "papas",
+      "name": "Papas fritas",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 1000,
+      "extraPortion": 100,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "cheddar-salsa",
+      "name": "Salsa cheddar",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 700,
+      "extraPortion": 40,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "verdeo",
+      "name": "Cebollita de verdeo",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 300,
+      "extraPortion": 10,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "nugget",
+      "name": "Nuggets",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 0,
+      "extraPortion": 1,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "baston-muzzarella",
+      "name": "Bastoncitos de muzzarella",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 0,
+      "extraPortion": 1,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "aro-cebolla",
+      "name": "Aros de cebolla",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 0,
+      "extraPortion": 1,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "pan-pancho",
+      "name": "Pan de pancho",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 0,
+      "extraPortion": 1,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "salchicha",
+      "name": "Salchicha",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 0,
+      "extraPortion": 1,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "aderezo",
+      "name": "Aderezo para pancho",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 250,
+      "extraPortion": 15,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "milanesa",
+      "name": "Milanesa",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 0,
+      "extraPortion": 1,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "pizza-base",
+      "name": "Base de pizza",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 0,
+      "extraPortion": 1,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "muzzarella",
+      "name": "Muzzarella",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 1000,
+      "extraPortion": 100,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "salsa-tomate",
+      "name": "Salsa de tomate",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 0,
+      "extraPortion": 1,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "calabresa",
+      "name": "Calabresa",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 700,
+      "extraPortion": 30,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "morron",
+      "name": "Morrón",
+      "unit": "g",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 400,
+      "extraPortion": 30,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "empanada-carne",
+      "name": "Empanada de carne",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 0,
+      "extraPortion": 1,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "empanada-pollo",
+      "name": "Empanada de pollo",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 0,
+      "extraPortion": 1,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "empanada-jamon-queso",
+      "name": "Empanada de jamón y queso",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 0,
+      "extraPortion": 1,
+      "maxPerPatty": 6,
+      "available": true
+    },
+    {
+      "id": "empanada-cuchillo",
+      "name": "Empanada de carne cortada a cuchillo",
+      "unit": "u",
+      "stock": 0,
+      "minStock": 0,
+      "extraPrice": 0,
+      "extraPortion": 1,
+      "maxPerPatty": 6,
+      "available": true
+    }
+  ]
+}

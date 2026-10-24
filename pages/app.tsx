@@ -1,14 +1,16 @@
 import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from 'react';
 import { IonApp, IonContent, IonPage, IonRouterOutlet, IonSpinner, IonToast, useIonRouter, useIonViewDidEnter } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { App as CapacitorApp } from '@capacitor/app';
 import { frontendBase, routePath } from '../lib/frontend-paths';
 import { appNotice, isNativeApp, openExternalUrl } from '../lib/platform';
 
 const base=frontendBase(import.meta.env.BASE_URL);
 const Store=lazy(()=>import('../app/page'));
+const OrderEntry=lazy(()=>import('../app/admin/order-entry'));
 const AdminPage=lazy(()=>import('../app/admin/page'));
+const EditorPage=lazy(()=>import('../app/editor/page'));
 async function dismissPageDialogs(): Promise<boolean> {
   const dialogs=[...document.querySelectorAll('ion-modal')].filter(modal=>modal.isOpen);
   const results=await Promise.all(dialogs.map(modal=>modal.dismiss(undefined,'navigation')));
@@ -79,5 +81,5 @@ function Navigation() {
 export default function App() {
   const [notice,setNotice]=useState('');
   useEffect(()=>{const handler=(event:Event)=>setNotice(String((event as CustomEvent).detail||''));window.addEventListener('bh3:notice',handler);return()=>window.removeEventListener('bh3:notice',handler);},[]);
-  return <IonApp><IonReactRouter basename={base||undefined} future={{v7_startTransition:true,v7_relativeSplatPath:true}}><Navigation/><IonRouterOutlet><Route path="/" element={<Page kind="store"><Store/></Page>}/><Route path="/admin" element={<Page kind="admin"><AdminPage/></Page>}/><Route path="*" element={<Navigate to="/" replace/>}/></IonRouterOutlet></IonReactRouter><IonToast isOpen={!!notice} message={notice} duration={4500} position="bottom" onDidDismiss={()=>setNotice('')}/></IonApp>;
+  return <IonApp><IonReactRouter basename={base||undefined} future={{v7_startTransition:true,v7_relativeSplatPath:true}}><Navigation/><IonRouterOutlet><Routes><Route path="/" element={import.meta.env.MODE === 'native' ? <Page kind="store"><Store/></Page> : <Navigate to="/admin" replace/>}/><Route path="/admin/nuevo" element={<Page kind="store"><OrderEntry/></Page>}/><Route path="/admin" element={<Page kind="admin"><AdminPage/></Page>}/>{import.meta.env.MODE === 'native' && <Route path="/editar" element={<Page kind="admin"><EditorPage/></Page>}/>}<Route path="*" element={<Navigate to="/" replace/>}/></Routes></IonRouterOutlet></IonReactRouter><IonToast isOpen={!!notice} message={notice} duration={4500} position="bottom" onDidDismiss={()=>setNotice('')}/></IonApp>;
 }

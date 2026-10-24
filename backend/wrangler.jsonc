@@ -5,7 +5,7 @@
   "compatibility_date": "2026-05-15",
   "workers_dev": true,
   "vars": {
-    "FRONTEND_URL": "https://jereprograma.github.io/burger-house-3",
+    "FRONTEND_URL": "https://burger-house-3-management.jeremias-j-riv.workers.dev",
     "NATIVE_ORIGINS": "https://localhost"
   },
   "d1_databases": [

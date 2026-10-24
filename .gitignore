@@ -31,6 +31,14 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# Private operation evidence, local exports and persistent VPS state.
+/.private/
+/output/
+/.vps-private/
+/data/
+/deployment/vps/.vps-private/
+/releases/
+
 # vercel
 .vercel
 
@@ -48,6 +56,7 @@ next-env.d.ts
 
 /dist/
 /.wrangler/
+/.catalog-deploy-base.json
 # Checkout-local execution profile and tool state; never publish them.
 /.sites-runtime/
 /.agents/
@@ -60,6 +69,8 @@ next-env.d.ts
 /artifacts/*.png
 
 /dist-pages/
+/dist-cloudflare/
+/dist-management/
 /dist-native/
 /artifacts/android/
 /.dev.vars

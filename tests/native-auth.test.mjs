@@ -44,6 +44,21 @@ function request(body={password},origin=native,extra={}) {
   return new Request(api+'/api/admin/session',{method:'POST',headers,body:JSON.stringify(body)});
 }
 
+test('login detrás del proxy valida el origen público y retorna al panel de la misma subruta',async()=>{
+  const env={...await fixture(),FRONTEND_URL:'https://scalaris.com.ar/burger-house-3/gestion',PUBLIC_API_URL:'https://scalaris.com.ar/burger-house-3/backend'};
+  const form=new URLSearchParams({password,return_to:env.FRONTEND_URL+'/admin/'});
+  const response=await worker.fetch(new Request(api+'/admin/login',{method:'POST',headers:{origin:'https://scalaris.com.ar','content-type':'application/x-www-form-urlencoded'},body:form}),env);
+  assert.equal(response.status,303);
+  const destination=new URL(response.headers.get('Location'));
+  assert.equal(destination.origin,'https://scalaris.com.ar');
+  assert.equal(destination.pathname,'/burger-house-3/gestion/admin/');
+  assert.equal(await verifySession(new URLSearchParams(destination.hash.slice(1)).get('admin_token'),sessionSecret),true);
+  for(const origin of [api,'https://scalaris.com.ar.evil.test','https://evil.test']){
+    const forbidden=await worker.fetch(new Request(api+'/admin/login',{method:'POST',headers:{origin,'content-type':'application/x-www-form-urlencoded'},body:form}),env);
+    assert.equal(forbidden.status,403);
+  }
+});
+
 test('acceso nativo entrega una sesión firmada por HTTPS sin reflejar contraseña ni secretos',async()=>{
   const env=await fixture(),response=await worker.fetch(request(),env);
   assert.equal(response.status,200);

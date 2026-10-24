@@ -3,7 +3,8 @@ import { buildBurgers, burgerIngredients } from './catalog-burgers';
 
 /** Prices and stated contents come exclusively from the 17 current WhatsApp
  * JPEGs in ../referencias. Initial inventory, unspecified recipe quantities and
- * extra prices are illustrative DEMO data. The extra patty's published price
+ * unpublished extra prices are editable defaults to configure for the business.
+ * The extra patty's published price
  * is $3,500. Unknown compositions require consultation before ordering. */
 const part = (ingredientId: string, amount: number, removable = true): RecipePart => ({ ingredientId, amount, removable });
 const ingredient = (id: string, name: string, unit: Ingredient['unit'], stock: number, minStock: number,
@@ -136,7 +137,7 @@ export function createSeed(): StoreState {
     config: { name: 'Burger House 3', tagline: 'Hechas con amor y pasión', whatsapp: '5491123344218', instagram: 'burgerhousee3',
       deliveryZone: 'Marcos Paz y Mariano Acosta', deliveryFee: 0, deliveryFeeMode: 'quote', acceptingOrders: true },
     ingredients, products, orders: [],
-    movements: ingredients.map((item) => ({ id: `inicial-${item.id}`, ingredientId: item.id, amount: item.stock, reason: 'Carga inicial ilustrativa de la demo', createdAt })),
+    movements: ingredients.map((item) => ({ id: `inicial-${item.id}`, ingredientId: item.id, amount: item.stock, reason: 'Carga inicial de inventario', createdAt })),
     nextOrderNumber: 1,
   };
 }

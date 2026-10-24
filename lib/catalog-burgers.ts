@@ -3,7 +3,7 @@ import type { Ingredient, Product, RecipePart, Variant } from './domain';
 /** Only the seven October 19 WhatsApp JPEGs are menu evidence. Ingredient names,
  * prices and advertised counts below are transcribed from their text. Recipe
  * weights, portions, scaling rules, inventory and other extra prices are separate
- * illustrative demo assumptions; the food photographs are not recipe evidence. */
+ * initial configuration defaults; the food photographs are not recipe evidence. */
 export const burgerIngredients: Ingredient[] = [
   { id: 'pan-hamburguesa', name: 'Pan de hamburguesa', unit: 'u', stock: 120, minStock: 20, extraPrice: 0, extraPortion: 1, maxPerPatty: 0 },
   { id: 'queso-jyq', name: 'Queso (tipo a confirmar)', unit: 'u', stock: 100, minStock: 10, extraPrice: 500, extraPortion: 1, maxPerPatty: 3 },
@@ -37,7 +37,7 @@ export const burgerFlyerEvidence = [
   { id: 'bomba-chesse-house', source: files.specials, printedName: 'BOMBA CHESSE HOUSE', ingredientText: 'Pan de papa,blend de carne,-cheddar-bacon', prices: { doble: 16000, triple: 17500 }, notes: ['No se anuncia simple. El texto nuevo no especifica un baño de cheddar.'] },
   { id: 'la-bajonera', source: files.bajonera, printedName: 'LA BAJONERA', ingredientText: 'PAN DE PAPA; BLEND DE CARNE; CHEDDAR; BACON; AROS DE CEBOLLA; SALSITA BARBACOA', prices: { triple: 17500 }, notes: ['ÚNICAMENTE TRIPLE.'] },
   { id: 'promo-bomba-chesse', source: files.bombaPromo, printedName: 'PROMO BOMBA CHESSE HOUSE', ingredientText: null, prices: { 'promo-dos': 29000 }, notes: ['Se publican 2 unidades por $29.000, sin especificar doble o triple. Compra deshabilitada hasta confirmar tamaño y receta de la promoción.'] },
-  { id: 'combo-familiar', source: files.family, printedName: 'COMBO FAMILIAR', ingredientText: '5 BURGER SIMPLES (CHEDDAR O TYBO) + BACON; 5 BURGER DOBLES (CHEDDAR O TYBO) + BACON; 5 BURGER TRIPLES (CHEDDAR O TYBO) + BACON', prices: { simples: 50000, dobles: 64000, triples: 74000 }, notes: ['Son cinco hamburguesas en cada opción. Cheddar o Tybo son alternativas, no ambos juntos.', 'Este folleto no menciona papas; los menús nuevos afirman que todas las hamburguesas vienen con papas fritas. Se aplica esa regla general, con cantidad de demo.'] },
+  { id: 'combo-familiar', source: files.family, printedName: 'COMBO FAMILIAR', ingredientText: '5 BURGER SIMPLES (CHEDDAR O TYBO) + BACON; 5 BURGER DOBLES (CHEDDAR O TYBO) + BACON; 5 BURGER TRIPLES (CHEDDAR O TYBO) + BACON', prices: { simples: 50000, dobles: 64000, triples: 74000 }, notes: ['Son cinco hamburguesas en cada opción. Cheddar o Tybo son alternativas, no ambos juntos.', 'Este folleto no menciona papas; los menús nuevos afirman que todas las hamburguesas vienen con papas fritas. Se aplica esa regla general, con una cantidad inicial configurable.'] },
   { id: 'combo-infantil', source: files.kids, printedName: 'COMBO INFANTIL', ingredientText: 'Hamburguesa Simple Cheddar; 4 Nuggets; Papas Fritas', prices: { infantil: 10000 } },
 ] as const;
 

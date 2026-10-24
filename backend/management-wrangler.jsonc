@@ -1,0 +1,12 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "burger-house-3-management",
+  "account_id": "de1ec344dec57f522c0d70dc8616f4a5",
+  "compatibility_date": "2026-05-15",
+  "workers_dev": true,
+  "assets": {
+    "directory": "../dist-management",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "single-page-application"
+  }
+}

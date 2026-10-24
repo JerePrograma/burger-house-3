@@ -38,3 +38,19 @@ test('login externo no incluye secretos y usa una página que no puede embeberse
  assert.equal(html.includes(secret),false);assert.equal(res.headers.get('Referrer-Policy'),'same-origin');assert.ok(res.headers.get('Content-Security-Policy').includes("frame-ancestors 'none'"));
  assert.equal(await sha256('abc'),'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad');
 });
+
+test('formulario de acceso publicado bajo Scalaris conserva la subruta del backend',async()=>{
+ const frontend='https://scalaris.com.ar/burger-house-3/gestion';
+ const publicApi='https://scalaris.com.ar/burger-house-3/backend';
+ const configured={...env,FRONTEND_URL:frontend,PUBLIC_API_URL:publicApi};
+ const res=await worker.fetch(new Request('https://burger-house-3-api.example.test/admin/login'),configured);
+ assert.equal(res.status,200);
+ const html=await res.text();
+ assert.ok(html.includes(`action="${publicApi}/admin/login"`));
+ assert.ok(html.includes(`value="${frontend}/admin/"`));
+ assert.equal(html.includes('action="/admin/login"'),false);
+ assert.ok(res.headers.get('Content-Security-Policy').includes('https://scalaris.com.ar'));
+ const hostile=await worker.fetch(new Request('https://burger-house-3-api.example.test/admin/login?return_to='+encodeURIComponent('https://scalaris.com.ar/otra/admin/')),configured);
+ assert.equal(hostile.status,500);
+ assert.equal((await hostile.text()).includes('Destino no permitido'),false);
+});

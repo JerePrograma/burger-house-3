@@ -1,0 +1,50 @@
+BURGER HOUSE EN HOSTINGER
+
+Catalogo: https://scalaris.com.ar/burger-house-3/
+Editor: https://scalaris.com.ar/burger-house-3/editar/
+Gestion: https://scalaris.com.ar/burger-house-3/admin/
+
+El dominio Scalaris usa un Worker limitado a las rutas de Burger House.
+El catalogo, editor, gestion y datos siguen alojados en el VPS.
+Los enlaces anteriores del VPS y workers.dev redirigen a estas pantallas. Las API
+anteriores reenvian al VPS para conservar clientes existentes. Cloudflare
+ya no es la base operativa: su D1 original se conserva para recuperacion.
+
+La aplicacion Node.js reutiliza las reglas de negocio y autenticacion del
+Worker. Un adaptador SQLite conserva las escrituras con control de version.
+El editor escribe catalog.json de forma atomica, comprueba la revision y
+conserva las claves anteriores. No necesita un token de Cloudflare.
+
+Directorio: /srv/apps/burger-house
+Datos: data/burger.sqlite, data/catalog.json y data/secrets.json.
+No incluir data ni archivos .env en Git ni en la imagen Docker.
+El catalogo persiste y no se reemplaza al actualizar la aplicacion.
+El catalogo publicado y la gestion siguen siendo conjuntos separados.
+
+Entrar: ssh scalaris-vps
+Estado: cd /srv/apps/burger-house && docker compose ps
+Registros: docker compose logs --tail=100 -f app
+Pruebas locales: npm test; npm run typecheck;
+  node --test deployment/vps/*.test.mjs
+
+Para desplegar otra version, guardar las fuentes verificadas en un commit
+y ejecutar npm run deploy:vps o deployment/vps/Deploy-Vps.ps1 desde Windows.
+El despliegue exige un checkout limpio y empaqueta exactamente HEAD.
+BUILD_COMMIT identifica el SHA publicado. Se comprueba la salud del contenedor
+y se intenta recuperar la imagen anterior si la nueva publicacion falla.
+Para actualizar las rutas del dominio: node node_modules/wrangler/bin/wrangler.js
+  deploy --config deployment/vps/public-worker.json
+Los archivos legacy-*.json conservan las redirecciones de workers.dev.
+El script conserva el paquete por commit, ejecuta el respaldo existente y
+reemplaza solamente el contenedor de la app. Los comandos normales de
+despliegue apuntan ahora al VPS. legacy:cloudflare:* identifica mantenimiento
+explicito del alojamiento anterior; CI valida y compila sin publicarlo.
+
+Hay copias diarias de SQLite, catalogo, credenciales y configuracion en
+/var/backups/scalaris/apps. Se conserva el SQL exportado antes del cambio,
+la base inicial del VPS y los archivos originales de Cloudflare.
+
+La consolidacion de Git incluye los cambios existentes de la migracion al VPS.
+Los datos, credenciales, exportaciones y evidencias privadas quedan excluidos.
+El paquete fuente publicado queda en /srv/apps/burger-house/source.tar.gz
+y en releases/<commit>/source.tar.gz.

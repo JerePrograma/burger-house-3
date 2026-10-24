@@ -1,0 +1,10 @@
+{
+  "vars": {
+    "COMPONENT": "api"
+  },
+  "workers_dev": true,
+  "account_id": "de1ec344dec57f522c0d70dc8616f4a5",
+  "compatibility_date": "2026-05-15",
+  "main": "legacy-proxy.mjs",
+  "name": "burger-house-3-api"
+}

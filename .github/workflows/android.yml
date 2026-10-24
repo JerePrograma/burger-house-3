@@ -1,4 +1,4 @@
-name: Build Android demo
+name: Build Android app
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: android-demo-${{ github.ref }}
+  group: android-app-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -26,6 +26,7 @@ jobs:
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
       - run: npm ci --no-audit --no-fund
+      - run: npm run parity:check
       - run: npm run typecheck
       - run: npm test
       - run: npm run android:sync

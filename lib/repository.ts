@@ -9,7 +9,7 @@ export type StoreDocument = {
 };
 type Row = { document: string; version: number };
 
-/** Demo repository: one aggregate per commerce. A versioned D1 CAS commits orders,
+/** One aggregate per commerce. A versioned D1 CAS commits orders,
  * inventory, ledger and idempotency together. Replace with normalized tables when
  * volume warrants it; callers depend only on read/update, not the storage shape. */
 export class StoreRepository {

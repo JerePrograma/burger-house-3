@@ -1,0 +1,29 @@
+name: burger-house
+services:
+  app:
+    image: scalaris/burger-house:${BUILD_COMMIT:?Set BUILD_COMMIT}
+    build:
+      context: .
+      dockerfile: deployment/vps/Dockerfile
+      args:
+        PUBLIC_ORIGIN: https://scalaris.com.ar
+    restart: unless-stopped
+    environment:
+      PUBLIC_ORIGIN: https://scalaris.com.ar
+      BUILD_COMMIT: ${BUILD_COMMIT}
+      TZ: America/Argentina/Buenos_Aires
+    volumes:
+      - ./data:/data
+    networks:
+      proxy:
+        aliases: [burger-house]
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    mem_limit: 768m
+    security_opt: ["no-new-privileges:true"]
+networks:
+  proxy:
+    external: true

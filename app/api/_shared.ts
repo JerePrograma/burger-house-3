@@ -6,7 +6,7 @@ import { createSeed } from '../../lib/seed';
 
 export function repository() {
   if (!env.DB) throw new CommerceError('La base de datos todavía no está disponible.', 503);
-  // New source-of-truth catalog gets its own demo dataset. The previous demo
+  // New source-of-truth catalog gets its own catalog dataset. The previous catalog
   // remains recoverable in its original row; do not merge its old menu or edits.
   return new StoreRepository(env.DB, createSeed, 'burger-house-3-catalogo-20261019-v2');
 }
@@ -14,7 +14,7 @@ export async function requireOwner(store: StoreRepository) {
   const user = await getChatGPTUser();
   if (!user) throw new CommerceError('Ingresá con ChatGPT para administrar el local.', 401);
   // The initial deployment is owner-private. Bind its first authenticated admin;
-  // explicitly provision the owner before broadening access to this demo.
+  // explicitly provision the owner before broadening access to this commerce.
   await store.requireOwner(user.userId);
   return user;
 }

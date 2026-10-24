@@ -1,92 +1,67 @@
 # Burger House 3
 
-Demo funcional de tienda y administración para Burger House 3. Catálogo móvil, personalización de ingredientes, pedidos por web/WhatsApp, pagos simulados, ventas e inventario con movimientos trazables.
+Catálogo, editor y gestión se ejecutan en el VPS Hostinger, con Node.js, SQLite y Docker Compose. Cloudflare conserva el proxy del dominio y la compatibilidad de las direcciones anteriores. La base D1 original permanece como respaldo histórico; la base operativa está en el VPS.
 
-## Despliegue actual
+| Acceso | Dirección |
+| --- | --- |
+| Catálogo | https://scalaris.com.ar/burger-house-3/ |
+| Editor | https://scalaris.com.ar/burger-house-3/editar/ |
+| Administración | https://scalaris.com.ar/burger-house-3/admin/ |
+| API | https://scalaris.com.ar/burger-house-3-api/ |
+| Servicio del editor | https://scalaris.com.ar/burger-house-3-editor/ |
 
-- Frontend público de demostración: https://jereprograma.github.io/burger-house-3/
-- Backend independiente: https://burger-house-3-api.jeremias-j-riv.workers.dev
-- Panel: https://jereprograma.github.io/burger-house-3/admin/
-- Repositorio: https://github.com/JerePrograma/burger-house-3
+El catálogo público permite elegir productos, variantes y adicionales, conservar el carrito y preparar el pedido por WhatsApp. No registra ventas, descuenta inventario ni procesa pagos. La gestión opcional administra pedidos internos, stock y caja; ambos catálogos mantienen datos separados.
 
-El frontend usa GitHub Pages y el backend usa Cloudflare Workers con D1. No necesita Sites ni una cuenta de ChatGPT. Los pedidos y el inventario son compartidos entre dispositivos. Los pagos siguen siendo simulados; esta publicación es una demostración, no un comercio operativo.
+El editor permite cargar fotos, modificar precios y disponibilidad, importar/exportar copias y conservar un borrador en IndexedDB del dispositivo. Publicar exige su sesión propia, compara la revisión vigente y reemplaza el catálogo de forma atómica en el VPS. No necesita conectar un token de publicación de Cloudflare. Una publicación de código conserva el catálogo persistente y las claves existentes.
 
-Cada push a `main` valida TypeScript, ejecuta las pruebas, compila el frontend estático y lo publica mediante `.github/workflows/pages.yml`. La URL de la API está en `frontend.config.json`; la variable de GitHub `API_BASE_URL` puede reemplazarla. Ningún secreto se incluye en el frontend.
+## Código común y configuración propia
 
-## Ejecutar
+Las funcionalidades y correcciones comunes con Tu Comida se verifican mediante `shared-code.json` y `npm run parity:check`. Las identidades, teléfonos, imágenes, catálogos, claves, bases y adaptadores de alojamiento permanecen por proyecto. `frontend.config.json` declara las direcciones públicas canónicas; el navegador nunca recibe secretos de servidor.
 
-Requisitos: Node.js 24, npm y, para el backend alojado, una cuenta autorizada en Cloudflare.
+## Verificar y desarrollar
 
-```sh
-npm ci
-npm run typecheck
-npm test
-npm run build
-```
+Usar Node.js 24 y npm. Ejecutar `npm ci`, `npm run parity:check`, `npm run typecheck` y `npm test`; las pruebas incluyen el adaptador y el editor del VPS. `npm run dev` sirve el catálogo/editor con su prefijo público. `npm run catalog:sync` recupera exclusivamente el catálogo publicado de Burger House antes de compilar.
 
-El frontend compilado está en `dist-pages/`. Se generan rutas estáticas para la tienda y `/admin/`, y todas las imágenes y enlaces respetan el prefijo `/burger-house-3/`.
+`npm run build` genera el catálogo en dist-pages; `npm run build:management` genera la gestión; `npm run build:native` valida la aplicación Android. Android consulta el JSON público y usa las direcciones canónicas de la API y del editor. El workflow Android entrega su APK debug cuando se ejecuta manualmente.
 
-Para desarrollo completo en PowerShell:
+## Publicar en el VPS
 
-```powershell
-# Sólo en un clon nuevo sin credenciales locales: genera claves locales ignoradas por Git.
-node scripts/setup-admin.mjs
-node node_modules/wrangler/bin/wrangler.js d1 migrations apply DB --local --config backend/wrangler.jsonc
-npm run backend:dev
-# En otra terminal:
-$env:VITE_API_BASE_URL='http://127.0.0.1:8787'
-npm run dev
-```
+1. Ejecutar las verificaciones y guardar las fuentes revisadas en un commit.
+2. Desde el puesto Windows autorizado, ejecutar `npm run deploy:vps` o `deployment/vps/Deploy-Vps.ps1`.
+3. El script empaqueta exactamente HEAD, rechaza un checkout con cambios y excluye rutas privadas. Usa el acceso SSH scalaris-vps, ejecuta el respaldo existente y conserva el paquete por commit.
+4. Construye y reemplaza únicamente el contenedor de Burger House, conserva el volumen data y espera su comprobación de salud. Ante un error restaura el identificador de la imagen anterior e intenta recuperarla.
+5. Verificar catálogo, editor, login, datos operativos y rechazo de sesiones de otro comercio. `scripts/check-project-deployment.mjs` permite comparar una línea base privada previa con el resultado sin escribir datos operativos ni mostrar credenciales.
 
-Abrir http://127.0.0.1:5173/burger-house-3/. `backend:dev` configura el origen local para CORS y usa `backend/.dev.vars`, generado por el script de acceso. No se deben volver a generar claves existentes automáticamente.
+Alternativa cuando SSH no responde: desde una consola autorizada de Hostinger, preparar el archivo Git del commit publicado en `releases/<commit>/source.tar.gz`, extraer allí `deployment/vps/Deploy-Commit.sh` y ejecutar ese script con el SHA completo y `--archive-ready`. Usa la misma transacción de respaldo, construcción, salud y recuperación que el comando de Windows. El archivo se prepara con `git archive`; no contiene datos ni credenciales.
 
-Para publicar cambios del backend:
+Los comandos normales frontend:deploy, frontend:publish, management:deploy, management:publish, backend:deploy y editor:deploy dirigen a deploy:vps. Los comandos legacy:cloudflare:* se conservan para mantenimiento explícito de la instalación antigua y no se usan para producción. La CI valida y compila; no publica el catálogo de Burger House en Workers ni reemplaza las redirecciones existentes.
 
-```sh
-npx wrangler login
-npm run backend:migrate
-npm run backend:deploy
-```
+Datos persistentes: /srv/apps/burger-house/data/burger.sqlite, catalog.json y secrets.json. No incorporarlos a Git ni a la imagen. Los secretos locales .env* y los registros .private/ también permanecen ignorados. Consultar deployment/vps/LEEME.txt para recuperación y operación.
 
-La configuración es `backend/wrangler.jsonc`. Las migraciones están en `backend/migrations/`. El despliegue del backend es independiente del frontend; para automatizarlo hay que configurar un token de Cloudflare acotado como secreto de CI, nunca guardarlo en el repositorio.
+## Gestión opcional y datos existentes
 
-## Única fuente del catálogo
+La adaptación al VPS conserva en SQLite el dataset `burger-house-3-catalogo-20261019-v2`, los pedidos históricos, clientes asociados, cobros, movimientos, inventario y libro de caja. La D1 anterior queda como respaldo histórico. Publicar fotos o precios del catálogo estático no cambia esos datos ni sus recetas operativas. El catálogo interno de gestión se conserva por separado: una edición pública no reescribe automáticamente precios, recetas o ventas internas.
 
-Las **17 imágenes JPEG nuevas de WhatsApp del 19/10/2026** dentro de `referencias/` sustituyen por completo a los primeros folletos PNG. `referencias/indice.json` distingue fuentes vigentes y archivo histórico. Ningún PNG anterior alimenta el catálogo, las recetas ni las imágenes activas.
+Si el local decide usar gestión, puede cargar manualmente un pedido recibido por WhatsApp o una venta de mostrador. La carga interna conserva una copia de precios y recetas. Crear el pedido no confirma una venta ni descuenta stock; verificar el pago registra el cobro y descuenta los ingredientes una sola vez, incluidos acompañamientos. Un faltante impide confirmar toda la operación.
 
-- `lib/catalog-burgers.ts`: hamburguesas, combos relacionados y transcripción de evidencia con archivo de origen.
+Los estados internos son pendiente → aceptado → preparando → listo → entregado. Preparar requiere pago verificado. Si corresponde delivery a cotizar, debe cargarse el costo antes de verificar el cobro. Cancelar antes de preparar devuelve los insumos descontados; una cancelación posterior registra merma sin reponerlos. Un reembolso se registra aparte.
+
+El acceso web de gestión usa el formulario HTTPS del backend. La sesión firmada dura ocho horas y se mantiene en `sessionStorage`; el token se retira de la dirección al volver al panel. La clave inicial está en `.env.admin.local` y los secretos del backend en `.env.backend-secrets.local.json` y Cloudflare. Esos archivos locales están ignorados por Git y no deben copiarse en mensajes, capturas ni código. Cerrar sesión elimina la sesión de la pestaña.
+
+El almacenamiento operativo usa un agregado por comercio con control optimista de versión (CAS). Pedido, stock, cobro, movimientos e idempotencia se guardan juntos y se vuelven a validar ante concurrencia. Para una cadena con volumen sostenido será necesario normalizar tablas, paginar en servidor y definir aislamiento de comercios, sucursales, miembros, respaldos y límites. No hay integración de cobro bancario ni de tarjetas.
+
+## Origen de los datos iniciales
+
+Las **17 imágenes JPEG de WhatsApp del 19/10/2026** de `referencias/` sustituyen a los primeros folletos PNG como evidencia de la carga inicial. `referencias/indice.json` distingue fuentes vigentes y archivo histórico.
+
+- `lib/catalog-burgers.ts`: hamburguesas, combos relacionados y transcripción con archivo de origen.
 - `lib/seed.ts`: resto del catálogo, ingredientes y configuración inicial.
-- `public/images/references/current-sources.json`: procedencia de cada referencia y recorte activo.
-- `scripts/prepare-assets.py`: reproduce los recortes desde los JPEG vigentes. Requiere Python y Pillow; ejecutar `python scripts/prepare-assets.py --clean`.
+- `public/images/references/current-sources.json`: procedencia de referencias y recortes.
+- `scripts/prepare-assets.py`: reproduce los recortes; requiere Python y Pillow. Ejecutar `python scripts/prepare-assets.py --clean`.
 
-Los precios base, tamaños, cantidades expresamente publicadas y el adicional de medallón a $3.500 provienen del catálogo nuevo. Los gramajes no publicados, stock inicial, umbrales, límites y restantes precios de adicionales son simbólicos para la demo y se editan desde administración. Las fotografías de algunas hamburguesas clásicas son representativas y proceden también de los folletos nuevos; no definen su receta.
+Los precios base, tamaños, cantidades publicadas y el adicional de medallón a $3.500 provienen del material inicial. Gramajes no publicados, stock, umbrales, límites y otros adicionales son configuración que el comercio debe revisar. Después de la migración, la versión publicada de `catalog.json` y las ediciones del comercio definen lo que ven los clientes; los folletos y el seed no la sobrescriben.
 
-PVC, la promo de dos Bomba Chesse House, la promo de pizzas N.º 2 y la cajita para cuatro conservan su precio publicado y permiten consultar por WhatsApp. Su compra queda pendiente hasta completar los datos que el material no permite determinar con certeza. La tipografía comercial “Chesse Burger Triple” se conserva aunque el menú nuevo ofrezca simple, doble y triple. Los folletos muestran varios usuarios de Instagram; se usa `burgerhousee3`, publicado en la ficha de contacto y envíos.
-
-## Flujo de pedidos e inventario
-
-1. El comprador elige productos y variantes, quita ingredientes gratis y agrega adicionales con límites. El servidor vuelve a calcular todos los precios.
-2. El pedido conserva una copia de sus precios y recetas, aunque después se edite el catálogo. Crear un pedido no descuenta stock.
-3. Delivery: Marcos Paz y Mariano Acosta. La administradora cotiza el costo según el barrio; el total de productos se muestra como provisional mientras falta ese importe. No se puede verificar el pago antes de cotizar.
-4. Verificar el pago simulado descuenta todos los ingredientes una sola vez, incluidos los acompañamientos. Un faltante impide confirmar la operación completa.
-5. Estados: pendiente → aceptado → preparando → listo → entregado. Preparar requiere pago verificado.
-6. Cancelar antes de preparar devuelve los insumos descontados. Después de iniciar la preparación registra merma sin reponerlos. Un eventual reembolso se gestiona aparte.
-
-También se cargan pedidos de mostrador y WhatsApp. El panel permite editar productos, variantes, recetas, adicionales, stock mínimo, datos del comercio y tarifas; registrar entradas, conteos y mermas; consultar ventas, favoritos e historial; exportar ventas CSV.
-
-## Arquitectura y evolución
-
-React + TypeScript compilado con Vite para GitHub Pages; API de servidor TypeScript independiente en Cloudflare Workers, sin VPS. SQL alojado con Cloudflare D1/SQLite y migraciones Drizzle. Las capas de dominio (`commerce.ts`), contrato (`domain.ts`) y persistencia (`repository.ts`) están separadas para permitir otros comercios y reemplazar el almacenamiento.
-
-La demo usa un agregado por comercio con control de versión optimista (CAS). Pedido, stock, pago, movimientos e idempotencia se guardan juntos; las pruebas incluyen verificaciones concurrentes para evitar sobreventa. Es una base de demostración, no una plataforma multiempresa terminada. Para una operación con volumen: normalizar las tablas, añadir aislamiento por negocio/sucursal, membresías explícitas, auditoría persistente, backups, límites de tráfico, pagos reales con webhooks y las reglas concretas de cada comercio.
-
-El catálogo nuevo utiliza la clave de dataset `burger-house-3-catalogo-20261019-v2`. Los datos de las pruebas anteriores quedan recuperables en su fila histórica y no se mezclan con el catálogo vigente. Cambiar el seed no sobrescribe las ediciones de una base ya inicializada.
-
-## Acceso de administración
-
-El comprador usa la tienda sin crear una cuenta. Para administrar, el panel redirige a una página de acceso del backend en `workers.dev`. La contraseña se envía únicamente a ese backend mediante HTTPS. Una sesión firmada dura ocho horas, se conserva en `sessionStorage` y el token se retira de la dirección al regresar al panel.
-
-La clave inicial de la administradora está en `.env.admin.local`, sólo en la computadora que hizo la instalación. Los secretos del backend están en `.env.backend-secrets.local.json` y en Cloudflare; ambos archivos locales están ignorados por Git. No se deben copiar en mensajes, capturas ni código. El backend almacena el hash de una contraseña aleatoria de alta entropía y limita los intentos de acceso. El botón Cerrar sesión elimina la sesión de la pestaña.
+PVC, la promo de dos Bomba Chesse House, la promo de pizzas N.º 2 y la cajita para cuatro mantienen consulta por WhatsApp mientras falte confirmar su composición. Se conserva la denominación comercial “Chesse Burger Triple” y el usuario de Instagram `burgerhousee3` de la ficha de contacto y envíos.
 
 ## Caja y finanzas
 
@@ -108,33 +83,27 @@ El panel incorpora un libro de caja inspirado en las garantías implementadas en
 2. Contar el efectivo real y abrir el turno, explicando cualquier diferencia respecto del saldo del libro. Los fondos de banco/billetera existentes se pueden declarar creando una cuenta con saldo inicial o registrando un ingreso identificado como aporte.
 3. Verificar cobros desde Pedidos, registrar gastos y transferencias en Caja, y contar/cerrar el efectivo al terminar el servicio.
 
-La actualización conserva el dataset, catálogo, pedidos y stock existentes. Inicializa el libro dentro del mismo documento mediante CAS. Los pedidos que ya tenían pago verificado se importan una sola vez como cobros históricos: como el modelo anterior no guardaba fecha de cobro, se señala expresamente que se usa la fecha del pedido como estimación. Un pedido previamente cancelado con pago permanece cobrado hasta registrar su reintegro, porque no existe evidencia de devolución monetaria en el modelo anterior. No se generan gastos ni saldos iniciales ficticios.
+La actualización conserva el dataset, catálogo interno, pedidos y stock existentes. Inicializa el libro dentro del mismo documento mediante CAS. Los pedidos que ya tenían pago verificado se importan una sola vez como cobros históricos: como el modelo anterior no guardaba fecha de cobro, se señala expresamente que se usa la fecha del pedido como estimación. Un pedido previamente cancelado con pago permanece cobrado hasta registrar su reintegro, porque no existe evidencia de devolución monetaria en el modelo anterior. Los gastos y fondos iniciales se registran a partir de las operaciones y declaraciones de la administradora.
 
 ### Integridad y alcance
 
 Los importes de caja se transmiten y persisten como **centavos enteros**, con dos decimales en pantalla. El servidor valida importes, fondos disponibles, total exacto de cobros, topes de devoluciones, fechas y estados. No admite descubiertos actuales ni históricos generados por cargas retroactivas. Cada comando manual lleva una clave de operación: repetirlo conserva el resultado y reutilizarla con otros datos se rechaza. Una escritura CAS confirma en conjunto pedidos, stock, libro y claves, y revalida ante concurrencia.
 
-La API financiera permanece protegida por el acceso administrativo. El catálogo y seguimiento público no exponen cuentas, saldos, movimientos ni comprobantes. Sigue siendo una demo con pagos simulados; los registros no ejecutan transferencias ni cobros externos. La conciliación es manual y los comprobantes son referencias de texto. El almacenamiento conserva el agregado D1 de la demo: para un volumen sostenido de una cadena deberá normalizarse el libro y paginarse en servidor, manteniendo estas reglas y pruebas.
+La API financiera permanece protegida por el acceso administrativo. El catálogo público estático no consulta esta API ni contiene cuentas, saldos, movimientos o comprobantes. Los registros reflejan cobros y egresos que la administradora declara como realizados: no ejecutan transferencias ni cobran al comprador. La conciliación es manual y los comprobantes son referencias de texto. El libro se conserva en D1 junto con los pedidos y el inventario; para una cadena con volumen sostenido deberá normalizarse y paginarse en servidor, manteniendo sus reglas de integridad.
 
-Pruebas: `npm test` incluye movimientos, centavos, pagos mixtos, cierres, reembolsos, reversos, compromisos, conciliación, migración y operaciones simultáneas. `npm run typecheck` y `npm run build` verifican los contratos y la publicación en GitHub Pages.
+Pruebas: `npm test` incluye movimientos, centavos, pagos mixtos, cierres, reembolsos, reversos, compromisos, conciliación, migración y operaciones simultáneas. `npm run typecheck`, `npm run build:cloudflare` y `npm run build:management` verifican los contratos y las dos compilaciones web.
 
-El catálogo no expone cantidades numéricas de stock ni un listado de pedidos. El seguimiento exige el token aleatorio del pedido; la API privada exige una sesión válida. CORS está limitado al origen web configurado y al origen Android exacto `https://localhost` habilitado explícitamente mediante `NATIVE_ORIGINS`. Los archivos `.env*`, `.dev.vars`, bases locales, dependencias y compilaciones quedan fuera de Git.
-
-## Código anterior
-
-Los archivos de servidor bajo `app/api`, la integración de Vinext y `.openai/hosting.json` se conservan como referencia del prototipo anterior. No forman parte de la compilación de Pages ni del backend independiente. `build:legacy` permite compilar ese prototipo si hiciera falta; el despliegue actual no usa Sites.
-
-GitHub Pages se utiliza para esta demo sin cobros reales. Antes de convertirla en un comercio operativo hay que elegir un alojamiento frontend apropiado para uso comercial y completar pagos reales, permisos, auditoría y límites de producción; ver https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits.
+El catálogo público no expone cantidades numéricas de stock ni pedidos. La API privada exige una sesión válida; los accesos de seguimiento con token se conservan para registros históricos, sin participar del nuevo catálogo. CORS está limitado al origen web configurado y al origen Android exacto `https://localhost` habilitado explícitamente mediante `NATIVE_ORIGINS`. Los archivos `.env*`, `.dev.vars`, bases locales, dependencias y compilaciones quedan fuera de Git.
 
 ## Android con Ionic React y Capacitor
 
-La versión web y Android comparten el frontend. Capacitor empaqueta los archivos compilados de `dist-native/` dentro del proyecto `android/`; no carga la web de GitHub Pages como una página remota. El catálogo, los pedidos y los demás datos siguen usando la misma API HTTPS de Cloudflare. `capacitor.config.ts` define el identificador `com.scalaris.burgerhouse3`, el nombre **Burger House 3** y el origen local seguro de Android (`https://localhost`), sin acceso a destinos de navegación arbitrarios ni contenido HTTP mixto.
+La aplicación Android se conserva. Capacitor empaqueta los archivos de `dist-native/` en `android/`; no carga una página remota dentro de la aplicación. El catálogo y su carrito usan el documento estático con la copia incluida en la compilación; la gestión interna mantiene su conexión con la API HTTPS de Cloudflare. El editor móvil se utiliza desde `/editar/` en el navegador.
 
-El frontend utiliza Ionic React 9, React Router 6 e `IonApp`, `IonPage`, `IonContent` e `IonModal`. Conserva la identidad visual y las funciones existentes de catálogo, personalización, carrito, pedidos, inventario y caja. Las rutas y recursos usan `/burger-house-3/` en Pages y `/` en el paquete; el panel se carga por separado de la tienda. El botón Atrás cierra primero los diálogos y luego recorre la navegación; en la raíz de Android minimiza la app.
+`capacitor.config.ts` define `com.scalaris.burgerhouse3`, el nombre **Burger House 3** y el origen seguro `https://localhost`. El frontend usa Ionic React 9, React Router 6 e `IonApp`, `IonPage`, `IonContent` e `IonModal`. El botón Atrás cierra los diálogos, recorre la navegación y en la raíz minimiza la app.
 
-El carrito y el último seguimiento usan Capacitor Preferences en Android y el almacenamiento web existente en el navegador; las escrituras se serializan por clave. Los informes CSV se descargan en web y se preparan en la caché privada de Android para que el usuario elija dónde compartirlos. WhatsApp se abre con Capacitor Browser después de confirmar el pedido. El uso del catálogo y del backend requiere conexión; esta migración no implementa ventas offline.
+El carrito usa Capacitor Preferences en Android y almacenamiento local en web, con escrituras serializadas. El comprador abre WhatsApp mediante Capacitor Browser, sin registrar pedidos ni depender de la API de gestión. Conserva el carrito y debe enviar el mensaje. Consultar la última versión publicada y abrir WhatsApp requiere conexión; la copia empaquetada del catálogo no ejecuta ventas offline ni cambia caja o inventario.
 
-El acceso administrativo web sigue usando el formulario HTTPS del backend. En el paquete Android hay un formulario Ionic que envía la clave al endpoint `/api/admin/session`, habilitado sólo para el origen nativo configurado. Ambos accesos comparten el límite atómico de cinco intentos por cinco minutos y sesiones de ocho horas. La clave no se guarda; el token sigue en `sessionStorage` y no se persiste en Preferences. No hay claves de servidor dentro del paquete Android.
+El acceso administrativo Android usa un formulario Ionic y `/api/admin/session`, habilitado sólo para el origen nativo configurado. Mantiene el límite de cinco intentos por cinco minutos y sesiones de ocho horas. La clave no se guarda; el token permanece en `sessionStorage`, fuera de Preferences. Los informes CSV internos se preparan en la caché privada para compartirlos con la aplicación elegida. No se incluyen claves de servidor en el paquete.
 
 ```powershell
 npm ci
@@ -142,24 +111,22 @@ npm run android:sync
 npm run android:open
 ```
 
-`android:sync` compila los recursos de la app y sincroniza Capacitor. Hay que volver a ejecutarlo después de modificar el frontend o los plugins nativos. `android:open` abre el proyecto en Android Studio para ejecutar en un teléfono/emulador o compilar. Los archivos generados de recursos web se regeneran: no deben editarse dentro de `android/app/src/main/assets/`.
+`android:sync` compila y sincroniza los recursos; repetirlo después de cambiar frontend o plugins. `android:open` abre Android Studio. Los archivos generados en `android/app/src/main/assets/` no deben editarse manualmente.
 
-Con el SDK instalado, `npm run android:apk` genera el APK debug y `npm run android:bundle` genera un AAB release sin configurar firma de publicación. No se debe confundir ese archivo sin firmar con una versión lista para Google Play.
+`npm run android:apk` genera un APK debug y `npm run android:bundle` un AAB release sin firma de publicación configurada. Compilar requiere Node.js 22 o superior —el proyecto usa 24—, JDK 21, Android Studio 2025.2.1 o superior y Android SDK 36; `minSdkVersion=24`. Comprobar el JDK de Android Studio/Gradle si `java` del PATH apunta a otra versión. No se instalan SDK ni se aceptan licencias automáticamente.
 
-Para compilar Android localmente se necesita Node.js 22 o superior (este proyecto usa 24), JDK 21, Android Studio 2025.2.1 o superior y Android SDK 36. El proyecto usa `minSdkVersion=24`. En esta computadora se detectó JDK 21 en `JAVA_HOME`; el comando `java` del PATH apunta a Java 8, por lo que conviene verificar que Android Studio y Gradle utilicen el JDK 21. No se detectó un Android SDK instalado durante la migración. No se instalaron SDK ni se aceptaron licencias automáticamente.
+También puede ejecutarse **Actions → Build Android app → Run workflow**. El flujo usa Java 21 y el SDK del runner, y entrega el artefacto **burger-house-3-android-debug** cuando la compilación termina correctamente. Es una versión debug para instalación manual.
 
-También se puede ejecutar **Actions → Build Android demo → Run workflow** en GitHub. El flujo valida el código, sincroniza los recursos y compila `assembleDebug` usando Java 21 y el SDK del runner. Si finaliza correctamente, el APK se descarga desde el artefacto **burger-house-3-android-debug** de esa ejecución. Es un APK de prueba y los pagos siguen siendo simulados.
-
-La publicación futura en Google Play requiere preparar una compilación release/AAB, elegir y custodiar la clave de firma, completar la ficha y declaraciones correspondientes y probar en dispositivos reales. Esta migración no crea una cuenta de Play Console, no guarda claves de firma y no publica la aplicación. `appId` debe revisarse antes de la primera publicación porque identifica la aplicación en Android.
+Publicar en Google Play requiere preparar el AAB release, custodiar la clave de firma, completar la ficha y declaraciones, y probar en dispositivos reales. Esta separación no crea cuentas de Play Console ni publica la app. Revisar `appId` antes de la primera publicación porque identifica la aplicación.
 
 Referencias oficiales: [instalación de Capacitor](https://capacitorjs.com/docs/getting-started), [entorno Android](https://capacitorjs.com/docs/getting-started/environment-setup) y [configuración](https://capacitorjs.com/docs/config).
 
-## Diseño responsive y verificación
+## Interfaz y verificación
 
-La tienda, el panel y caja usan distribución fluida desde 320 px, con cambios de columnas según el espacio disponible. Los controles principales tienen áreas táctiles de al menos 44 px y los formularios móviles usan texto de 16 px. Las tablas, categorías y navegación que necesitan más ancho desplazan sólo su propio contenido. No se bloquea el zoom del navegador.
+Se mantienen el diseño del catálogo, la personalización, el carrito y las interfaces internas. Las distribuciones se adaptan desde 320 px; los diálogos respetan áreas seguras y altura visible, y los formularios móviles permiten texto de 16 px. Las tablas anchas se desplazan en su propio contenedor y no se bloquea el zoom. Android declara `adjustResize` para el teclado.
 
-Los diálogos respetan las áreas seguras y la altura visible del navegador; `visualViewport` ajusta el espacio al aparecer el teclado sin interferir con el zoom. El personalizador mantiene su acción visible y reduce la fotografía en pantallas bajas. Android declara `adjustResize` para el teclado.
+Para verificar esta separación, comprobar ambas compilaciones, editar y publicar desde un celular, abrir el catálogo con la API de gestión bloqueada, preparar un carrito y revisar el mensaje de WhatsApp. Confirmar también que una edición pública no cambia un pedido histórico ni un movimiento de caja, y que una compilación de código recupera la última versión publicada. La prueba en navegador no reemplaza la verificación en dispositivos reales y Safari móvil.
 
-Se verificaron en Chromium emulado estas resoluciones CSS: 320×568, 360×640, 360×800, 375×667, 384×832, 390×844, 393×852, 412×915, 430×932, 768×1024, 820×1180, 1024×768, 1280×720, 1366×768, 1440×900, 1536×864, 1920×1080, 2560×1440, 667×375 y 844×390. La selección incluye tamaños presentes en las [estadísticas de resolución de Argentina](https://gs.statcounter.com/screen-resolution-market-share/all/argentina), además de casos pequeños y orientación horizontal. Se usan anchos de viewport, que pueden diferir de la resolución física del dispositivo.
+## Código anterior
 
-La revisión incluye desbordes de tienda, personalizador, resumen administrativo, caja, inventario, catálogo y configuración; formularios de checkout, egresos y edición de productos; y acceso administrativo web. También se probaron alturas de 300–360 px. Las medidas entre tamaños se adaptan mediante CSS, sin depender de una marca de teléfono. Antes de publicar una versión Android o iOS corresponde completar la prueba en dispositivos reales y Safari móvil.
+`app/api`, la integración de Vinext y `.openai/hosting.json` permanecen como referencia de la implementación anterior. No forman parte del catálogo estático ni del Worker de API independiente. `build:legacy` permite compilar esa implementación. El despliegue descrito aquí no usa Sites.

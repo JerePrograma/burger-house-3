@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Burger House 3 · Tu burger. Tus reglas.",
-  description: "Todo el sabor de Burger House 3. Personalizá tu pedido y elegí retiro o delivery en Marcos Paz. Demo con pagos simulados.",
+  description: "Todo el sabor de Burger House 3. Personalizá tu pedido y envialo por WhatsApp. Retiro y delivery en Marcos Paz y Mariano Acosta.",
   icons: {
     icon: "/images/logo.png",
     shortcut: "/images/logo.png",

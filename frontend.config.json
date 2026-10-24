@@ -1,3 +1,10 @@
 {
-  "apiBaseUrl": "https://burger-house-3-api.jeremias-j-riv.workers.dev"
+  "publicUrl": "https://scalaris.com.ar/burger-house-3/",
+  "publicBasePath": "/burger-house-3/",
+  "managementBasePath": "/burger-house-3/",
+  "catalogUrl": "https://scalaris.com.ar/burger-house-3/catalog.json",
+  "upstreamCatalogUrl": "https://scalaris.com.ar/burger-house-3/catalog.json",
+  "apiBaseUrl": "https://scalaris.com.ar/burger-house-3-api",
+  "publisherUrl": "https://scalaris.com.ar/burger-house-3-editor",
+  "managementUrl": "https://scalaris.com.ar/burger-house-3/admin/"
 }

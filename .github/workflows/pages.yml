@@ -1,18 +1,17 @@
-name: Deploy demo to GitHub Pages
+name: Validate Burger House VPS source
 on:
   push:
     branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
-  pages: write
-  id-token: write
 concurrency:
-  group: github-pages
+  group: burger-house-vps-validation-${{ github.ref }}
   cancel-in-progress: false
 jobs:
-  build:
+  validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -20,23 +19,21 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci --no-audit --no-fund
+      - run: npm run parity:check
       - run: npm run typecheck
       - run: npm test
+      - name: Preserve this commerce's published catalog
+        run: npm run catalog:sync
       - run: npm run build
-        env:
-          VITE_API_BASE_URL: ${{ vars.API_BASE_URL }}
-          PAGES_BASE_PATH: /burger-house-3/
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - run: npm run build:management
+      - run: npm run build:native
+      - uses: actions/upload-artifact@v4
         with:
-          path: dist-pages
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Publish
-        id: deployment
-        uses: actions/deploy-pages@v5
+          name: burger-house-3-vps-web
+          path: |
+            dist-pages
+            dist-management
+          if-no-files-found: error
+          retention-days: 14
+      - name: Report deployment procedure
+        run: echo 'Source verified. Production remains on the VPS; publish the committed revision with npm run deploy:vps from the authorized Windows workstation.' >> "$GITHUB_STEP_SUMMARY"
