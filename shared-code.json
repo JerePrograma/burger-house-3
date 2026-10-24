@@ -4,7 +4,7 @@
   "scope": "Reglas, autenticación, catálogo/editor, navegación y correcciones compartidas; identidad, datos y adaptadores de alojamiento independientes.",
   "files": {
     "backend/auth.ts": "c8b22068c05fa62d852f6d5e38744955f14f5457cad9830494e07aeef3fa14b4",
-    "backend/worker.ts": "5e333af1abcfcf588f9afce1629a9084c7541076b8830c22bd28333f8d3304d9",
+    "backend/worker.ts": "541fc1a47c75cbcdf5274612bf83eef74586588d001e70d7d0bf09b6dffb6da1",
     "backend/catalog-publisher.ts": "9f69da1dfdb9a551da5c0dc5699e031114423b1e12d3f11fa97cb331ccfdf4ea",
     "backend/catalog-worker.ts": "0bac7aaa76977fa1144497c8628c8fdf096525c3627d6c28103005e4ddfce064",
     "lib/commerce.ts": "9b9fb2cc480981272a23f03db23c6b87cbac03e9c6c0c18371cb5256402a6a22",
@@ -38,7 +38,7 @@
     "scripts/check-shared-code.mjs": "de69ef5f02a81ccd0ff51c0d63d515dfedd139d731f61520e651b9b489f66ef1",
     "tests/router-render.test.mjs": "4451113a710209497058736872fc872b69a4799c5947d2f52a4487c1970ad65f",
     "tests/static-deployment.test.mjs": "fb55fde57355cb0692c7edd7745464c779819d47ef98ab977ae43510bb251100",
-    "tests/backend-auth.test.mjs": "2f252516da16eab289731ee69948168a27d4b1b958f0ede182e795a32dd5321b",
+    "tests/backend-auth.test.mjs": "b6b1cc8c4bb040d56e323858af1692411db70fe8425791e7575bbe6d33a2afa1",
     "tests/native-auth.test.mjs": "a97731168bb76771cddbb6ef67f02b3661918b3eabd0255fb00c4cc67d8e52b5",
     "tests/catalog-publisher.test.mjs": "03bcd2bdafabfaa1fac212e0faa17b94441f0bbc04dae50318a4a3a8419720c6",
     "tests/editor-client.test.mjs": "393b67d8a6d02fe24be55cd069b7e0e728a58fb11487932e4889922f61ba7bb9",

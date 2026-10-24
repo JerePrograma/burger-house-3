@@ -21,7 +21,7 @@ export function createApp(options:{dataDir:string;publicDir:string;managementDir
   const db=openDatabase(join(dataDir,'burger.sqlite'));
   db.exec('CREATE TABLE IF NOT EXISTS commerce_stores (id TEXT PRIMARY KEY NOT NULL,document TEXT NOT NULL,version INTEGER NOT NULL DEFAULT 0); CREATE TABLE IF NOT EXISTS login_attempts (id TEXT PRIMARY KEY NOT NULL,failures INTEGER NOT NULL,started_at INTEGER NOT NULL);');
   if(!existsSync(join(dataDir,'catalog.json')))copyFileSync(join(publicDir,'catalog.json'),join(dataDir,'catalog.json'));
-  const env={DB:db,FRONTEND_URL:origin+base,PUBLIC_API_URL:origin+api,NATIVE_ORIGINS:'https://localhost',...secrets.backend} as unknown as Env;
+  const env={DB:db,FRONTEND_URL:origin+base,PUBLIC_API_URL:origin+api,PUBLIC_STORE_URL:origin+base+'/',NATIVE_ORIGINS:'https://localhost',...secrets.backend} as unknown as Env;
   const editorEnv={DB:db,FRONTEND_URL:origin+base,...secrets.editor};
   const error=(message:string,status:number)=>Response.json({error:message},{status,headers:{'Cache-Control':'no-store'}});
   async function handle(request:Request):Promise<Response> {

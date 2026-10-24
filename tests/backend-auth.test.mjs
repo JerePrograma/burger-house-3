@@ -54,3 +54,13 @@ test('formulario de acceso publicado bajo Scalaris conserva la subruta del backe
  assert.equal(hostile.status,500);
  assert.equal((await hostile.text()).includes('Destino no permitido'),false);
 });
+
+test('volver a la tienda desde el acceso usa el catálogo público y no la base de gestión',async()=>{
+ const publicStore='https://scalaris.com.ar/catalogo-publico/';
+ const configured={...env,FRONTEND_URL:'https://scalaris.com.ar/gestion',PUBLIC_STORE_URL:publicStore,PUBLIC_API_URL:'https://scalaris.com.ar/backend'};
+ const response=await worker.fetch(new Request('https://api.test/admin/login'),configured);
+ const html=await response.text();
+ assert.equal(response.status,200);
+ assert.ok(html.includes('href="'+publicStore+'"'));
+ assert.ok(!html.includes('href="https://scalaris.com.ar/gestion/"'));
+});
